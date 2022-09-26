@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="NppPlugin">
+      <UniqueIdentifier>{969579fd-10cf-4966-82fb-c5520bc33fe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NppPlugin\DockingFeature">
+      <UniqueIdentifier>{146fa5ed-7f27-4606-8d17-beb070a8a252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{c2407aae-b94f-40a6-911d-5460b04e5f1a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\NppPlugin\menuCmdID.h">
+      <Filter>NppPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\Notepad_plus_msgs.h">
+      <Filter>NppPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\PluginDefinition.h">
+      <Filter>NppPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\PluginInterface.h">
+      <Filter>NppPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\Sci_Position.h">
+      <Filter>NppPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\Scintilla.h">
+      <Filter>NppPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\DockingFeature\Docking.h">
+      <Filter>NppPlugin\DockingFeature</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\DockingFeature\DockingDlgInterface.h">
+      <Filter>NppPlugin\DockingFeature</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\DockingFeature\dockingResource.h">
+      <Filter>NppPlugin\DockingFeature</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\DockingFeature\resource.h">
+      <Filter>NppPlugin\DockingFeature</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\DockingFeature\StaticDialog.h">
+      <Filter>NppPlugin\DockingFeature</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\DockingFeature\Window.h">
+      <Filter>NppPlugin\DockingFeature</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\NppPlugin.h">
+      <Filter>NppPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MapPreviewPlugin.h" />
+    <ClInclude Include="..\src\Commands\CommandShowHide.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MapPreviewWindow.h" />
+    <ClInclude Include="..\src\MapPreviewResources.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp">
+      <Filter>NppPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NppPlugin\PluginDefinition.cpp">
+      <Filter>NppPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NppPlugin\DockingFeature\StaticDialog.cpp">
+      <Filter>NppPlugin\DockingFeature</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MapPreviewPlugin.cpp" />
+    <ClCompile Include="..\src\Commands\CommandShowHide.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MapPreviewWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc">
+      <Filter>NppPlugin</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="..\src\MapPreviewWindow.rc" />
+  </ItemGroup>
+</Project>

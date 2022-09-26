@@ -17,9 +17,9 @@
 
 #include "PluginDefinition.h"
 
-extern FuncItem funcItem[nbFunc];
+extern FuncItem* funcItem;
+extern size_t funcItemSize;
 extern NppData nppData;
-
 
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD  reasonForCall, LPVOID /*lpReserved*/)
 {
@@ -28,11 +28,11 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD  reasonForCall, LPVOID /*lpReserved*
 		switch (reasonForCall)
 		{
 			case DLL_PROCESS_ATTACH:
-				pluginInit(hModule);
+				pluginCreate(hModule);
 				break;
 
 			case DLL_PROCESS_DETACH:
-				pluginCleanUp();
+				pluginDestroy();
 				break;
 
 			case DLL_THREAD_ATTACH:
@@ -51,17 +51,17 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD  reasonForCall, LPVOID /*lpReserved*
 extern "C" __declspec(dllexport) void setInfo(NppData notpadPlusData)
 {
 	nppData = notpadPlusData;
-	commandMenuInit();
+	pluginInit();
 }
 
 extern "C" __declspec(dllexport) const TCHAR * getName()
 {
-	return NPP_PLUGIN_NAME;
+	return getPluginName();
 }
 
 extern "C" __declspec(dllexport) FuncItem * getFuncsArray(int *nbF)
 {
-	*nbF = nbFunc;
+	*nbF = (int)funcItemSize;
 	return funcItem;
 }
 
@@ -72,7 +72,7 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 	{
 		case NPPN_SHUTDOWN:
 		{
-			commandMenuCleanUp();
+			;
 		}
 		break;
 
@@ -88,12 +88,7 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 // http://sourceforge.net/forum/forum.php?forum_id=482781
 //
 extern "C" __declspec(dllexport) LRESULT messageProc(UINT /*Message*/, WPARAM /*wParam*/, LPARAM /*lParam*/)
-{/*
-	if (Message == WM_MOVE)
-	{
-		::MessageBox(NULL, "move", "", MB_OK);
-	}
-*/
+{
 	return TRUE;
 }
 

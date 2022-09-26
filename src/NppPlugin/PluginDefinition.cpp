@@ -17,48 +17,38 @@
 
 #include "PluginDefinition.h"
 #include "menuCmdID.h"
+#include "NppPlugin.h"
 
-//
-// The plugin data that Notepad++ needs
-//
-FuncItem funcItem[nbFunc];
-
-//
-// The data of Notepad++ that you can use in your plugin commands
-//
+FuncItem* funcItem;
+size_t funcItemSize;
 NppData nppData;
+std::shared_ptr<NppPlugin> nppPlugin;
 
-//
-// Initialize your plugin data here
-// It will be called while plugin loading   
-void pluginInit(HANDLE /*hModule*/)
+const TCHAR* getPluginName()
 {
+    return nppPlugin->getName();
 }
 
-//
-// Here you can do the clean up, save the parameters (if any) for the next session
-//
-void pluginCleanUp()
+void pluginCreate(HANDLE hModule)
 {
+    nppPlugin = createPlugin(hModule);
+
+    funcItemSize = nppPlugin->getNumberOfActions();
+    funcItem = new FuncItem[funcItemSize];
+    ZeroMemory(funcItem, sizeof(FuncItem) * funcItemSize);
 }
 
-//
-// Initialization of your plugin commands
-// You should fill your plugins commands here
-void commandMenuInit()
+void pluginDestroy()
 {
+    destroyPlugin();
 
-    //--------------------------------------------//
-    //-- STEP 3. CUSTOMIZE YOUR PLUGIN COMMANDS --//
-    //--------------------------------------------//
-    // with function :
-    // setCommand(int index,                      // zero based number to indicate the order of command
-    //            TCHAR *commandName,             // the command name that you want to see in plugin menu
-    //            PFUNCPLUGINCMD functionPointer, // the symbol of function (function pointer) associated with this command. The body should be defined below. See Step 4.
-    //            ShortcutKey *shortcut,          // optional. Define a shortcut to trigger this command
-    //            bool check0nInit                // optional. Make this menu item be checked visually
-    //            );
-    setCommand(0, TEXT("Show/Hide window"), helloDlg, NULL, false);
+    nppPlugin.reset();
+    delete[] funcItem;
+}
+
+void pluginInit()
+{   
+    nppPlugin->Initialize(nppData);
 }
 
 //
@@ -75,7 +65,7 @@ void commandMenuCleanUp()
 //
 bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit) 
 {
-    if (index >= nbFunc)
+    if (index >= funcItemSize)
         return false;
 
     if (!pFunc)

@@ -23,38 +23,19 @@
 //
 #include "PluginInterface.h"
 
-//-------------------------------------//
-//-- STEP 1. DEFINE YOUR PLUGIN NAME --//
-//-------------------------------------//
-// Here define your plugin name
-//
-const TCHAR NPP_PLUGIN_NAME[] = TEXT("MapPreview");
-
-//-----------------------------------------------//
-//-- STEP 2. DEFINE YOUR PLUGIN COMMAND NUMBER --//
-//-----------------------------------------------//
-//
-// Here define the number of your plugin commands
-//
-const int nbFunc = 1;
-
-
+const TCHAR* getPluginName();
 //
 // Initialization of your plugin data
 // It will be called while plugin loading
 //
-void pluginInit(HANDLE hModule);
+void pluginCreate(HANDLE hModule);
 
-//
-// Cleaning of your plugin
-// It will be called while plugin unloading
-//
-void pluginCleanUp();
+void pluginDestroy();
 
 //
 //Initialization of your plugin commands
 //
-void commandMenuInit();
+void pluginInit();
 
 //
 //Clean up your plugin commands allocation (if any)
@@ -65,11 +46,5 @@ void commandMenuCleanUp();
 // Function which sets your command 
 //
 bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk = NULL, bool check0nInit = false);
-
-
-//
-// Your plugin command functions
-//
-void helloDlg();
 
 #endif //PLUGINDEFINITION_H
