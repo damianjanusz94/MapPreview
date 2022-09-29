@@ -1,8 +1,11 @@
 #include "MapPreviewWindow.h"
 #include "MapPreviewResources.h"
+#include <QtWidgets\QGridLayout>
+#include <QtWidgets/qpushbutton.h>
 
 MapPreviewWindow::MapPreviewWindow(HANDLE hModule) : DockingDlgInterface(IDD_DIALOG_CONSOLE), hModule(hModule)
 {
+	ownApplication = QMfcApp::pluginInstance(hModule);
 }
 
 MapPreviewWindow::~MapPreviewWindow()
@@ -38,16 +41,19 @@ void MapPreviewWindow::InitializeDialog(NppData nppData)
 		::SendMessage(nppData._nppHandle, NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 	}
 
-	//qtWindow = std::make_unique<QWinWidget>(_hSelf);
-	//winId = (HWND)qtWindow.get()->winId();
-	//QVBoxLayout hbox(qtWindow.get());
-	//hbox.setSpacing(1);
+	qtMainWidget = std::make_unique<QWinWidget>(_hSelf);
+	winId = (HWND)qtMainWidget->winId();
+	QVBoxLayout hbox(qtMainWidget.get());
+	hbox.setSpacing(1);
 
-	//mainWin = std::make_unique<MainWindow>(qtWindow.get());
-	//hbox.addWidget(mainWin.get());
+	mpMainWindow = std::make_shared<MPMainWindow>();
+	mpMainWindow->setWindowFlag(Qt::SubWindow);
 
-	//qtWindow.get()->move(0, 0);
-	//qtWindow.get()->show();
+	hbox.addWidget(mpMainWindow.get());
+
+	qtMainWidget->resize(1000, 1000);
+	qtMainWidget->move(0, 0);
+	qtMainWidget->show();
 
 	ready = true;
 }

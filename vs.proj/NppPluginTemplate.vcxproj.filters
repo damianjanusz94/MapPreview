@@ -10,6 +10,12 @@
     <Filter Include="Commands">
       <UniqueIdentifier>{c2407aae-b94f-40a6-911d-5460b04e5f1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="QtMfc">
+      <UniqueIdentifier>{e3e2b100-9e3b-42fd-9665-9f2820b5aa45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gui">
+      <UniqueIdentifier>{711ffaae-c779-41df-b31f-cb0f9eecafb7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\NppPlugin\menuCmdID.h">
@@ -73,11 +79,49 @@
       <Filter>Commands</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MapPreviewWindow.cpp" />
+    <ClCompile Include="..\src\QtMfc\qmfcapp.cpp">
+      <Filter>QtMfc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\QtMfc\qwinhost.cpp">
+      <Filter>QtMfc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\QtMfc\qwinwidget.cpp">
+      <Filter>QtMfc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\QtMfc\moc_qmfcapp.cpp">
+      <Filter>QtMfc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\QtMfc\moc_qwinhost.cpp">
+      <Filter>QtMfc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\QtMfc\moc_qwinwidget.cpp">
+      <Filter>QtMfc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Gui\MPMainWindow.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Gui\moc_MPMainWindow.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc">
       <Filter>NppPlugin</Filter>
     </ResourceCompile>
     <ResourceCompile Include="..\src\MapPreviewWindow.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\src\QtMfc\qmfcapp.h">
+      <Filter>QtMfc</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\QtMfc\qwinhost.h">
+      <Filter>QtMfc</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\QtMfc\qwinwidget.h">
+      <Filter>QtMfc</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Gui\MPMainWindow.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

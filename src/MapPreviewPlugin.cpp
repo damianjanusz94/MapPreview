@@ -34,7 +34,9 @@ void MapPreviewPlugin::Initialize(NppData nppDataH)
 
 void MapPreviewPlugin::InitializeCommands()
 {
-	setCommand(0, TEXT("Show/Hide window"), commandShowHideActionExecutorAdapter, &*commandShowHide->getShortcutKey(), false);
+	TCHAR command1[100];
+	_tcscpy_s(command1, _countof(command1), _T("Show/Hide window"));
+	setCommand(0, command1, commandShowHideActionExecutorAdapter, &*commandShowHide->getShortcutKey(), false);
 }
 
 void MapPreviewPlugin::InitializeDependencies()
