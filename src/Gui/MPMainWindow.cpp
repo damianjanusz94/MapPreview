@@ -50,6 +50,8 @@
 ****************************************************************************/
 
 #include "MPMainWindow.h"
+#include "colorswatch.h"
+#include "toolbar.h"
 
 #include <QtGui\QActionGroup>
 #include <QtWidgets\QLayout>
@@ -73,10 +75,31 @@
 #include <QtCore\QDebug>
 #include <QtWidgets\QDockWidget>
 
+static const char message[] =
+"<p><b>Qt Main Window Example</b></p>"
+
+"<p>This is a demonstration of the QMainWindow, QToolBar and "
+"QDockWidget classes.</p>"
+
+"<p>The tool bar and dock widgets can be dragged around and rearranged "
+"using the mouse or via the menu.</p>"
+
+"<p>Each dock widget contains a colored frame and a context "
+"(right-click) menu.</p>"
+
+#ifdef Q_OS_MAC
+"<p>On OS X, the \"Black\" dock widget has been created as a "
+"<em>Drawer</em>, which is a special kind of QDockWidget.</p>"
+#endif
+;
+
 Q_DECLARE_METATYPE(QDockWidget::DockWidgetFeatures)
 
-MPMainWindow::MPMainWindow(QWidget* parent, Qt::WindowFlags flags) : QMainWindow(parent, flags)
+MPMainWindow::MPMainWindow(const CustomSizeHintMap& customSizeHints,
+    QWidget* parent, Qt::WindowFlags flags)
+    : QMainWindow(parent, flags)
 {
+    Q_UNUSED(message);
     setObjectName("MainWindow");
     setWindowTitle("Qt Main Window Example");
 
@@ -85,9 +108,27 @@ MPMainWindow::MPMainWindow(QWidget* parent, Qt::WindowFlags flags) : QMainWindow
     center->setMinimumSize(400, 205);
     setCentralWidget(center);
 
+    setupToolBar();
     setupMenuBar();
-    setupDockWidgets();
+    setupDockWidgets(customSizeHints);
+}
 
+void MPMainWindow::actionTriggered(QAction* action)
+{
+    qDebug("action '%s' triggered", action->text().toLocal8Bit().data());
+}
+
+void MPMainWindow::setupToolBar()
+{
+#ifdef Q_OS_MACOS
+    setUnifiedTitleAndToolBarOnMac(true);
+#endif
+
+    for (int i = 0; i < 3; ++i) {
+        ToolBar* tb = new ToolBar(QString::fromLatin1("Tool Bar %1").arg(i + 1), this);
+        toolBars.append(tb);
+        addToolBar(tb);
+    }
 }
 
 void MPMainWindow::setupMenuBar()
@@ -133,9 +174,25 @@ void MPMainWindow::setupMenuBar()
     action->setChecked(dockOptions() & GroupedDragging);
     connect(action, &QAction::toggled, this, &MPMainWindow::setDockOptions);
 
+    QMenu* toolBarMenu = menuBar()->addMenu(tr("Tool bars"));
+    for (int i = 0; i < toolBars.count(); ++i)
+        toolBarMenu->addMenu(toolBars.at(i)->toolbarMenu());
+
+#ifdef Q_OS_MACOS
+    toolBarMenu->addSeparator();
+
+    action = toolBarMenu->addAction(tr("Unified"));
+    action->setCheckable(true);
+    action->setChecked(unifiedTitleAndToolBarOnMac());
+    connect(action, &QAction::toggled, this, &QMainWindow::setUnifiedTitleAndToolBarOnMac);
+#endif
+
     dockWidgetMenu = menuBar()->addMenu(tr("&Dock Widgets"));
 
     QMenu* aboutMenu = menuBar()->addMenu(tr("About"));
+    QAction* aboutAct = aboutMenu->addAction(tr("&About"), this, &MPMainWindow::about);
+    aboutAct->setStatusTip(tr("Show the application's About box"));
+
     QAction* aboutQtAct = aboutMenu->addAction(tr("About &Qt"), qApp, &QApplication::aboutQt);
     aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
 }
@@ -241,7 +298,7 @@ static QAction* addCornerAction(const QString& text, QMainWindow* mw, QMenu* men
     return result;
 }
 
-void MPMainWindow::setupDockWidgets()
+void MPMainWindow::setupDockWidgets(const CustomSizeHintMap& customSizeHints)
 {
     qRegisterMetaType<QDockWidget::DockWidgetFeatures>();
 
@@ -292,6 +349,26 @@ void MPMainWindow::setupDockWidgets()
         { "Yellow", 0, Qt::BottomDockWidgetArea }
     };
     const int setCount = sizeof(sets) / sizeof(Set);
+
+    const QIcon qtIcon(QPixmap("qt.png"));
+    for (int i = 0; i < setCount; ++i) {
+        ColorSwatch* swatch = new ColorSwatch(tr(sets[i].name), this, Qt::WindowFlags(sets[i].flags));
+        if (i % 2)
+            swatch->setWindowIcon(qtIcon);
+        if (qstrcmp(sets[i].name, "Blue") == 0) {
+            BlueTitleBar* titlebar = new BlueTitleBar(swatch);
+            swatch->setTitleBarWidget(titlebar);
+            connect(swatch, &QDockWidget::topLevelChanged, titlebar, &BlueTitleBar::updateMask);
+            connect(swatch, &QDockWidget::featuresChanged, titlebar, &BlueTitleBar::updateMask, Qt::QueuedConnection);
+        }
+
+        QString name = QString::fromLatin1(sets[i].name);
+        if (customSizeHints.contains(name))
+            swatch->setCustomSizeHint(customSizeHints.value(name));
+
+        addDockWidget(sets[i].area, swatch);
+        dockWidgetMenu->addMenu(swatch->colorSwatchMenu());
+    }
 
     destroyDockWidgetMenu = new QMenu(tr("Destroy dock widget"), this);
     destroyDockWidgetMenu->setEnabled(false);
@@ -406,4 +483,9 @@ void MPMainWindow::destroyDockWidget(QAction* action)
 
     if (destroyDockWidgetMenu->isEmpty())
         destroyDockWidgetMenu->setEnabled(false);
+}
+
+void MPMainWindow::about()
+{
+    QMessageBox::about(this, tr("About MainWindows"), message);
 }

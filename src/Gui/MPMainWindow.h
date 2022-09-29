@@ -12,9 +12,12 @@ class MPMainWindow : public QMainWindow
 public:
     typedef QMap<QString, QSize> CustomSizeHintMap;
 
-    explicit MPMainWindow(QWidget* parent = nullptr, Qt::WindowFlags flags = { });
+    explicit MPMainWindow(const CustomSizeHintMap& customSizeHints,
+        QWidget* parent = nullptr,
+        Qt::WindowFlags flags = { });
 
 public slots:
+    void actionTriggered(QAction* action);
     void saveLayout();
     void loadLayout();
     void switchLayoutDirection();
@@ -23,9 +26,12 @@ public slots:
     void createDockWidget();
     void destroyDockWidget(QAction* action);
 
+    void about();
+
 private:
+    void setupToolBar();
     void setupMenuBar();
-    void setupDockWidgets();
+    void setupDockWidgets(const CustomSizeHintMap& customSizeHints);
 
     QList<ToolBar*> toolBars;
     QMenu* dockWidgetMenu;
@@ -33,6 +39,7 @@ private:
     QList<QDockWidget*> extraDockWidgets;
     QMenu* destroyDockWidgetMenu;
 };
+
 
 
 

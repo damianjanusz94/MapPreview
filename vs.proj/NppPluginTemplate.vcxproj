@@ -33,6 +33,21 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
     </CustomBuild>
+    <CustomBuild Include="..\src\Gui\colorswatch.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Gui\toolbar.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Gui\colordock.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
+    </CustomBuild>
     <ClInclude Include="..\src\MapPreviewPlugin.h" />
     <ClInclude Include="..\src\MapPreviewResources.h" />
     <ClInclude Include="..\src\MapPreviewWindow.h" />
@@ -112,8 +127,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Commands\CommandShowHide.cpp" />
+    <ClCompile Include="..\src\Gui\colorswatch.cpp" />
+    <ClCompile Include="..\src\Gui\moc_colordock.cpp" />
+    <ClCompile Include="..\src\Gui\moc_colorswatch.cpp" />
     <ClCompile Include="..\src\Gui\moc_MPMainWindow.cpp" />
+    <ClCompile Include="..\src\Gui\moc_toolbar.cpp" />
     <ClCompile Include="..\src\Gui\MPMainWindow.cpp" />
+    <ClCompile Include="..\src\Gui\toolbar.cpp" />
     <ClCompile Include="..\src\MapPreviewPlugin.cpp" />
     <ClCompile Include="..\src\MapPreviewWindow.cpp" />
     <ClCompile Include="..\src\NppPlugin\DockingFeature\StaticDialog.cpp" />

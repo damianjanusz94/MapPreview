@@ -46,12 +46,13 @@ void MapPreviewWindow::InitializeDialog(NppData nppData)
 	QVBoxLayout hbox(qtMainWidget.get());
 	hbox.setSpacing(1);
 
-	mpMainWindow = std::make_shared<MPMainWindow>();
+	QMap<QString, QSize> windowsize;
+	mpMainWindow = std::make_shared<MPMainWindow>(windowsize);
 	mpMainWindow->setWindowFlag(Qt::SubWindow);
 
 	hbox.addWidget(mpMainWindow.get());
 
-	qtMainWidget->resize(1000, 1000);
+	qtMainWidget->resize(800, 800);
 	qtMainWidget->move(0, 0);
 	qtMainWidget->show();
 
