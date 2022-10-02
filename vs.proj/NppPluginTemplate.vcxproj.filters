@@ -63,6 +63,21 @@
     </ClInclude>
     <ClInclude Include="..\src\MapPreviewWindow.h" />
     <ClInclude Include="..\src\MapPreviewResources.h" />
+    <ClInclude Include="..\src\Gui\MpMainWindow.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Gui\MpFileTreeview.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Gui\MpMainToolbar.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Gui\MpInfoToolbar.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Gui\MpObjectTreeview.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp">
@@ -97,25 +112,19 @@
     <ClCompile Include="..\src\QtMfc\moc_qwinwidget.cpp">
       <Filter>QtMfc</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Gui\MPMainWindow.cpp">
+    <ClCompile Include="..\src\Gui\MpMainWindow.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Gui\moc_MPMainWindow.cpp">
+    <ClCompile Include="..\src\Gui\MpFileTreeview.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Gui\colorswatch.cpp">
+    <ClCompile Include="..\src\Gui\MpMainToolbar.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Gui\toolbar.cpp">
+    <ClCompile Include="..\src\Gui\MpInfoToolbar.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Gui\moc_colorswatch.cpp">
-      <Filter>Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Gui\moc_toolbar.cpp">
-      <Filter>Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Gui\moc_colordock.cpp">
+    <ClCompile Include="..\src\Gui\MpObjectTreeview.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,18 +143,6 @@
     </CustomBuild>
     <CustomBuild Include="..\src\QtMfc\qwinwidget.h">
       <Filter>QtMfc</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\Gui\MPMainWindow.h">
-      <Filter>Gui</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\Gui\colorswatch.h">
-      <Filter>Gui</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\Gui\toolbar.h">
-      <Filter>Gui</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\Gui\colordock.h">
-      <Filter>Gui</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

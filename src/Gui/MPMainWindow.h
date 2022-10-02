@@ -1,45 +1,30 @@
 #pragma once
 
 #include <QtWidgets\QMainWindow>
+#include <QtWidgets\QDockWidget>
+#include <QtWidgets\QGraphicsView>
+#include <QtWidgets\QDockWidget>
 
-class ToolBar;
-QT_FORWARD_DECLARE_CLASS(QMenu)
+#include "MpFileTreeview.h"
+#include "MpObjectTreeview.h"
+#include "MpMainToolbar.h"
+#include "MpInfoToolbar.h"
 
-class MPMainWindow : public QMainWindow
+class MpMainWindow : public QMainWindow
 {
-    Q_OBJECT
-
+	QList<QDockWidget*> dockWidgets;
+	QGraphicsView* graphicsView;
+	std::unique_ptr<MpFileTreeview> fileTreeview;
+	std::unique_ptr<MpObjectTreeview> objectTreeview;
+	std::unique_ptr<MpMainToolbar> mainToolbar;
+	std::unique_ptr<MpInfoToolbar> infoToolbar;
+	
 public:
-    typedef QMap<QString, QSize> CustomSizeHintMap;
-
-    explicit MPMainWindow(const CustomSizeHintMap& customSizeHints,
-        QWidget* parent = nullptr,
-        Qt::WindowFlags flags = { });
-
-public slots:
-    void actionTriggered(QAction* action);
-    void saveLayout();
-    void loadLayout();
-    void switchLayoutDirection();
-    void setDockOptions();
-
-    void createDockWidget();
-    void destroyDockWidget(QAction* action);
-
-    void about();
+	explicit MpMainWindow(QWidget* parent = nullptr, Qt::WindowFlags flags = { });
 
 private:
-    void setupToolBar();
-    void setupMenuBar();
-    void setupDockWidgets(const CustomSizeHintMap& customSizeHints);
+	void setupToolbars();
+	void setupTreeviews();
 
-    QList<ToolBar*> toolBars;
-    QMenu* dockWidgetMenu;
-    QMenu* mainWindowMenu;
-    QList<QDockWidget*> extraDockWidgets;
-    QMenu* destroyDockWidgetMenu;
 };
-
-
-
 

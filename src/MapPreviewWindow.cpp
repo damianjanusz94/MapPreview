@@ -43,16 +43,16 @@ void MapPreviewWindow::InitializeDialog(NppData nppData)
 
 	qtMainWidget = std::make_unique<QWinWidget>(_hSelf);
 	winId = (HWND)qtMainWidget->winId();
-	QVBoxLayout hbox(qtMainWidget.get());
+
+	mpMainWindow = std::make_shared<MpMainWindow>();
+	mpMainWindow->setWindowFlag(Qt::Widget);
+
+	QVBoxLayout hbox;
 	hbox.setSpacing(1);
+	hbox.addWidget(mpMainWindow.get(), Qt::AlignCenter);
+	hbox.setContentsMargins(0, 0, 0, 0);
 
-	QMap<QString, QSize> windowsize;
-	mpMainWindow = std::make_shared<MPMainWindow>(windowsize);
-	mpMainWindow->setWindowFlag(Qt::SubWindow);
-
-	hbox.addWidget(mpMainWindow.get());
-
-	qtMainWidget->resize(800, 800);
+	qtMainWidget->setLayout(&hbox);
 	qtMainWidget->move(0, 0);
 	qtMainWidget->show();
 
@@ -87,14 +87,12 @@ INT_PTR CALLBACK MapPreviewWindow::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 void MapPreviewWindow::OnSize(HWND hDlg) 
 {
-
 	if (hDlg == nullptr)
 		return;
 
 	RECT rect;
 	GetClientRect(hDlg, &rect);
 
-	//MoveWindow(windowGL->getHandle(), rect.left, rect.top, rect.right, rect.bottom, TRUE);
-	//InvalidateRect(windowGL->getHandle(), NULL, TRUE);
-	//UpdateWindow(windowGL->getHandle());
+	qtMainWidget->resize(QSize(abs(rect.right-rect.left), abs(rect.top-rect.bottom)));
+	mpMainWindow->resize(QSize(abs(rect.right-rect.left), abs(rect.top-rect.bottom)));
 }
