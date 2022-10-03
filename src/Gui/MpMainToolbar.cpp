@@ -5,8 +5,17 @@ MpMainToolbar::MpMainToolbar(QWidget* parent) : QToolBar(parent)
     setWindowTitle("MainToolbar");
     setObjectName("Main toolbar");
 
-    setIconSize(QSize(32, 32));
+    settingsDialog = std::make_unique<MpSettingsDialog>();
 
-    QPushButton* button = new QPushButton("Settings", this);
-    addWidget(button);
+    settingsBtn = new QPushButton();
+    settingsBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\services-24.png"));
+    settingsBtn->setFlat(true);
+    addWidget(settingsBtn);
+
+    connect(settingsBtn, &QPushButton::released, this, &MpMainToolbar::settingsDialogOpen);
+}
+
+void MpMainToolbar::settingsDialogOpen()
+{
+    settingsDialog->show();
 }

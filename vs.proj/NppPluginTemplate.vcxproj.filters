@@ -69,13 +69,13 @@
     <ClInclude Include="..\src\Gui\MpFileTreeview.h">
       <Filter>Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Gui\MpMainToolbar.h">
-      <Filter>Gui</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Gui\MpInfoToolbar.h">
       <Filter>Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Gui\MpObjectTreeview.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Gui\MpSettingsDialog.h">
       <Filter>Gui</Filter>
     </ClInclude>
   </ItemGroup>
@@ -127,6 +127,12 @@
     <ClCompile Include="..\src\Gui\MpObjectTreeview.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Gui\MpSettingsDialog.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Gui\moc_MpMainToolbar.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc">
@@ -143,6 +149,9 @@
     </CustomBuild>
     <CustomBuild Include="..\src\QtMfc\qwinwidget.h">
       <Filter>QtMfc</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Gui\MpMainToolbar.h">
+      <Filter>Gui</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>
