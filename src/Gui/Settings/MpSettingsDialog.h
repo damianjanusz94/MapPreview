@@ -2,11 +2,13 @@
 
 #include <QtWidgets\QDialog>
 #include <QtWidgets\QPushButton>
+#include <QtWidgets\QDialogButtonBox>
+#include <QtWidgets\QTabWidget>
 
 class MpSettingsDialog : public QDialog
 {
-	QPushButton* saveBtn;
-	QPushButton* cancelBtn;
+	QDialogButtonBox* buttonBox;
+	QTabWidget* tabWidget;
 
 public:
 	explicit MpSettingsDialog(QWidget* parent = nullptr);

@@ -37,7 +37,9 @@
     </CustomBuild>
     <ClInclude Include="..\src\Gui\MpMainWindow.h" />
     <ClInclude Include="..\src\Gui\MpObjectTreeview.h" />
-    <ClInclude Include="..\src\Gui\MpSettingsDialog.h" />
+    <ClInclude Include="..\src\Gui\Settings\MpGeneralTab.h" />
+    <ClInclude Include="..\src\Gui\Settings\MpSettingsDialog.h" />
+    <ClInclude Include="..\src\Gui\Settings\MpTabStyle.h" />
     <ClInclude Include="..\src\MapPreviewPlugin.h" />
     <ClInclude Include="..\src\MapPreviewResources.h" />
     <ClInclude Include="..\src\MapPreviewWindow.h" />
@@ -123,7 +125,8 @@
     <ClCompile Include="..\src\Gui\MpMainToolbar.cpp" />
     <ClCompile Include="..\src\Gui\MpMainWindow.cpp" />
     <ClCompile Include="..\src\Gui\MpObjectTreeview.cpp" />
-    <ClCompile Include="..\src\Gui\MpSettingsDialog.cpp" />
+    <ClCompile Include="..\src\Gui\Settings\MpGeneralTab.cpp" />
+    <ClCompile Include="..\src\Gui\Settings\MpSettingsDialog.cpp" />
     <ClCompile Include="..\src\MapPreviewPlugin.cpp" />
     <ClCompile Include="..\src\MapPreviewWindow.cpp" />
     <ClCompile Include="..\src\NppPlugin\DockingFeature\StaticDialog.cpp" />

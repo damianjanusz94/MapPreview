@@ -6,6 +6,7 @@
 MapPreviewWindow::MapPreviewWindow(HANDLE hModule) : DockingDlgInterface(IDD_DIALOG_CONSOLE), hModule(hModule)
 {
 	ownApplication = QMfcApp::pluginInstance(hModule);
+	QApplication::setStyle("Fusion");
 }
 
 MapPreviewWindow::~MapPreviewWindow()

@@ -4,7 +4,7 @@
 #include <QtWidgets\QPushButton>
 #include <QtCore\QDir>
 
-#include "MpSettingsDialog.h"
+#include "Settings\MpSettingsDialog.h"
 
 class MpMainToolbar : public QToolBar
 {

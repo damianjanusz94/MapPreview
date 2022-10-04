@@ -16,6 +16,9 @@
     <Filter Include="Gui">
       <UniqueIdentifier>{711ffaae-c779-41df-b31f-cb0f9eecafb7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Gui\Settings">
+      <UniqueIdentifier>{fd17d330-0fbe-47da-ba88-8b86ed37b91f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\NppPlugin\menuCmdID.h">
@@ -75,8 +78,14 @@
     <ClInclude Include="..\src\Gui\MpObjectTreeview.h">
       <Filter>Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Gui\MpSettingsDialog.h">
-      <Filter>Gui</Filter>
+    <ClInclude Include="..\src\Gui\Settings\MpSettingsDialog.h">
+      <Filter>Gui\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Gui\Settings\MpGeneralTab.h">
+      <Filter>Gui\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Gui\Settings\MpTabStyle.h">
+      <Filter>Gui\Settings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -127,11 +136,14 @@
     <ClCompile Include="..\src\Gui\MpObjectTreeview.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Gui\MpSettingsDialog.cpp">
-      <Filter>Gui</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Gui\moc_MpMainToolbar.cpp">
       <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Gui\Settings\MpSettingsDialog.cpp">
+      <Filter>Gui\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Gui\Settings\MpGeneralTab.cpp">
+      <Filter>Gui\Settings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
