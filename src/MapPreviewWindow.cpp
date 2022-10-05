@@ -81,6 +81,8 @@ INT_PTR CALLBACK MapPreviewWindow::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			if (ready)
 				OnSize(_hSelf);
 			return TRUE;
+		case WM_DESTROY:
+			OnDestroy();
 		default:
 			return handleResult;
 	}
@@ -96,4 +98,12 @@ void MapPreviewWindow::OnSize(HWND hDlg)
 
 	qtMainWidget->resize(QSize(abs(rect.right-rect.left), abs(rect.top-rect.bottom)));
 	mpMainWindow->resize(QSize(abs(rect.right-rect.left), abs(rect.top-rect.bottom)));
+}
+
+void MapPreviewWindow::OnDestroy()
+{
+	if (mpMainWindow.get())
+	{
+		mpMainWindow->close();
+	}
 }

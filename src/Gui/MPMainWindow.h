@@ -12,6 +12,8 @@
 
 class MpMainWindow : public QMainWindow
 {
+	Q_OBJECT;
+
 	QList<QDockWidget*> dockWidgets;
 	QGraphicsView* graphicsView;
 	std::unique_ptr<MpFileTreeview> fileTreeview;
@@ -25,6 +27,10 @@ public:
 private:
 	void setupToolbars();
 	void setupTreeviews();
+	void readSettings();
+
+protected:
+	void closeEvent(QCloseEvent* event) override;
 
 };
 

@@ -35,11 +35,16 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
     </CustomBuild>
-    <ClInclude Include="..\src\Gui\MpMainWindow.h" />
+    <CustomBuild Include="..\src\Gui\MpMainWindow.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
+    </CustomBuild>
     <ClInclude Include="..\src\Gui\MpObjectTreeview.h" />
     <ClInclude Include="..\src\Gui\Settings\MpGeneralTab.h" />
     <ClInclude Include="..\src\Gui\Settings\MpSettingsDialog.h" />
     <ClInclude Include="..\src\Gui\Settings\MpTabStyle.h" />
+    <ClInclude Include="..\src\Gui\Settings\MpViewTab.h" />
     <ClInclude Include="..\src\MapPreviewPlugin.h" />
     <ClInclude Include="..\src\MapPreviewResources.h" />
     <ClInclude Include="..\src\MapPreviewWindow.h" />
@@ -120,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\Commands\CommandShowHide.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpMainToolbar.cpp" />
+    <ClCompile Include="..\src\Gui\moc_MpMainWindow.cpp" />
     <ClCompile Include="..\src\Gui\MpInfoToolbar.cpp" />
     <ClCompile Include="..\src\Gui\MpFileTreeview.cpp" />
     <ClCompile Include="..\src\Gui\MpMainToolbar.cpp" />
@@ -127,6 +133,7 @@
     <ClCompile Include="..\src\Gui\MpObjectTreeview.cpp" />
     <ClCompile Include="..\src\Gui\Settings\MpGeneralTab.cpp" />
     <ClCompile Include="..\src\Gui\Settings\MpSettingsDialog.cpp" />
+    <ClCompile Include="..\src\Gui\Settings\MpViewTab.cpp" />
     <ClCompile Include="..\src\MapPreviewPlugin.cpp" />
     <ClCompile Include="..\src\MapPreviewWindow.cpp" />
     <ClCompile Include="..\src\NppPlugin\DockingFeature\StaticDialog.cpp" />

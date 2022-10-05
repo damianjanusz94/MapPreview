@@ -19,6 +19,9 @@
     <Filter Include="Gui\Settings">
       <UniqueIdentifier>{fd17d330-0fbe-47da-ba88-8b86ed37b91f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{4e95474f-8fd5-4400-8d97-80d13c179142}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\NppPlugin\menuCmdID.h">
@@ -66,9 +69,6 @@
     </ClInclude>
     <ClInclude Include="..\src\MapPreviewWindow.h" />
     <ClInclude Include="..\src\MapPreviewResources.h" />
-    <ClInclude Include="..\src\Gui\MpMainWindow.h">
-      <Filter>Gui</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Gui\MpFileTreeview.h">
       <Filter>Gui</Filter>
     </ClInclude>
@@ -85,6 +85,9 @@
       <Filter>Gui\Settings</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Gui\Settings\MpTabStyle.h">
+      <Filter>Gui\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Gui\Settings\MpViewTab.h">
       <Filter>Gui\Settings</Filter>
     </ClInclude>
   </ItemGroup>
@@ -145,6 +148,12 @@
     <ClCompile Include="..\src\Gui\Settings\MpGeneralTab.cpp">
       <Filter>Gui\Settings</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Gui\Settings\MpViewTab.cpp">
+      <Filter>Gui\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Gui\moc_MpMainWindow.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc">
@@ -163,6 +172,9 @@
       <Filter>QtMfc</Filter>
     </CustomBuild>
     <CustomBuild Include="..\src\Gui\MpMainToolbar.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Gui\MpMainWindow.h">
       <Filter>Gui</Filter>
     </CustomBuild>
   </ItemGroup>

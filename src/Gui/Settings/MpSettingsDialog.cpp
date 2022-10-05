@@ -1,5 +1,4 @@
 #include "MpSettingsDialog.h"
-#include "MpGeneralTab.h"
 #include "MpTabStyle.h"
 
 #include <QtWidgets/QBoxLayout>
@@ -7,6 +6,9 @@
 
 MpSettingsDialog::MpSettingsDialog(QWidget* parent) : QDialog(parent)
 {
+	generalTab = std::make_unique<MpGeneralTab>();
+	viewTab = std::make_unique<MpViewTab>();
+
 	setObjectName("MapPreviewSettings");
 	setWindowTitle("Map Preview Settings");
 	setModal(true);
@@ -18,13 +20,14 @@ MpSettingsDialog::MpSettingsDialog(QWidget* parent) : QDialog(parent)
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
-    QVBoxLayout* mainLayout = new QVBoxLayout;
     
 	tabWidget = new QTabWidget;
 	tabWidget->tabBar()->setStyle(new MpTabStyle());
-	tabWidget->addTab(new MpGeneralTab(), tr("General"));
 	tabWidget->setTabPosition(QTabWidget::West);
+	tabWidget->addTab(generalTab.get(), tr("General"));
+	tabWidget->addTab(viewTab.get(), tr("View"));
 
+    QVBoxLayout* mainLayout = new QVBoxLayout;
 	mainLayout->addWidget(tabWidget);
     mainLayout->addWidget(buttonBox, 0, Qt::AlignBottom | Qt::AlignRight);
 

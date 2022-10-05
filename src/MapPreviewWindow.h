@@ -26,6 +26,7 @@ private:
 
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void OnSize(HWND hDlg);
+	void OnDestroy();
 
 public:
 	MapPreviewWindow(HANDLE hModule);

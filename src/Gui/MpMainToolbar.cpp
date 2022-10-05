@@ -10,6 +10,7 @@ MpMainToolbar::MpMainToolbar(QWidget* parent) : QToolBar(parent)
     settingsBtn = new QPushButton();
     settingsBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\services-24.png"));
     settingsBtn->setFlat(true);
+    settingsBtn->setToolTip("Settings");
     addWidget(settingsBtn);
 
     connect(settingsBtn, &QPushButton::released, this, &MpMainToolbar::settingsDialogOpen);
