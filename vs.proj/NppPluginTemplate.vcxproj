@@ -48,6 +48,8 @@
     <ClInclude Include="..\src\MapPreviewPlugin.h" />
     <ClInclude Include="..\src\MapPreviewResources.h" />
     <ClInclude Include="..\src\MapPreviewWindow.h" />
+    <ClInclude Include="..\src\Models\FileTreeItem.h" />
+    <ClInclude Include="..\src\Models\FileTreeModel.h" />
     <ClInclude Include="..\src\NppPlugin\DockingFeature\Docking.h" />
     <ClInclude Include="..\src\NppPlugin\DockingFeature\DockingDlgInterface.h" />
     <ClInclude Include="..\src\NppPlugin\DockingFeature\dockingResource.h" />
@@ -136,6 +138,8 @@
     <ClCompile Include="..\src\Gui\Settings\MpViewTab.cpp" />
     <ClCompile Include="..\src\MapPreviewPlugin.cpp" />
     <ClCompile Include="..\src\MapPreviewWindow.cpp" />
+    <ClCompile Include="..\src\Models\FileTreeItem.cpp" />
+    <ClCompile Include="..\src\Models\FileTreeModel.cpp" />
     <ClCompile Include="..\src\NppPlugin\DockingFeature\StaticDialog.cpp" />
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp" />
     <ClCompile Include="..\src\NppPlugin\PluginDefinition.cpp" />

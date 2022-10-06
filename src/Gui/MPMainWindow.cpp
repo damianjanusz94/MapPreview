@@ -10,12 +10,11 @@ MpMainWindow::MpMainWindow(QWidget* parent, Qt::WindowFlags flags) : QMainWindow
     graphicsView = new QGraphicsView(this);
     graphicsView->setMinimumSize(400, 205);
     setCentralWidget(graphicsView);
-    graphicsView->setBackgroundBrush(QBrush(QColor(0, 100, 100),Qt::SolidPattern));
+    //graphicsView->setBackgroundBrush(QBrush(QColor(0, 100, 100),Qt::SolidPattern));
     graphicsView->setScene(new QGraphicsScene());
 
     setupToolbars();
     setupTreeviews();
-
 
     readSettings();
 }

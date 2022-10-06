@@ -10,6 +10,7 @@
 #include "MpMainToolbar.h"
 #include "MpInfoToolbar.h"
 
+
 class MpMainWindow : public QMainWindow
 {
 	Q_OBJECT;

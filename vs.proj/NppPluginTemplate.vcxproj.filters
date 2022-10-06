@@ -90,6 +90,12 @@
     <ClInclude Include="..\src\Gui\Settings\MpViewTab.h">
       <Filter>Gui\Settings</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Models\FileTreeModel.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Models\FileTreeItem.h">
+      <Filter>Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp">
@@ -153,6 +159,12 @@
     </ClCompile>
     <ClCompile Include="..\src\Gui\moc_MpMainWindow.cpp">
       <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Models\FileTreeModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Models\FileTreeItem.cpp">
+      <Filter>Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
