@@ -11,6 +11,7 @@ class MpMainToolbar : public QToolBar
 	Q_OBJECT
 
 	QPushButton* settingsBtn;
+	QPushButton* refreshBtn;
 	std::unique_ptr<MpSettingsDialog> settingsDialog;
 
 public:

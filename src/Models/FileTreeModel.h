@@ -23,6 +23,7 @@ public:
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     int columnCount(const QModelIndex& parent = QModelIndex()) const override;
     bool setData(const QModelIndex& index, const QVariant& value, int role) override;
+    std::vector<QModelIndex> getMainChildren(int column);
 
 private:
     void setupModelData(const QStringList& lines, FileTreeItem* parent);

@@ -23,7 +23,7 @@ FileTreeItem* FileTreeItem::child(int row)
 
 QList<FileTreeItem*> FileTreeItem::getChildren()
 {
-    return QList<FileTreeItem*>();
+    return childItems;
 }
 
 int FileTreeItem::childCount() const

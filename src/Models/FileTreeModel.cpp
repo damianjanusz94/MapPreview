@@ -3,7 +3,7 @@
 FileTreeModel::FileTreeModel(const QString& data, QObject* parent)
     : QAbstractItemModel(parent)
 {
-    rootItem = new FileTreeItem({ tr("") });
+    rootItem = new FileTreeItem({ tr("1"), tr("2"), tr("3")});
     setupModelData(data.split('\n'), rootItem);
 }
 
@@ -17,6 +17,19 @@ int FileTreeModel::columnCount(const QModelIndex& parent) const
     if (parent.isValid())
         return static_cast<FileTreeItem*>(parent.internalPointer())->columnCount();
     return rootItem->columnCount();
+}
+
+std::vector<QModelIndex> FileTreeModel::getMainChildren(int column)
+{
+    std::vector<QModelIndex> childrenIndexes;
+
+    auto childrenList = rootItem->getChildren();
+    for (auto child : childrenList)
+    {
+        childrenIndexes.push_back(createIndex(child->row(), column, child));
+    }
+
+    return childrenIndexes;
 }
 
 QVariant FileTreeModel::data(const QModelIndex& index, int role) const
