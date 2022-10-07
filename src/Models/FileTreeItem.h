@@ -20,6 +20,7 @@ public:
     FileTreeItem* getParentItem();
     void setChecked(bool set);
     bool isChecked();
+    bool removeChildren(int position, int count);
 
 private:
     QList<FileTreeItem*> childItems;

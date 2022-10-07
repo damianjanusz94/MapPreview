@@ -32,6 +32,19 @@ std::vector<QModelIndex> FileTreeModel::getMainChildren(int column)
     return childrenIndexes;
 }
 
+bool FileTreeModel::removeRows(int position, int rows, const QModelIndex& parent)
+{
+    FileTreeItem* parentItem = getItem(parent);
+    if (!parentItem)
+        return false;
+
+    beginRemoveRows(parent, position, position + rows - 1);
+    const bool success = parentItem->removeChildren(position, rows);
+    endRemoveRows();
+
+    return success;
+}
+
 QVariant FileTreeModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid())
