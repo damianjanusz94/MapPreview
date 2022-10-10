@@ -51,3 +51,12 @@ void MpFileTreeview::removeRow()
     this->model()->removeRow(index.row(), index.parent());
 }
 
+void MpFileTreeview::refreshAll()
+{
+}
+
+void MpFileTreeview::removeAll()
+{
+    fileTreeModel->clearAll();
+}
+

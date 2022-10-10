@@ -10,9 +10,11 @@ class MpFileTreeview : public QTreeView
 
 	void addButton(int column, QString tooltip, QIcon icon, void(MpFileTreeview::* slotName)());
 
-private slots:
+public slots:
 	void refreshRow();
 	void removeRow();
+	void refreshAll();
+	void removeAll();
 
 public:
 	explicit MpFileTreeview(QWidget* parent = nullptr);

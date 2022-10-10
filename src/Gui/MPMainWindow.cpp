@@ -1,6 +1,7 @@
 #include "MpMainWindow.h"
 
 #include <QtCore\QSettings>
+#include <QtWidgets\QBoxLayout>
 
 MpMainWindow::MpMainWindow(QWidget* parent, Qt::WindowFlags flags) : QMainWindow(parent, flags)
 {
@@ -14,7 +15,7 @@ MpMainWindow::MpMainWindow(QWidget* parent, Qt::WindowFlags flags) : QMainWindow
     graphicsView->setScene(new QGraphicsScene());
 
     setupToolbars();
-    setupTreeviews();
+    setupTreeDockWidgets();
 
     readSettings();
 }
@@ -28,19 +29,11 @@ void MpMainWindow::setupToolbars()
     addToolBar(Qt::ToolBarArea::BottomToolBarArea,infoToolbar.get());
 }
 
-void MpMainWindow::setupTreeviews()
+void MpMainWindow::setupTreeDockWidgets()
 {
     Qt::DockWidgetArea area = Qt::RightDockWidgetArea;
 
-    fileTreeview = std::make_unique<MpFileTreeview>(this);
-
-    QDockWidget* dw = new QDockWidget(this);
-    const QString name = "Files";
-    dw->setObjectName(name);
-    dw->setWindowTitle(name);
-    dw->setWidget(fileTreeview.get());
-    addDockWidget(area, dw);
-    dockWidgets.append(dw);
+    setupFileDockWidget(area);
 
     objectTreeview = std::make_unique<MpObjectTreeview>(this);
 
@@ -51,6 +44,26 @@ void MpMainWindow::setupTreeviews()
     dwObj->setWidget(objectTreeview.get());
     addDockWidget(area, dwObj);
     dockWidgets.append(dwObj);
+}
+
+void MpMainWindow::setupFileDockWidget(Qt::DockWidgetArea area)
+{
+    fileTreeview = std::make_shared<MpFileTreeview>();
+    fileTvToolbar = std::make_unique<MpFileTvToolbar>(fileTreeview);
+
+    QWidget* widget = new QWidget(this);
+    QVBoxLayout* vLayout = new QVBoxLayout(widget);
+    vLayout->addWidget(fileTvToolbar.get());
+    vLayout->addWidget(fileTreeview.get());
+    vLayout->setContentsMargins(0, 0, 0, 0);
+
+    QDockWidget* dw = new QDockWidget(this);
+    const QString name = "Files";
+    dw->setObjectName(name);
+    dw->setWindowTitle(name);
+    dw->setWidget(widget);
+    addDockWidget(area, dw);
+    dockWidgets.append(dw);
 }
 
 void MpMainWindow::closeEvent(QCloseEvent* event)

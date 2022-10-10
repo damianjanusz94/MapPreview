@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Commands\CommandShowHide.h" />
+    <ClInclude Include="..\src\Gui\MpFileTvToolbar.h" />
     <ClInclude Include="..\src\Gui\MpInfoToolbar.h" />
     <ClInclude Include="..\src\Gui\MpFileTreeview.h" />
     <CustomBuild Include="..\src\Gui\MpMainToolbar.h">
@@ -128,6 +129,7 @@
     <ClCompile Include="..\src\Commands\CommandShowHide.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpMainToolbar.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpMainWindow.cpp" />
+    <ClCompile Include="..\src\Gui\MpFileTvToolbar.cpp" />
     <ClCompile Include="..\src\Gui\MpInfoToolbar.cpp" />
     <ClCompile Include="..\src\Gui\MpFileTreeview.cpp" />
     <ClCompile Include="..\src\Gui\MpMainToolbar.cpp" />

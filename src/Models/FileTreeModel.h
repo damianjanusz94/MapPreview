@@ -25,6 +25,7 @@ public:
     bool setData(const QModelIndex& index, const QVariant& value, int role) override;
     bool removeRows(int position, int rows, const QModelIndex& parent = QModelIndex()) override;
     std::vector<QModelIndex> getMainChildren(int column);
+    void clearAll();
 
 private:
     void setupModelData(const QStringList& lines, FileTreeItem* parent);

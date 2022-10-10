@@ -45,6 +45,13 @@ bool FileTreeModel::removeRows(int position, int rows, const QModelIndex& parent
     return success;
 }
 
+void FileTreeModel::clearAll()
+{
+    beginResetModel();
+    rootItem->clearChildren();
+    endResetModel();
+}
+
 QVariant FileTreeModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid())

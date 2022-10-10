@@ -76,3 +76,10 @@ bool FileTreeItem::removeChildren(int position, int count)
 
     return true;
 }
+
+void FileTreeItem::clearChildren()
+{
+    for (int row = 0; row < childItems.size(); ++row)
+        delete childItems.at(row);
+    childItems.clear();
+}

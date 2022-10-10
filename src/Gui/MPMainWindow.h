@@ -9,6 +9,7 @@
 #include "MpObjectTreeview.h"
 #include "MpMainToolbar.h"
 #include "MpInfoToolbar.h"
+#include "MpFileTvToolbar.h"
 
 
 class MpMainWindow : public QMainWindow
@@ -17,7 +18,8 @@ class MpMainWindow : public QMainWindow
 
 	QList<QDockWidget*> dockWidgets;
 	QGraphicsView* graphicsView;
-	std::unique_ptr<MpFileTreeview> fileTreeview;
+	std::shared_ptr<MpFileTreeview> fileTreeview;
+	std::unique_ptr<MpFileTvToolbar> fileTvToolbar;
 	std::unique_ptr<MpObjectTreeview> objectTreeview;
 	std::unique_ptr<MpMainToolbar> mainToolbar;
 	std::unique_ptr<MpInfoToolbar> infoToolbar;
@@ -27,7 +29,8 @@ public:
 
 private:
 	void setupToolbars();
-	void setupTreeviews();
+	void setupTreeDockWidgets();
+	void setupFileDockWidget(Qt::DockWidgetArea area);
 	void readSettings();
 
 protected:
