@@ -8,6 +8,9 @@ MpFileTvToolbar::MpFileTvToolbar(std::weak_ptr<MpFileTreeview> fileTv, QWidget* 
     setObjectName("File toolbar");
     this->layout()->setContentsMargins(0, 0, 0, 0);
 
+    fileAddWindow = std::make_unique<MpFileAddWindow>();
+
+    setupAddBtn();
     setupRefreshAllBtn();
     setupRemoveAllBtn();
 }
@@ -30,4 +33,20 @@ void MpFileTvToolbar::setupRemoveAllBtn()
     addWidget(removeAllBtn);
 
     connect(removeAllBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::removeAll);
+}
+
+void MpFileTvToolbar::setupAddBtn()
+{
+    addBtn = new QPushButton();
+    addBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\add-24.png"));
+    addBtn->setFlat(true);
+    addBtn->setToolTip("Add file to list");
+    addWidget(addBtn);
+
+    connect(addBtn, &QPushButton::released, this, &MpFileTvToolbar::addFileDialog);
+}
+
+void MpFileTvToolbar::addFileDialog()
+{
+    fileAddWindow->show();
 }
