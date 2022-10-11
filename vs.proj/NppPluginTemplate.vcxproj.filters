@@ -96,8 +96,11 @@
     <ClInclude Include="..\src\Models\FileTreeItem.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Gui\MpFileAddWindow.h">
-      <Filter>Gui</Filter>
+    <ClInclude Include="..\src\Models\NppFilesList.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\NppProxy.h">
+      <Filter>NppPlugin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +181,15 @@
     <ClCompile Include="..\src\Gui\moc_MpFileTvToolbar.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Gui\moc_MpFileAddWindow.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Models\NppFilesList.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NppPlugin\NppProxy.cpp">
+      <Filter>NppPlugin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc">
@@ -202,6 +214,9 @@
       <Filter>Gui</Filter>
     </CustomBuild>
     <CustomBuild Include="..\src\Gui\MpFileTvToolbar.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Gui\MpFileAddWindow.h">
       <Filter>Gui</Filter>
     </CustomBuild>
   </ItemGroup>

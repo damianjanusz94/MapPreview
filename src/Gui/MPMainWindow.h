@@ -10,6 +10,7 @@
 #include "MpMainToolbar.h"
 #include "MpInfoToolbar.h"
 #include "MpFileTvToolbar.h"
+#include "../NppPlugin/NppProxy.h"
 
 
 class MpMainWindow : public QMainWindow
@@ -23,9 +24,11 @@ class MpMainWindow : public QMainWindow
 	std::unique_ptr<MpObjectTreeview> objectTreeview;
 	std::unique_ptr<MpMainToolbar> mainToolbar;
 	std::unique_ptr<MpInfoToolbar> infoToolbar;
+
+	std::shared_ptr<NppProxy> nppProxy;
 	
 public:
-	explicit MpMainWindow(QWidget* parent = nullptr, Qt::WindowFlags flags = { });
+	explicit MpMainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent = nullptr, Qt::WindowFlags flags = { });
 
 private:
 	void setupToolbars();

@@ -2,13 +2,14 @@
 
 #include<QtWidgets\QLayout>
 
-MpFileTvToolbar::MpFileTvToolbar(std::weak_ptr<MpFileTreeview> fileTv, QWidget* parent) : fileTreeview(fileTv), QToolBar(parent)
+MpFileTvToolbar::MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv, QWidget* parent) 
+    : fileTreeview(fileTv), QToolBar(parent), nppProxy(pNppProxy)
 {
     setWindowTitle("FileTvToolbar");
     setObjectName("File toolbar");
     this->layout()->setContentsMargins(0, 0, 0, 0);
 
-    fileAddWindow = std::make_unique<MpFileAddWindow>();
+
 
     setupAddBtn();
     setupRefreshAllBtn();
@@ -48,5 +49,6 @@ void MpFileTvToolbar::setupAddBtn()
 
 void MpFileTvToolbar::addFileDialog()
 {
+    fileAddWindow = std::make_unique<MpFileAddWindow>(nppProxy);
     fileAddWindow->show();
 }

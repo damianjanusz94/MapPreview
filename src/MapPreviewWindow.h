@@ -6,6 +6,7 @@
 #include "NppPlugin/DockingFeature/DockingDlgInterface.h"
 #include "QtMfc/qwinwidget.h"
 #include "Gui/MpMainWindow.h"
+#include "NppPlugin/NppProxy.h"
 
 class MapPreviewWindow : public DockingDlgInterface
 {
@@ -17,6 +18,7 @@ private:
 
 	std::shared_ptr<QWinWidget> qtMainWidget;
 	std::shared_ptr<MpMainWindow> mpMainWindow;
+	std::shared_ptr<NppProxy> nppProxy;
 
 	void setParent(HWND parent) { _hParent = parent; }
 

@@ -3,7 +3,7 @@
 #include <QtCore\QSettings>
 #include <QtWidgets\QBoxLayout>
 
-MpMainWindow::MpMainWindow(QWidget* parent, Qt::WindowFlags flags) : QMainWindow(parent, flags)
+MpMainWindow::MpMainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent, Qt::WindowFlags flags) : QMainWindow(parent, flags), nppProxy(pNppProxy)
 {
     setObjectName("MainWindow");
     setWindowTitle("MapPreview MainWindow");
@@ -49,7 +49,7 @@ void MpMainWindow::setupTreeDockWidgets()
 void MpMainWindow::setupFileDockWidget(Qt::DockWidgetArea area)
 {
     fileTreeview = std::make_shared<MpFileTreeview>();
-    fileTvToolbar = std::make_unique<MpFileTvToolbar>(fileTreeview);
+    fileTvToolbar = std::make_unique<MpFileTvToolbar>(nppProxy, fileTreeview);
 
     QWidget* widget = new QWidget(this);
     QVBoxLayout* vLayout = new QVBoxLayout(widget);

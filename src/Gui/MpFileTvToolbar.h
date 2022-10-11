@@ -6,6 +6,7 @@
 
 #include "MpFileTreeview.h"
 #include "MpFileAddWindow.h"
+#include "../NppPlugin/NppProxy.h"
 
 class MpFileTvToolbar : public QToolBar
 {
@@ -13,6 +14,7 @@ class MpFileTvToolbar : public QToolBar
 
 	std::weak_ptr<MpFileTreeview> fileTreeview;
 	std::unique_ptr<MpFileAddWindow> fileAddWindow;
+	std::shared_ptr<NppProxy> nppProxy;
 	QPushButton* refreshAllBtn;
 	QPushButton* removeAllBtn;
 	QPushButton* addBtn;
@@ -25,6 +27,6 @@ private slots:
 	void addFileDialog();
 
 public:
-	explicit MpFileTvToolbar(std::weak_ptr<MpFileTreeview> fileTv, QWidget* parent = nullptr);
+	explicit MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv, QWidget* parent = nullptr);
 };
 
