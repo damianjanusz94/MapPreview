@@ -9,6 +9,7 @@ struct NppFile
 {
 	QString fileName;
 	QString currentPath;
+	QString extension;
 };
 
 class NppFilesList

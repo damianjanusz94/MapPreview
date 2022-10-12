@@ -17,8 +17,9 @@ std::vector<NppFile> NppFilesList::readNppFiles()
 	for (const auto& file : file_list)
 	{
 		NppFile nppFile;
-		nppFile.currentPath = file;
+		nppFile.currentPath = FileHelper::getFilePath(file);
 		nppFile.fileName = FileHelper::getFileName(file);
+		nppFile.extension = FileHelper::getFileExtension(file);
 		nppFiles.push_back(nppFile);
 	}
 

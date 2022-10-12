@@ -3,7 +3,7 @@
 FileTreeModel::FileTreeModel(const QString& data, QObject* parent)
     : QAbstractItemModel(parent)
 {
-    rootItem = new FileTreeItem({ tr("1"), tr("2"), tr("3")});
+    rootItem = new FileTreeItem({ tr("1"), tr("2"), tr("3"), tr("4")});
     setupModelData(data.split('\n'), rootItem);
 }
 
