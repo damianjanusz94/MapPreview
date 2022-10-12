@@ -58,6 +58,7 @@
     <ClInclude Include="..\src\MapPreviewPlugin.h" />
     <ClInclude Include="..\src\MapPreviewResources.h" />
     <ClInclude Include="..\src\MapPreviewWindow.h" />
+    <ClInclude Include="..\src\Models\FileHelper.h" />
     <ClInclude Include="..\src\Models\FileTreeItem.h" />
     <ClInclude Include="..\src\Models\FileTreeModel.h" />
     <ClInclude Include="..\src\Models\NppFilesList.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="..\src\Gui\Settings\MpViewTab.cpp" />
     <ClCompile Include="..\src\MapPreviewPlugin.cpp" />
     <ClCompile Include="..\src\MapPreviewWindow.cpp" />
+    <ClCompile Include="..\src\Models\FileHelper.cpp" />
     <ClCompile Include="..\src\Models\FileTreeItem.cpp" />
     <ClCompile Include="..\src\Models\FileTreeModel.cpp" />
     <ClCompile Include="..\src\Models\NppFilesList.cpp" />

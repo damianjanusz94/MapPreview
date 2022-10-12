@@ -10,5 +10,8 @@ class NppProxy
 public:
 	NppProxy(NppData pNppData);
 	QString getCurrentDocPathInfo(int infoType);
+	QStringList getStringArrayInfo(int size, int infoType);
+	int getNumberInfo(int infoType, int subType);
+
 };
 

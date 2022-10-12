@@ -16,7 +16,12 @@ MpFileAddWindow::MpFileAddWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* p
 	setupButtons();
 	
 	setLayout(mainLayout);
+}
 
+void MpFileAddWindow::showWindow()
+{
+	fillListView();
+	show();
 }
 
 void MpFileAddWindow::setupButtons()
@@ -53,18 +58,19 @@ void MpFileAddWindow::setupListView()
 {
 	listWidget = new QListWidget();
 
-	listWidget->addItem("ddd");
-	listWidget->addItem("ddd");
-	listWidget->addItem("ddd");
-	
+	listWidget->setSelectionMode(QAbstractItemView::MultiSelection);
+	mainLayout->addWidget(listWidget);
+}
+
+void MpFileAddWindow::fillListView()
+{
+	listWidget->clear();
+
 	auto files = nppFileList->readNppFiles();
 	for (const auto& file : files)
 	{
-		listWidget->addItem(file.currentPath);
+		listWidget->addItem(file.fileName);
 	}
-
-	listWidget->setSelectionMode(QAbstractItemView::MultiSelection);
-	mainLayout->addWidget(listWidget);
 }
 
 void MpFileAddWindow::unselectAllFiles()
