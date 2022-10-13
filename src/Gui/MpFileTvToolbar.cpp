@@ -13,6 +13,10 @@ MpFileTvToolbar::MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_
     setupAddBtn();
     setupRefreshAllBtn();
     setupRemoveAllBtn();
+    setupUpBtn();
+    setupDownBtn();
+    setupUpMaxBtn();
+    setupDownMaxBtn();
 }
 
 void MpFileTvToolbar::setupRefreshAllBtn()
@@ -44,6 +48,42 @@ void MpFileTvToolbar::setupAddBtn()
     addWidget(addBtn);
 
     connect(addBtn, &QPushButton::released, this, &MpFileTvToolbar::addFileDialog);
+}
+
+void MpFileTvToolbar::setupUpBtn()
+{
+    upBtn = new QPushButton();
+    upBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\up-24.png"));
+    upBtn->setFlat(true);
+    upBtn->setToolTip("Move up");
+    addWidget(upBtn);
+}
+
+void MpFileTvToolbar::setupDownBtn()
+{
+    downBtn = new QPushButton();
+    downBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\down-24.png"));
+    downBtn->setFlat(true);
+    downBtn->setToolTip("Move down");
+    addWidget(downBtn);
+}
+
+void MpFileTvToolbar::setupUpMaxBtn()
+{
+    upMaxBtn = new QPushButton();
+    upMaxBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\updouble-48.png"));
+    upMaxBtn->setFlat(true);
+    upMaxBtn->setToolTip("Move to first");
+    addWidget(upMaxBtn);
+}
+
+void MpFileTvToolbar::setupDownMaxBtn()
+{
+    downMaxBtn = new QPushButton();
+    downMaxBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\downdouble-48.png"));
+    downMaxBtn->setFlat(true);
+    downMaxBtn->setToolTip("Move to last");
+    addWidget(downMaxBtn);
 }
 
 void MpFileTvToolbar::addFileDialog()

@@ -19,7 +19,12 @@ public slots:
 	void removeRow();
 	void refreshAll();
 	void removeAll();
+	void moveUp();
+	void moveDown();
+	void moveToFirst();
+	void moveToLast();
 	void changeExtension(QAction* action, QPushButton* button);
+
 
 public:
 	explicit MpFileTreeview(QWidget* parent = nullptr);

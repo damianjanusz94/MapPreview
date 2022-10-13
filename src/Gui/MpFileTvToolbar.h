@@ -18,10 +18,18 @@ class MpFileTvToolbar : public QToolBar
 	QPushButton* refreshAllBtn;
 	QPushButton* removeAllBtn;
 	QPushButton* addBtn;
+	QPushButton* upBtn;
+	QPushButton* downBtn;
+	QPushButton* upMaxBtn;
+	QPushButton* downMaxBtn;
 
 	void setupRefreshAllBtn();
 	void setupRemoveAllBtn();
 	void setupAddBtn();
+	void setupUpBtn();
+	void setupDownBtn();
+	void setupUpMaxBtn();
+	void setupDownMaxBtn();
 
 private slots:
 	void addFileDialog();

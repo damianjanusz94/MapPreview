@@ -19,7 +19,8 @@ MpFileTreeview::MpFileTreeview(QWidget* parent) : QTreeView(parent)
     header()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
     header()->setStretchLastSection(false);
     setFocusPolicy(Qt::FocusPolicy::NoFocus);
-    setSelectionMode(QAbstractItemView::NoSelection);
+    setSelectionMode(QAbstractItemView::SingleSelection);
+    setStyleSheet("selection-background-color: rgb(240, 240, 240);selection-color: black");
 
     addButtonExtension();
     addButton(2, "Refresh", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\refresh-24.png"), &MpFileTreeview::refreshRow);
@@ -92,6 +93,22 @@ void MpFileTreeview::refreshAll()
 void MpFileTreeview::removeAll()
 {
     fileTreeModel->clearAll();
+}
+
+void MpFileTreeview::moveUp()
+{
+}
+
+void MpFileTreeview::moveDown()
+{
+}
+
+void MpFileTreeview::moveToFirst()
+{
+}
+
+void MpFileTreeview::moveToLast()
+{
 }
 
 void MpFileTreeview::changeExtension(QAction* action, QPushButton* button)
