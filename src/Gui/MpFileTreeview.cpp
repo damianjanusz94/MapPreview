@@ -2,6 +2,8 @@
 
 #include <QtCore\QFile>
 #include <QtCore\QDir>
+#include <QtCore\QRandomGenerator>
+#include <QtWidgets\QColorDialog>
 #include <QtWidgets\QHeaderView>
 
 MpFileTreeview::MpFileTreeview(QWidget* parent) : QTreeView(parent)
@@ -25,6 +27,7 @@ MpFileTreeview::MpFileTreeview(QWidget* parent) : QTreeView(parent)
     addButtonExtension();
     addButton(2, "Refresh", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\refresh-24.png"), &MpFileTreeview::refreshRow);
     addButton(3, "Remove", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\remove-24.png"), &MpFileTreeview::removeRow);
+    addColorPickers();
 }
 
 void MpFileTreeview::addButton(int column, QString tooltip, QIcon icon, void(MpFileTreeview::* slotName)())
@@ -51,6 +54,25 @@ void MpFileTreeview::addButtonExtension()
         button->setToolTip("File type");
         setupMenuExtension(button);
         setIndexWidget(child, button);
+    }
+}
+
+void MpFileTreeview::addColorPickers()
+{
+    auto mainChildIndexes = fileTreeModel->getMainChildren(1);
+    for (const auto& child : mainChildIndexes)
+    {
+        auto subChildren = fileTreeModel->getItemChildren(child, 1);
+        for (const auto& subChild : subChildren)
+        {
+            auto button = new QPushButton();
+            QColor color(QRandomGenerator::global()->bounded(0, 255),
+                         QRandomGenerator::global()->bounded(0, 255), 
+                         QRandomGenerator::global()->bounded(0, 255));
+            button->setStyleSheet("background-color : " + color.name());
+            setIndexWidget(subChild, button);
+            connect(button, &QPushButton::released, this, [this, button] { changeColor(button); });
+        }
     }
 }
 
@@ -165,5 +187,20 @@ void MpFileTreeview::moveItem(MoveTreeItem moveFlags)
 void MpFileTreeview::changeExtension(QAction* action, QPushButton* button)
 {
     button->setText(action->text());
+}
+
+void MpFileTreeview::changeColor(QPushButton* button)
+{
+    QColor oldColor = button->palette().window().color();
+    QColor newColor = QColorDialog::getColor(oldColor, nullptr, "Pick a color");
+    if (!newColor.isValid())
+    {
+        return;
+    }
+
+    if (newColor != oldColor)
+    {
+        button->setStyleSheet("background-color : " + newColor.name());
+    }
 }
 

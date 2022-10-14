@@ -32,6 +32,7 @@ class MpFileTreeview : public QTreeView
 
 	void addButton(int column, QString tooltip, QIcon icon, void(MpFileTreeview::* slotName)());
 	void addButtonExtension();
+	void addColorPickers();
 	void setupMenuExtension(QPushButton* button);
 	void moveItem(MoveTreeItem moveFlags);
 
@@ -45,6 +46,7 @@ public slots:
 	void moveToFirst();
 	void moveToLast();
 	void changeExtension(QAction* action, QPushButton* button);
+	void changeColor(QPushButton* button);
 
 public:
 	explicit MpFileTreeview(QWidget* parent = nullptr);
