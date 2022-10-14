@@ -45,6 +45,37 @@ bool FileTreeModel::removeRows(int position, int rows, const QModelIndex& parent
     return success;
 }
 
+bool FileTreeModel::moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild)
+{
+    if (destinationChild < 0 || destinationChild > this->rowCount())
+    {
+        return false;
+    }
+
+    if (!beginMoveRows(QModelIndex(), sourceRow, sourceRow + count - 1, QModelIndex(), destinationChild))
+    {
+        return false;
+    }
+
+    bool result = false;
+    FileTreeItem* destinationItem = getItem(destinationParent);
+    if (destinationItem == nullptr)
+        return result;
+
+    int position = destinationChild;
+    for (int row = sourceRow; row < sourceRow + count; ++row)
+    {
+        QModelIndex index = this->index(row, 0, sourceParent);
+        FileTreeItem* item = getItem(index);
+        if (item == nullptr)
+            continue;
+        result |= destinationItem->moveChildren(item, position);
+        ++position;
+    }
+    endMoveRows();
+    return result;
+}
+
 void FileTreeModel::clearAll()
 {
     beginResetModel();
@@ -228,4 +259,23 @@ void FileTreeModel::setChecked(const QModelIndex& index, bool status)
     int rows = this->rowCount(index);
     for (int i = 0; i < rows; ++i)
         setChecked(this->index(i, 0, index), status);
+}
+
+
+int FileTreeModel::deltaIndexToLast(QModelIndex itemIndex)
+{
+    if (!itemIndex.isValid())
+    {
+        return 0;
+    }
+
+    int currRow = itemIndex.row();
+    int rowCount = this->rowCount();
+
+    if (currRow + 1 == rowCount)
+    {
+        return currRow;
+    }
+
+    return rowCount - currRow;
 }

@@ -8,11 +8,32 @@
 
 class MpFileTreeview : public QTreeView
 {
+	enum class MoveTreeItem
+	{
+		moveUp = 1 << 0,
+		moveDown = 1 << 1,
+		moveOnce = 1 << 2,
+		moveMany = 1 << 3
+	};
+
+	friend MoveTreeItem operator|(MoveTreeItem lhs, MoveTreeItem rhs)
+	{
+		return static_cast<MoveTreeItem>(static_cast<std::underlying_type<MoveTreeItem>::type>(lhs) |
+										 static_cast<std::underlying_type<MoveTreeItem>::type>(rhs));
+	};
+
+	friend MoveTreeItem operator&(MoveTreeItem lhs, MoveTreeItem rhs)
+	{
+		return static_cast<MoveTreeItem>(static_cast<std::underlying_type<MoveTreeItem>::type>(lhs) &
+										 static_cast<std::underlying_type<MoveTreeItem>::type>(rhs));
+	};
+
 	std::unique_ptr<FileTreeModel> fileTreeModel;
 
 	void addButton(int column, QString tooltip, QIcon icon, void(MpFileTreeview::* slotName)());
 	void addButtonExtension();
 	void setupMenuExtension(QPushButton* button);
+	void moveItem(MoveTreeItem moveFlags);
 
 public slots:
 	void refreshRow();
@@ -24,7 +45,6 @@ public slots:
 	void moveToFirst();
 	void moveToLast();
 	void changeExtension(QAction* action, QPushButton* button);
-
 
 public:
 	explicit MpFileTreeview(QWidget* parent = nullptr);

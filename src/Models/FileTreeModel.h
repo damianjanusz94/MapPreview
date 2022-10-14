@@ -24,8 +24,10 @@ public:
     int columnCount(const QModelIndex& parent = QModelIndex()) const override;
     bool setData(const QModelIndex& index, const QVariant& value, int role) override;
     bool removeRows(int position, int rows, const QModelIndex& parent = QModelIndex()) override;
+    bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild) override;
     std::vector<QModelIndex> getMainChildren(int column);
     void clearAll();
+    int deltaIndexToLast(QModelIndex itemIndex);
 
 private:
     void setupModelData(const QStringList& lines, FileTreeItem* parent);

@@ -57,6 +57,7 @@ void MpFileTvToolbar::setupUpBtn()
     upBtn->setFlat(true);
     upBtn->setToolTip("Move up");
     addWidget(upBtn);
+    connect(upBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::moveUp);
 }
 
 void MpFileTvToolbar::setupDownBtn()
@@ -66,6 +67,7 @@ void MpFileTvToolbar::setupDownBtn()
     downBtn->setFlat(true);
     downBtn->setToolTip("Move down");
     addWidget(downBtn);
+    connect(downBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::moveDown);
 }
 
 void MpFileTvToolbar::setupUpMaxBtn()
@@ -75,6 +77,7 @@ void MpFileTvToolbar::setupUpMaxBtn()
     upMaxBtn->setFlat(true);
     upMaxBtn->setToolTip("Move to first");
     addWidget(upMaxBtn);
+    connect(upMaxBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::moveToFirst);
 }
 
 void MpFileTvToolbar::setupDownMaxBtn()
@@ -84,6 +87,7 @@ void MpFileTvToolbar::setupDownMaxBtn()
     downMaxBtn->setFlat(true);
     downMaxBtn->setToolTip("Move to last");
     addWidget(downMaxBtn);
+    connect(downMaxBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::moveToLast);
 }
 
 void MpFileTvToolbar::addFileDialog()

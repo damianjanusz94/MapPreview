@@ -97,19 +97,70 @@ void MpFileTreeview::removeAll()
 
 void MpFileTreeview::moveUp()
 {
+    moveItem(MoveTreeItem::moveUp | MoveTreeItem::moveOnce);
 }
 
 void MpFileTreeview::moveDown()
 {
+    moveItem(MoveTreeItem::moveDown | MoveTreeItem::moveOnce);
 }
 
 void MpFileTreeview::moveToFirst()
 {
+    moveItem(MoveTreeItem::moveUp | MoveTreeItem::moveMany);
 }
 
 void MpFileTreeview::moveToLast()
 {
+    moveItem(MoveTreeItem::moveDown | MoveTreeItem::moveMany);
 }
+
+void MpFileTreeview::moveItem(MoveTreeItem moveFlags)
+{
+    if (!this->selectionModel()->hasSelection())
+    {
+        return;
+    }
+
+    int move = 0;
+    const QModelIndex index = this->selectionModel()->currentIndex();
+
+    if (index.parent().internalPointer() != nullptr)
+    {
+       return;
+    }
+
+    if (static_cast<bool>(moveFlags & MoveTreeItem::moveOnce))
+    {
+        if (static_cast<bool>(moveFlags & MoveTreeItem::moveUp))
+        {
+            move = index.row() - 1;
+        }
+        else
+        {
+            move = index.row() + 2;
+        }
+    }
+    else
+    {
+        if (static_cast<bool>(moveFlags & MoveTreeItem::moveUp))
+        {
+            move = 0;
+        }
+        else
+        {
+            move = fileTreeModel->deltaIndexToLast(index);
+        }
+    }
+
+    if (move == index.row())
+    {
+        return;
+    }
+
+    this->model()->moveRow(index.parent(), index.row(), index.parent(), move);
+}
+
 
 void MpFileTreeview::changeExtension(QAction* action, QPushButton* button)
 {

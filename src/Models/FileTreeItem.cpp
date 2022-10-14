@@ -77,6 +77,28 @@ bool FileTreeItem::removeChildren(int position, int count)
     return true;
 }
 
+bool FileTreeItem::moveChildren(FileTreeItem* child, int position)
+{
+    if (child == nullptr)
+        return false;
+    if (child->parentItem == nullptr)
+        return false;
+    if (child->parentItem != this)
+    {
+        child->parentItem->childItems.removeOne(child);
+        childItems.insert(position, child);
+        child->parentItem = this;
+    }
+    else
+    {
+        int index = childItems.indexOf(child);
+        if (position > index)
+            position--;
+        childItems.move(index, position);
+    }
+    return true;
+}
+
 void FileTreeItem::clearChildren()
 {
     for (int row = 0; row < childItems.size(); ++row)

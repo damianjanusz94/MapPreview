@@ -21,6 +21,7 @@ public:
     void setChecked(bool set);
     bool isChecked();
     bool removeChildren(int position, int count);
+    bool moveChildren(FileTreeItem* child, int position);
     void clearChildren();
 
 private:
