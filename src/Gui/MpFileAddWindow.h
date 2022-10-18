@@ -25,7 +25,6 @@ class MpFileAddWindow : public QDialog
 
 	void setupButtons();
 	void setupListView();
-	void fillListView();
 
 private slots:
 	void selectAllFiles();
@@ -33,6 +32,7 @@ private slots:
 
 public:
 	explicit MpFileAddWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent = nullptr);
-	void showWindow();
+	void fillListView();
+	std::vector<QString> getSelectedFiles();
 };
 

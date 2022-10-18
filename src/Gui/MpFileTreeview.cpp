@@ -6,13 +6,8 @@
 #include <QtWidgets\QColorDialog>
 #include <QtWidgets\QHeaderView>
 
-MpFileTreeview::MpFileTreeview(QWidget* parent) : QTreeView(parent)
+MpFileTreeview::MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, QWidget* parent) : QTreeView(parent), fileTreeModel(fileModel)
 {
-    QFile file("C:\\Users\\d.janusz\\Documents\\GitDJ\\default.txt");
-    file.open(QIODevice::ReadOnly);
-    fileTreeModel = std::make_unique<FileTreeModel>(file.readAll(), this);
-    file.close();
-
     setModel(fileTreeModel.get());
     setHeaderHidden(true);
     header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);

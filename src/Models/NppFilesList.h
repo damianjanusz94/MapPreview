@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <QtCore\QString>
+#include <QtCore\QMetaType>
 
 #include "../NppPlugin/NppProxy.h"
 

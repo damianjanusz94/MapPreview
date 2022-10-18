@@ -26,6 +26,7 @@ class MpMainWindow : public QMainWindow
 	std::unique_ptr<MpInfoToolbar> infoToolbar;
 
 	std::shared_ptr<NppProxy> nppProxy;
+	std::shared_ptr<FileTreeModel> fileTreeModel;
 	
 public:
 	explicit MpMainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent = nullptr, Qt::WindowFlags flags = { });

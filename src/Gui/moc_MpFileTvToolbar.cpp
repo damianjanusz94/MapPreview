@@ -24,7 +24,7 @@ QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MpFileTvToolbar_t {
     uint offsetsAndSizes[6];
     char stringdata0[16];
-    char stringdata1[14];
+    char stringdata1[15];
     char stringdata2[1];
 };
 #define QT_MOC_LITERAL(ofs, len) \
@@ -32,11 +32,11 @@ struct qt_meta_stringdata_MpFileTvToolbar_t {
 static const qt_meta_stringdata_MpFileTvToolbar_t qt_meta_stringdata_MpFileTvToolbar = {
     {
         QT_MOC_LITERAL(0, 15),  // "MpFileTvToolbar"
-        QT_MOC_LITERAL(16, 13),  // "addFileDialog"
-        QT_MOC_LITERAL(30, 0)   // ""
+        QT_MOC_LITERAL(16, 14),  // "showFileDialog"
+        QT_MOC_LITERAL(31, 0)   // ""
     },
     "MpFileTvToolbar",
-    "addFileDialog",
+    "showFileDialog",
     ""
 };
 #undef QT_MOC_LITERAL
@@ -69,7 +69,7 @@ void MpFileTvToolbar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         auto *_t = static_cast<MpFileTvToolbar *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->addFileDialog(); break;
+        case 0: _t->showFileDialog(); break;
         default: ;
         }
     }

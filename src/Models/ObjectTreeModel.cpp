@@ -1,25 +1,25 @@
-#include "FileTreeModel.h"
+#include "ObjectTreeModel.h"
 
-FileTreeModel::FileTreeModel(const QString& data, QObject* parent)
+ObjectTreeModel::ObjectTreeModel(const QString& data, QObject* parent)
     : QAbstractItemModel(parent)
 {
-    rootItem = new TreeItem({ tr("1"), tr("2"), tr("3"), tr("4")});
+    rootItem = new TreeItem({ tr("1"), tr("2") });
     setupModelData(data.split('\n'), rootItem);
 }
 
-FileTreeModel::~FileTreeModel()
+ObjectTreeModel::~ObjectTreeModel()
 {
     delete rootItem;
 }
 
-int FileTreeModel::columnCount(const QModelIndex& parent) const
+int ObjectTreeModel::columnCount(const QModelIndex& parent) const
 {
     if (parent.isValid())
         return static_cast<TreeItem*>(parent.internalPointer())->columnCount();
     return rootItem->columnCount();
 }
 
-std::vector<QModelIndex> FileTreeModel::getMainChildren(int column)
+std::vector<QModelIndex> ObjectTreeModel::getMainChildren(int column)
 {
     std::vector<QModelIndex> childrenIndexes;
 
@@ -32,7 +32,7 @@ std::vector<QModelIndex> FileTreeModel::getMainChildren(int column)
     return childrenIndexes;
 }
 
-std::vector<QModelIndex> FileTreeModel::getItemChildren(const QModelIndex& parent, int column)
+std::vector<QModelIndex> ObjectTreeModel::getItemChildren(const QModelIndex& parent, int column)
 {
     std::vector<QModelIndex> childrenIndexes;
 
@@ -46,58 +46,7 @@ std::vector<QModelIndex> FileTreeModel::getItemChildren(const QModelIndex& paren
     return childrenIndexes;
 }
 
-bool FileTreeModel::removeRows(int position, int rows, const QModelIndex& parent)
-{
-    TreeItem* parentItem = getItem(parent);
-    if (!parentItem)
-        return false;
-
-    beginRemoveRows(parent, position, position + rows - 1);
-    const bool success = parentItem->removeChildren(position, rows);
-    endRemoveRows();
-
-    return success;
-}
-
-bool FileTreeModel::moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild)
-{
-    if (destinationChild < 0 || destinationChild > this->rowCount())
-    {
-        return false;
-    }
-
-    if (!beginMoveRows(QModelIndex(), sourceRow, sourceRow + count - 1, QModelIndex(), destinationChild))
-    {
-        return false;
-    }
-
-    bool result = false;
-    TreeItem* destinationItem = getItem(destinationParent);
-    if (destinationItem == nullptr)
-        return result;
-
-    int position = destinationChild;
-    for (int row = sourceRow; row < sourceRow + count; ++row)
-    {
-        QModelIndex index = this->index(row, 0, sourceParent);
-        TreeItem* item = getItem(index);
-        if (item == nullptr)
-            continue;
-        result |= destinationItem->moveChildren(item, position);
-        ++position;
-    }
-    endMoveRows();
-    return result;
-}
-
-void FileTreeModel::clearAll()
-{
-    beginResetModel();
-    rootItem->clearChildren();
-    endResetModel();
-}
-
-QVariant FileTreeModel::data(const QModelIndex& index, int role) const
+QVariant ObjectTreeModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid())
         return QVariant();
@@ -116,7 +65,7 @@ QVariant FileTreeModel::data(const QModelIndex& index, int role) const
     return item->data(index.column());
 }
 
-Qt::ItemFlags FileTreeModel::flags(const QModelIndex& index) const
+Qt::ItemFlags ObjectTreeModel::flags(const QModelIndex& index) const
 {
     if (!index.isValid())
         return Qt::NoItemFlags;
@@ -124,7 +73,7 @@ Qt::ItemFlags FileTreeModel::flags(const QModelIndex& index) const
     return QAbstractItemModel::flags(index) | Qt::ItemIsUserCheckable;
 }
 
-QVariant FileTreeModel::headerData(int section, Qt::Orientation orientation,
+QVariant ObjectTreeModel::headerData(int section, Qt::Orientation orientation,
     int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
@@ -133,7 +82,7 @@ QVariant FileTreeModel::headerData(int section, Qt::Orientation orientation,
     return QVariant();
 }
 
-QModelIndex FileTreeModel::index(int row, int column, const QModelIndex& parent) const
+QModelIndex ObjectTreeModel::index(int row, int column, const QModelIndex& parent) const
 {
     if (!hasIndex(row, column, parent))
         return QModelIndex();
@@ -151,7 +100,7 @@ QModelIndex FileTreeModel::index(int row, int column, const QModelIndex& parent)
     return QModelIndex();
 }
 
-QModelIndex FileTreeModel::parent(const QModelIndex& index) const
+QModelIndex ObjectTreeModel::parent(const QModelIndex& index) const
 {
     if (!index.isValid())
         return QModelIndex();
@@ -165,7 +114,7 @@ QModelIndex FileTreeModel::parent(const QModelIndex& index) const
     return createIndex(parentItem->row(), 0, parentItem);
 }
 
-int FileTreeModel::rowCount(const QModelIndex& parent) const
+int ObjectTreeModel::rowCount(const QModelIndex& parent) const
 {
     TreeItem* parentItem;
     if (parent.column() > 0)
@@ -179,7 +128,7 @@ int FileTreeModel::rowCount(const QModelIndex& parent) const
     return parentItem->childCount();
 }
 
-void FileTreeModel::setupModelData(const QStringList& lines, TreeItem* parent)
+void ObjectTreeModel::setupModelData(const QStringList& lines, TreeItem* parent)
 {
     QList<TreeItem*> parents;
     QList<int> indentations;
@@ -230,9 +179,9 @@ void FileTreeModel::setupModelData(const QStringList& lines, TreeItem* parent)
     }
 }
 
-TreeItem* FileTreeModel::getItem(const QModelIndex& index) const
+TreeItem* ObjectTreeModel::getItem(const QModelIndex& index) const
 {
-    if (index.isValid()) 
+    if (index.isValid())
     {
         TreeItem* item = static_cast<TreeItem*>(index.internalPointer());
         if (item)
@@ -242,7 +191,7 @@ TreeItem* FileTreeModel::getItem(const QModelIndex& index) const
 }
 
 
-bool FileTreeModel::setData(const QModelIndex& index, const QVariant& value, int role)
+bool ObjectTreeModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
     Q_UNUSED(value);
 
@@ -252,11 +201,11 @@ bool FileTreeModel::setData(const QModelIndex& index, const QVariant& value, int
         setChecked(index, !item->isChecked());
         return true;
     }
-    
+
     return false;
 }
 
-void FileTreeModel::setChecked(const QModelIndex& index, bool status)
+void ObjectTreeModel::setChecked(const QModelIndex& index, bool status)
 {
     if (index.isValid())
     {
@@ -273,23 +222,4 @@ void FileTreeModel::setChecked(const QModelIndex& index, bool status)
     int rows = this->rowCount(index);
     for (int i = 0; i < rows; ++i)
         setChecked(this->index(i, 0, index), status);
-}
-
-
-int FileTreeModel::deltaIndexToLast(QModelIndex itemIndex)
-{
-    if (!itemIndex.isValid())
-    {
-        return 0;
-    }
-
-    int currRow = itemIndex.row();
-    int rowCount = this->rowCount();
-
-    if (currRow + 1 == rowCount)
-    {
-        return currRow;
-    }
-
-    return rowCount - currRow;
 }

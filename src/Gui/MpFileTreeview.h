@@ -28,7 +28,7 @@ class MpFileTreeview : public QTreeView
 										 static_cast<std::underlying_type<MoveTreeItem>::type>(rhs));
 	};
 
-	std::unique_ptr<FileTreeModel> fileTreeModel;
+	std::shared_ptr<FileTreeModel> fileTreeModel;
 
 	void addButton(int column, QString tooltip, QIcon icon, void(MpFileTreeview::* slotName)());
 	void addButtonExtension();
@@ -49,7 +49,7 @@ public slots:
 	void changeColor(QPushButton* button);
 
 public:
-	explicit MpFileTreeview(QWidget* parent = nullptr);
+	explicit MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, QWidget* parent = nullptr);
 
 };
 

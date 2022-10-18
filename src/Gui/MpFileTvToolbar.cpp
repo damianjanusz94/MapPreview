@@ -2,8 +2,9 @@
 
 #include<QtWidgets\QLayout>
 
-MpFileTvToolbar::MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv, QWidget* parent) 
-    : fileTreeview(fileTv), QToolBar(parent), nppProxy(pNppProxy)
+MpFileTvToolbar::MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv,
+                                 std::shared_ptr<FileTreeModel> fileModel, QWidget* parent)
+                                 : fileTreeview(fileTv), QToolBar(parent), fileTreeModel(fileModel), nppProxy(pNppProxy)
 {
     fileAddWindow = std::make_unique<MpFileAddWindow>(nppProxy);
     setWindowTitle("FileTvToolbar");
@@ -47,7 +48,7 @@ void MpFileTvToolbar::setupAddBtn()
     addBtn->setToolTip("Add file to list");
     addWidget(addBtn);
 
-    connect(addBtn, &QPushButton::released, this, &MpFileTvToolbar::addFileDialog);
+    connect(addBtn, &QPushButton::released, this, &MpFileTvToolbar::showFileDialog);
 }
 
 void MpFileTvToolbar::setupUpBtn()
@@ -90,7 +91,11 @@ void MpFileTvToolbar::setupDownMaxBtn()
     connect(downMaxBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::moveToLast);
 }
 
-void MpFileTvToolbar::addFileDialog()
+void MpFileTvToolbar::showFileDialog()
 {
-    fileAddWindow->showWindow();
+    fileAddWindow->fillListView();
+    if (fileAddWindow->exec() == QDialog::Accepted)
+    {
+        fileAddWindow->getSelectedFiles();
+    }
 }

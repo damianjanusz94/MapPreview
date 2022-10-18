@@ -18,12 +18,6 @@ MpFileAddWindow::MpFileAddWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* p
 	setLayout(mainLayout);
 }
 
-void MpFileAddWindow::showWindow()
-{
-	fillListView();
-	show();
-}
-
 void MpFileAddWindow::setupButtons()
 {
 	buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
@@ -66,10 +60,13 @@ void MpFileAddWindow::fillListView()
 {
 	listWidget->clear();
 
-	auto files = nppFileList->readNppFiles();
-	for (const auto& file : files)
+	auto nppFiles = nppFileList->readNppFiles();
+	for (const auto& file : nppFiles)
 	{
-		listWidget->addItem(file.fileName);
+		auto item = new QListWidgetItem(file.fileName);
+		QVariant dataItem(file.currentPath.isEmpty() ? file.fileName : file.currentPath);
+		item->setData(Qt::UserRole, dataItem);
+		listWidget->addItem(item);
 	}
 }
 
@@ -81,4 +78,17 @@ void MpFileAddWindow::unselectAllFiles()
 void MpFileAddWindow::selectAllFiles()
 {
 	listWidget->selectAll();
+}
+
+std::vector<QString> MpFileAddWindow::getSelectedFiles()
+{
+	std::vector<QString> selectedNppFiles;
+
+	auto selectedItems = listWidget->selectedItems();
+	for (auto item : selectedItems)
+	{
+		selectedNppFiles.push_back(item->data(Qt::UserRole).toString());
+	}
+	
+	return selectedNppFiles;
 }

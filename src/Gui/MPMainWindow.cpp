@@ -9,7 +9,6 @@ MpMainWindow::MpMainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent,
     setWindowTitle("MapPreview MainWindow");
 
     graphicsView = new QGraphicsView(this);
-    graphicsView->setMinimumSize(400, 205);
     setCentralWidget(graphicsView);
     //graphicsView->setBackgroundBrush(QBrush(QColor(0, 100, 100),Qt::SolidPattern));
     graphicsView->setScene(new QGraphicsScene());
@@ -49,8 +48,13 @@ void MpMainWindow::setupTreeDockWidgets()
 
 void MpMainWindow::setupFileDockWidget(Qt::DockWidgetArea area)
 {
-    fileTreeview = std::make_shared<MpFileTreeview>();
-    fileTvToolbar = std::make_unique<MpFileTvToolbar>(nppProxy, fileTreeview);
+    QFile file("C:\\Users\\d.janusz\\Documents\\GitDJ\\default.txt");
+    file.open(QIODevice::ReadOnly);
+    fileTreeModel = std::make_unique<FileTreeModel>(file.readAll(), this);
+    file.close();
+
+    fileTreeview = std::make_shared<MpFileTreeview>(fileTreeModel);
+    fileTvToolbar = std::make_unique<MpFileTvToolbar>(nppProxy, fileTreeview, fileTreeModel);
 
     QWidget* widget = new QWidget(this);
     QVBoxLayout* vLayout = new QVBoxLayout(widget);

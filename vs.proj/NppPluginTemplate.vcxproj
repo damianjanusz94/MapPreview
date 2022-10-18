@@ -59,9 +59,10 @@
     <ClInclude Include="..\src\MapPreviewResources.h" />
     <ClInclude Include="..\src\MapPreviewWindow.h" />
     <ClInclude Include="..\src\Models\FileHelper.h" />
-    <ClInclude Include="..\src\Models\FileTreeItem.h" />
+    <ClInclude Include="..\src\Models\TreeItem.h" />
     <ClInclude Include="..\src\Models\FileTreeModel.h" />
     <ClInclude Include="..\src\Models\NppFilesList.h" />
+    <ClInclude Include="..\src\Models\ObjectTreeModel.h" />
     <ClInclude Include="..\src\NppPlugin\DockingFeature\Docking.h" />
     <ClInclude Include="..\src\NppPlugin\DockingFeature\DockingDlgInterface.h" />
     <ClInclude Include="..\src\NppPlugin\DockingFeature\dockingResource.h" />
@@ -156,9 +157,10 @@
     <ClCompile Include="..\src\MapPreviewPlugin.cpp" />
     <ClCompile Include="..\src\MapPreviewWindow.cpp" />
     <ClCompile Include="..\src\Models\FileHelper.cpp" />
-    <ClCompile Include="..\src\Models\FileTreeItem.cpp" />
+    <ClCompile Include="..\src\Models\TreeItem.cpp" />
     <ClCompile Include="..\src\Models\FileTreeModel.cpp" />
     <ClCompile Include="..\src\Models\NppFilesList.cpp" />
+    <ClCompile Include="..\src\Models\ObjectTreeModel.cpp" />
     <ClCompile Include="..\src\NppPlugin\DockingFeature\StaticDialog.cpp" />
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp" />
     <ClCompile Include="..\src\NppPlugin\NppProxy.cpp" />
@@ -173,9 +175,6 @@
   <ItemGroup>
     <ResourceCompile Include="..\src\MapPreviewWindow.rc" />
     <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9D04DBD5-E12E-44E0-A683-6F43F21D533B}</ProjectGuid>

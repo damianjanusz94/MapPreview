@@ -15,6 +15,8 @@ class MpFileTvToolbar : public QToolBar
 	std::weak_ptr<MpFileTreeview> fileTreeview;
 	std::unique_ptr<MpFileAddWindow> fileAddWindow;
 	std::shared_ptr<NppProxy> nppProxy;
+	std::shared_ptr<FileTreeModel> fileTreeModel;
+
 	QPushButton* refreshAllBtn;
 	QPushButton* removeAllBtn;
 	QPushButton* addBtn;
@@ -32,9 +34,10 @@ class MpFileTvToolbar : public QToolBar
 	void setupDownMaxBtn();
 
 private slots:
-	void addFileDialog();
+	void showFileDialog();
 
 public:
-	explicit MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv, QWidget* parent = nullptr);
+	explicit MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv, 
+							 std::shared_ptr<FileTreeModel> fileModel, QWidget* parent = nullptr);
 };
 

@@ -93,7 +93,7 @@
     <ClInclude Include="..\src\Models\FileTreeModel.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Models\FileTreeItem.h">
+    <ClInclude Include="..\src\Models\TreeItem.h">
       <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Models\NppFilesList.h">
@@ -103,6 +103,9 @@
       <Filter>NppPlugin</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Models\FileHelper.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Models\ObjectTreeModel.h">
       <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
@@ -172,7 +175,7 @@
     <ClCompile Include="..\src\Models\FileTreeModel.cpp">
       <Filter>Models</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Models\FileTreeItem.cpp">
+    <ClCompile Include="..\src\Models\TreeItem.cpp">
       <Filter>Models</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Gui\MpFileTvToolbar.cpp">
@@ -194,6 +197,9 @@
       <Filter>NppPlugin</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Models\FileHelper.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Models\ObjectTreeModel.cpp">
       <Filter>Models</Filter>
     </ClCompile>
   </ItemGroup>
@@ -225,8 +231,5 @@
     <CustomBuild Include="..\src\Gui\MpFileAddWindow.h">
       <Filter>Gui</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
