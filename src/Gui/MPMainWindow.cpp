@@ -42,6 +42,7 @@ void MpMainWindow::setupTreeDockWidgets()
     dwObj->setObjectName(nameObj);
     dwObj->setWindowTitle(nameObj);
     dwObj->setWidget(objectTreeview.get());
+    dwObj->setMaximumHeight(200);
     addDockWidget(area, dwObj);
     dockWidgets.append(dwObj);
 }
@@ -62,6 +63,7 @@ void MpMainWindow::setupFileDockWidget(Qt::DockWidgetArea area)
     dw->setObjectName(name);
     dw->setWindowTitle(name);
     dw->setWidget(widget);
+    dw->setMinimumWidth(400);
     addDockWidget(area, dw);
     dockWidgets.append(dw);
 }
