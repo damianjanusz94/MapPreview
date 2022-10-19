@@ -10,7 +10,7 @@ class FileTreeModel : public QAbstractItemModel
 {
 
 public:
-    explicit FileTreeModel(const QString& data, QObject* parent = nullptr);
+    explicit FileTreeModel(QObject* parent = nullptr);
     ~FileTreeModel();
 
     QVariant data(const QModelIndex& index, int role) const override;
@@ -26,12 +26,14 @@ public:
     bool removeRows(int position, int rows, const QModelIndex& parent = QModelIndex()) override;
     bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild) override;
     std::vector<QModelIndex> getMainChildren(int column);
+    QModelIndex getLastMainChildren(int column);
     std::vector<QModelIndex> getItemChildren(const QModelIndex& parent, int column);
     void clearAll();
     int deltaIndexToLast(QModelIndex itemIndex);
+    bool insertMainRow(int position, const QString& filePath, const QModelIndex& parent = QModelIndex());
+
 
 private:
-    void setupModelData(const QStringList& lines, TreeItem* parent);
     void setChecked(const QModelIndex& index, bool status);
     TreeItem* getItem(const QModelIndex& index) const;
     TreeItem* rootItem;

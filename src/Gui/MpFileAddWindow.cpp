@@ -80,14 +80,14 @@ void MpFileAddWindow::selectAllFiles()
 	listWidget->selectAll();
 }
 
-std::vector<QString> MpFileAddWindow::getSelectedFiles()
+QStringList MpFileAddWindow::getSelectedFiles()
 {
-	std::vector<QString> selectedNppFiles;
+	QStringList selectedNppFiles;
 
 	auto selectedItems = listWidget->selectedItems();
 	for (auto item : selectedItems)
 	{
-		selectedNppFiles.push_back(item->data(Qt::UserRole).toString());
+		selectedNppFiles.append(item->data(Qt::UserRole).toString());
 	}
 	
 	return selectedNppFiles;

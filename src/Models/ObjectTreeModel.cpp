@@ -3,7 +3,7 @@
 ObjectTreeModel::ObjectTreeModel(const QString& data, QObject* parent)
     : QAbstractItemModel(parent)
 {
-    rootItem = new TreeItem({ tr("1"), tr("2") });
+    rootItem = new TreeItem({ tr("1"), tr("2") }, nullptr);
     setupModelData(data.split('\n'), rootItem);
 }
 
@@ -173,7 +173,7 @@ void ObjectTreeModel::setupModelData(const QStringList& lines, TreeItem* parent)
             }
 
             // Append a new item to the current parent's list of children.
-            parents.last()->appendChild(new TreeItem(columnData, parents.last()));
+            parents.last()->appendChild(new TreeItem(columnData, nullptr, parents.last()));
         }
         ++number;
     }

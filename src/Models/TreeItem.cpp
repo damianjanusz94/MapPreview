@@ -1,6 +1,9 @@
 #include "TreeItem.h"
+#include "FileHelper.h"
+#include "../Models/GeoLayer.h"
 
-TreeItem::TreeItem(const QList<QVariant>& data, TreeItem* parent) : itemData(data), parentItem(parent)
+TreeItem::TreeItem(const QList<QVariant>& data, std::shared_ptr<GeoLayer> geolayer, TreeItem* parent) 
+                  : itemData(data), parentItem(parent), geoLayer(geolayer)
 {
 }
 
@@ -64,6 +67,20 @@ int TreeItem::row() const
         return parentItem->childItems.indexOf(const_cast<TreeItem*>(this));
 
     return 0;
+}
+
+bool TreeItem::insertChildren(int position, int columns, const QString& filePath)
+{
+    if (position < 0 || position > childItems.size())
+        return false;
+
+    QList<QVariant> data;
+    data.reserve(columns);
+    data << FileHelper::getFileName(filePath);
+    TreeItem* item = new TreeItem(data, nullptr, this);
+    childItems.insert(position, item);
+
+    return true;
 }
 
 bool TreeItem::removeChildren(int position, int count)

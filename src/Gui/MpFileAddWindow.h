@@ -33,6 +33,6 @@ private slots:
 public:
 	explicit MpFileAddWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent = nullptr);
 	void fillListView();
-	std::vector<QString> getSelectedFiles();
+	QStringList getSelectedFiles();
 };
 

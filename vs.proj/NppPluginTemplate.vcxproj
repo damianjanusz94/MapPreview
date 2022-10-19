@@ -59,6 +59,7 @@
     <ClInclude Include="..\src\MapPreviewResources.h" />
     <ClInclude Include="..\src\MapPreviewWindow.h" />
     <ClInclude Include="..\src\Models\FileHelper.h" />
+    <ClInclude Include="..\src\Models\GeoLayer.h" />
     <ClInclude Include="..\src\Models\TreeItem.h" />
     <ClInclude Include="..\src\Models\FileTreeModel.h" />
     <ClInclude Include="..\src\Models\NppFilesList.h" />
@@ -157,6 +158,7 @@
     <ClCompile Include="..\src\MapPreviewPlugin.cpp" />
     <ClCompile Include="..\src\MapPreviewWindow.cpp" />
     <ClCompile Include="..\src\Models\FileHelper.cpp" />
+    <ClCompile Include="..\src\Models\GeoLayer.cpp" />
     <ClCompile Include="..\src\Models\TreeItem.cpp" />
     <ClCompile Include="..\src\Models\FileTreeModel.cpp" />
     <ClCompile Include="..\src\Models\NppFilesList.cpp" />

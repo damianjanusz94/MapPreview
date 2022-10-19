@@ -108,6 +108,9 @@
     <ClInclude Include="..\src\Models\ObjectTreeModel.h">
       <Filter>Models</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Models\GeoLayer.h">
+      <Filter>Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp">
@@ -200,6 +203,9 @@
       <Filter>Models</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Models\ObjectTreeModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Models\GeoLayer.cpp">
       <Filter>Models</Filter>
     </ClCompile>
   </ItemGroup>

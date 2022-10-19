@@ -96,6 +96,6 @@ void MpFileTvToolbar::showFileDialog()
     fileAddWindow->fillListView();
     if (fileAddWindow->exec() == QDialog::Accepted)
     {
-        fileAddWindow->getSelectedFiles();
+        fileTreeview.lock()->addFileItems(fileAddWindow->getSelectedFiles());
     }
 }

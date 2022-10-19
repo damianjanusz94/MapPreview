@@ -48,11 +48,7 @@ void MpMainWindow::setupTreeDockWidgets()
 
 void MpMainWindow::setupFileDockWidget(Qt::DockWidgetArea area)
 {
-    QFile file("C:\\Users\\d.janusz\\Documents\\GitDJ\\default.txt");
-    file.open(QIODevice::ReadOnly);
-    fileTreeModel = std::make_unique<FileTreeModel>(file.readAll(), this);
-    file.close();
-
+    fileTreeModel = std::make_unique<FileTreeModel>(this);
     fileTreeview = std::make_shared<MpFileTreeview>(fileTreeModel);
     fileTvToolbar = std::make_unique<MpFileTvToolbar>(nppProxy, fileTreeview, fileTreeModel);
 

@@ -3,10 +3,12 @@
 #include <QtCore\QVariant>
 #include <QtCore\QList>
 
+class GeoLayer;
+
 class TreeItem
 {
 public:
-    explicit TreeItem(const QList<QVariant>& data, TreeItem* parentItem = nullptr);
+    explicit TreeItem(const QList<QVariant>& data, std::shared_ptr<GeoLayer> geolayer, TreeItem* parentItem = nullptr);
     ~TreeItem();
 
     void appendChild(TreeItem* child);
@@ -20,6 +22,7 @@ public:
     TreeItem* getParentItem();
     void setChecked(bool set);
     bool isChecked();
+    bool insertChildren(int position, int columns, const QString& filePath);
     bool removeChildren(int position, int count);
     bool moveChildren(TreeItem* child, int position);
     void clearChildren();
@@ -28,5 +31,6 @@ private:
     QList<TreeItem*> childItems;
     QList<QVariant> itemData;
     TreeItem* parentItem;
+    std::shared_ptr<GeoLayer> geoLayer;
     bool checked = false;
 };

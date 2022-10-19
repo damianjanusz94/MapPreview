@@ -1,10 +1,10 @@
 #include "FileTreeModel.h"
+#include "FileHelper.h"
 
-FileTreeModel::FileTreeModel(const QString& data, QObject* parent)
+FileTreeModel::FileTreeModel(QObject* parent)
     : QAbstractItemModel(parent)
 {
-    rootItem = new TreeItem({ tr("1"), tr("2"), tr("3"), tr("4")});
-    setupModelData(data.split('\n'), rootItem);
+    rootItem = new TreeItem({ tr("1"), tr("2"), tr("3"), tr("4")}, nullptr);
 }
 
 FileTreeModel::~FileTreeModel()
@@ -32,6 +32,15 @@ std::vector<QModelIndex> FileTreeModel::getMainChildren(int column)
     return childrenIndexes;
 }
 
+QModelIndex FileTreeModel::getLastMainChildren(int column)
+{
+    auto childrenList = rootItem->getChildren();
+    if (childrenList.size() > 0)
+        return createIndex(childrenList.last()->row(), column, childrenList.last());
+    else
+        return QModelIndex();
+}
+
 std::vector<QModelIndex> FileTreeModel::getItemChildren(const QModelIndex& parent, int column)
 {
     std::vector<QModelIndex> childrenIndexes;
@@ -44,6 +53,19 @@ std::vector<QModelIndex> FileTreeModel::getItemChildren(const QModelIndex& paren
     }
 
     return childrenIndexes;
+}
+
+bool FileTreeModel::insertMainRow(int position, const QString& filePath, const QModelIndex& parent)
+{
+    TreeItem* parentItem = getItem(parent);
+    if (!parentItem)
+        return false;
+
+    beginInsertRows(parent, position, position);
+    const bool success = parentItem->insertChildren(position, rootItem->columnCount(), filePath);
+    endInsertRows();
+
+    return success;
 }
 
 bool FileTreeModel::removeRows(int position, int rows, const QModelIndex& parent)
@@ -179,57 +201,6 @@ int FileTreeModel::rowCount(const QModelIndex& parent) const
     return parentItem->childCount();
 }
 
-void FileTreeModel::setupModelData(const QStringList& lines, TreeItem* parent)
-{
-    QList<TreeItem*> parents;
-    QList<int> indentations;
-    parents << parent;
-    indentations << 0;
-
-    int number = 0;
-
-    while (number < lines.count()) {
-        int position = 0;
-        while (position < lines[number].length()) {
-            if (lines[number].at(position) != ' ')
-                break;
-            position++;
-        }
-
-        const QString lineData = lines[number].mid(position).trimmed();
-
-        if (!lineData.isEmpty()) {
-            // Read the column data from the rest of the line.
-            const QStringList columnStrings =
-                lineData.split(QLatin1Char('\t'), Qt::SkipEmptyParts);
-            QList<QVariant> columnData;
-            columnData.reserve(columnStrings.count());
-            for (const QString& columnString : columnStrings)
-                columnData << columnString;
-
-            if (position > indentations.last()) {
-                // The last child of the current parent is now the new parent
-                // unless the current parent has no children.
-
-                if (parents.last()->childCount() > 0) {
-                    parents << parents.last()->child(parents.last()->childCount() - 1);
-                    indentations << position;
-                }
-            }
-            else {
-                while (position < indentations.last() && parents.count() > 0) {
-                    parents.pop_back();
-                    indentations.pop_back();
-                }
-            }
-
-            // Append a new item to the current parent's list of children.
-            parents.last()->appendChild(new TreeItem(columnData, parents.last()));
-        }
-        ++number;
-    }
-}
-
 TreeItem* FileTreeModel::getItem(const QModelIndex& index) const
 {
     if (index.isValid()) 
@@ -293,3 +264,5 @@ int FileTreeModel::deltaIndexToLast(QModelIndex itemIndex)
 
     return rowCount - currRow;
 }
+
+
