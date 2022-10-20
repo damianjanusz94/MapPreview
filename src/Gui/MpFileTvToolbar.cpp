@@ -100,7 +100,7 @@ void MpFileTvToolbar::showFileDialog()
     {
         QMessageBox infoMsg;
         infoMsg.setWindowTitle(QString("Map Preview"));
-        infoMsg.setText(QString("All of files are already on list"));
+        infoMsg.setText(QString("All of available files are already on list"));
         infoMsg.setIcon(QMessageBox::Information);
         infoMsg.exec();
         return;

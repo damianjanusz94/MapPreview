@@ -6,6 +6,9 @@
 #include <QtWidgets\QColorDialog>
 #include <QtWidgets\QHeaderView>
 
+#include "../Enums/FileExtType.h"
+#include "../Models/FileHelper.h"
+
 MpFileTreeview::MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, QWidget* parent) : QTreeView(parent), fileTreeModel(fileModel)
 {
     setModel(fileTreeModel.get());
@@ -30,9 +33,9 @@ void MpFileTreeview::addButton(const QModelIndex& index, QString tooltip, QIcon 
     connect(button, &QPushButton::released, this, slotName);
 }
 
-void MpFileTreeview::addButtonExtension(const QModelIndex& index)
+void MpFileTreeview::addButtonExtension(const QModelIndex& index, const QString& fileExtension)
 {
-    auto button = new QPushButton("unknown");
+    auto button = new QPushButton(Enums::GetFileExtTypeString(fileExtension));
     button->setFlat(true);
     button->setToolTip("File type");
     setupMenuExtension(button);
@@ -62,10 +65,10 @@ void MpFileTreeview::setupMenuExtension(QPushButton* button)
 {
     auto menuExtension = new QMenu();
 
-    QAction* unknownAction = new QAction("unknown", button);
-    QAction* geojsonAction = new QAction("GEOJSON", button);
-    QAction* wkbAction = new QAction("WKB", button);
-    QAction* wktAction = new QAction("WKT", button);
+    QAction* unknownAction = new QAction(Enums::GetFileExtTypeString(Enums::FileExtType::unknown), button);
+    QAction* geojsonAction = new QAction(Enums::GetFileExtTypeString(Enums::FileExtType::GEOJSON), button);
+    QAction* wkbAction = new QAction(Enums::GetFileExtTypeString(Enums::FileExtType::WKB), button);
+    QAction* wktAction = new QAction(Enums::GetFileExtTypeString(Enums::FileExtType::WKT), button);
     
     connect(unknownAction, &QAction::triggered, this, [this, unknownAction, button] { changeExtension(unknownAction, button); });
     connect(geojsonAction, &QAction::triggered, this, [this, geojsonAction, button] { changeExtension(geojsonAction, button); });
@@ -201,7 +204,7 @@ void MpFileTreeview::addFileItem(const QString& filePath)
     if (!fileTreeModel->insertMainRow(lastIndex.row() + 1, filePath, lastIndex.parent()))
         return;
 
-    addButtonExtension(fileTreeModel->getLastMainChildren(EXTENSION_COLUMN));
+    addButtonExtension(fileTreeModel->getLastMainChildren(EXTENSION_COLUMN), FileHelper::getFileExtension(filePath));
     addButton(fileTreeModel->getLastMainChildren(REFRESH_COLUMN), "Refresh", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\refresh-24.png"), &MpFileTreeview::refreshRow);
     addButton(fileTreeModel->getLastMainChildren(REMOVE_COLUMN), "Remove", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\remove-24.png"), &MpFileTreeview::removeRow);
     //addColorPickers();

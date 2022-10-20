@@ -35,7 +35,7 @@ class MpFileTreeview : public QTreeView
 	std::shared_ptr<FileTreeModel> fileTreeModel;
 
 	void addButton(const QModelIndex& index, QString tooltip, QIcon icon, void(MpFileTreeview::* slotName)());
-	void addButtonExtension(const QModelIndex& index);
+	void addButtonExtension(const QModelIndex& index, const QString& fileExtension);
 	void addColorPickers();
 	void setupMenuExtension(QPushButton* button);
 	void moveItem(MoveTreeItem moveFlags);

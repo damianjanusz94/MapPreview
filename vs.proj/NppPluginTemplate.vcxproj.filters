@@ -22,6 +22,9 @@
     <Filter Include="Models">
       <UniqueIdentifier>{4e95474f-8fd5-4400-8d97-80d13c179142}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enums">
+      <UniqueIdentifier>{3617dac6-5b5d-4400-8b13-01e6c9a443a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\NppPlugin\menuCmdID.h">
@@ -110,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Models\GeoLayer.h">
       <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Enums\FileExtType.h">
+      <Filter>Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
