@@ -2,6 +2,9 @@
 #include "FileHelper.h"
 #include "../Models/GeoLayer.h"
 
+#include<QtCore\QDir>
+#include<QtGui\QIcon>
+
 TreeItem::TreeItem(const QList<QVariant>& data, std::shared_ptr<GeoLayer> geolayer, TreeItem* parent) 
                   : itemData(data), parentItem(parent), geoLayer(geolayer)
 {
@@ -81,8 +84,20 @@ bool TreeItem::insertChildren(int position, int columns, const QString& filePath
     data << geoLayerPtr->getFileName();
     TreeItem* item = new TreeItem(data, geoLayerPtr, this);
     childItems.insert(position, item);
+    item->insertGeoChild(columns, QString("Point"));
+    item->insertGeoChild(columns, QString("Line"));
+    item->insertGeoChild(columns, QString("Polygon"));
 
     return true;
+}
+
+void TreeItem::insertGeoChild(int columns, const QString& title)
+{
+    QList<QVariant> data;
+    data.reserve(columns);
+    data << title;
+    TreeItem* item = new TreeItem(data, geoLayer, this);
+    appendChild(item);
 }
 
 bool TreeItem::removeChildren(int position, int count)
@@ -134,3 +149,4 @@ QString TreeItem::getFilePath()
 
     return QString("");
 }
+

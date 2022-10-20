@@ -114,7 +114,7 @@
     <ClInclude Include="..\src\Models\GeoLayer.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Enums\FileExtType.h">
+    <ClInclude Include="..\src\Enums\GeoExtType.h">
       <Filter>Enums</Filter>
     </ClInclude>
   </ItemGroup>

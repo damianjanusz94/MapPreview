@@ -1,6 +1,9 @@
 #include "FileTreeModel.h"
 #include "FileHelper.h"
 
+#include<QtCore\QDir>
+#include<QtGui\QIcon>
+
 FileTreeModel::FileTreeModel(QObject* parent)
     : QAbstractItemModel(parent)
 {
@@ -130,6 +133,14 @@ QVariant FileTreeModel::data(const QModelIndex& index, int role) const
     {
         return static_cast<int>(item1->isChecked() ? Qt::Checked : Qt::Unchecked);
     }
+
+    if (role == Qt::DecorationRole)
+    {
+        auto type = titleGeoTypeChild(index);
+        if (!type.isEmpty())
+            return iconGeoTypeChild(type);
+    }
+
     if (role != Qt::DisplayRole && role != Qt::EditRole)
         return QVariant();
 
@@ -277,4 +288,33 @@ QStringList FileTreeModel::getAllFilePaths()
     }
 
     return filePaths;
+}
+
+QString FileTreeModel::titleGeoTypeChild(const QModelIndex& index) const
+{
+    auto item = getItem(index);
+    if (item->childCount() == 0)
+    {
+        return item->data(0).toString();
+    }
+
+    return QString();
+}
+
+QIcon FileTreeModel::iconGeoTypeChild(const QString& type) const
+{
+    if (type == "Point")
+    {
+        return QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\point-48.png");
+    }
+    else if (type == "Line")
+    {
+        return QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\line-48.png");
+    }
+    else if (type == "Polygon")
+    {
+        return QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\polygon-48.png");
+    }
+
+    return QIcon();
 }

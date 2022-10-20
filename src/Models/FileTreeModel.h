@@ -32,8 +32,9 @@ public:
     int deltaIndexToLast(QModelIndex itemIndex);
     bool insertMainRow(int position, const QString& filePath, const QModelIndex& parent = QModelIndex());
     QStringList getAllFilePaths();
-
-
+    QString titleGeoTypeChild(const QModelIndex& index) const;
+    QIcon iconGeoTypeChild(const QString& type) const;
+    
 private:
     void setChecked(const QModelIndex& index, bool status);
     TreeItem* getItem(const QModelIndex& index) const;

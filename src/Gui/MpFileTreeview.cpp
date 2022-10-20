@@ -6,8 +6,10 @@
 #include <QtWidgets\QColorDialog>
 #include <QtWidgets\QHeaderView>
 
-#include "../Enums/FileExtType.h"
+#include "../Enums/GeoExtType.h"
 #include "../Models/FileHelper.h"
+
+using namespace Enums;
 
 MpFileTreeview::MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, QWidget* parent) : QTreeView(parent), fileTreeModel(fileModel)
 {
@@ -35,7 +37,7 @@ void MpFileTreeview::addButton(const QModelIndex& index, QString tooltip, QIcon 
 
 void MpFileTreeview::addButtonExtension(const QModelIndex& index, const QString& fileExtension)
 {
-    auto button = new QPushButton(Enums::GetFileExtTypeString(fileExtension));
+    auto button = new QPushButton(GeoExtType::getGeoExtStringOrUnknown(fileExtension));
     button->setFlat(true);
     button->setToolTip("File type");
     setupMenuExtension(button);
@@ -65,10 +67,10 @@ void MpFileTreeview::setupMenuExtension(QPushButton* button)
 {
     auto menuExtension = new QMenu();
 
-    QAction* unknownAction = new QAction(Enums::GetFileExtTypeString(Enums::FileExtType::unknown), button);
-    QAction* geojsonAction = new QAction(Enums::GetFileExtTypeString(Enums::FileExtType::GEOJSON), button);
-    QAction* wkbAction = new QAction(Enums::GetFileExtTypeString(Enums::FileExtType::WKB), button);
-    QAction* wktAction = new QAction(Enums::GetFileExtTypeString(Enums::FileExtType::WKT), button);
+    QAction* unknownAction = new QAction(GeoExtType::GetGeoExtTypeString(GeoExtType::ExtType::unknown), button);
+    QAction* geojsonAction = new QAction(GeoExtType::GetGeoExtTypeString(GeoExtType::ExtType::GEOJSON), button);
+    QAction* wkbAction = new QAction(GeoExtType::GetGeoExtTypeString(GeoExtType::ExtType::WKB), button);
+    QAction* wktAction = new QAction(GeoExtType::GetGeoExtTypeString(GeoExtType::ExtType::WKT), button);
     
     connect(unknownAction, &QAction::triggered, this, [this, unknownAction, button] { changeExtension(unknownAction, button); });
     connect(geojsonAction, &QAction::triggered, this, [this, geojsonAction, button] { changeExtension(geojsonAction, button); });

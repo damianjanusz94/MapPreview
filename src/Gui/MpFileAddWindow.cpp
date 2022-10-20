@@ -1,6 +1,9 @@
 #include "MpFileAddWindow.h"
+#include "../Enums/GeoExtType.h"
 
 #include <QtCore\QDir>
+
+using namespace Enums;
 
 MpFileAddWindow::MpFileAddWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent) : QDialog(parent), nppProxy(pNppProxy)
 {
@@ -63,6 +66,9 @@ void MpFileAddWindow::fillListView(QStringList currentFiles)
 	auto nppFiles = nppFileList->readNppFiles();
 	for (const auto& file : nppFiles)
 	{
+		if (!file.extension.isEmpty() && !GeoExtType::isGeoExtType(file.extension))
+			continue;
+
 		QString fileName = file.currentPath.isEmpty() ? file.fileName : file.currentPath;
 
 		if (currentFiles.contains(fileName))

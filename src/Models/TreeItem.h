@@ -27,11 +27,12 @@ public:
     bool moveChildren(TreeItem* child, int position);
     void clearChildren();
     QString getFilePath();
+    void insertGeoChild(int columns, const QString& title);
 
 private:
     QList<TreeItem*> childItems;
     QList<QVariant> itemData;
     TreeItem* parentItem;
     std::shared_ptr<GeoLayer> geoLayer;
-    bool checked = false;
+    bool checked = true;
 };
