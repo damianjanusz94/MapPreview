@@ -1,6 +1,7 @@
 #include "MpFileTvToolbar.h"
 
 #include<QtWidgets\QLayout>
+#include<QtWidgets\QMessageBox>
 
 MpFileTvToolbar::MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv,
                                  std::shared_ptr<FileTreeModel> fileModel, QWidget* parent)
@@ -93,7 +94,18 @@ void MpFileTvToolbar::setupDownMaxBtn()
 
 void MpFileTvToolbar::showFileDialog()
 {
-    fileAddWindow->fillListView();
+    fileAddWindow->fillListView(fileTreeModel->getAllFilePaths());
+
+    if (fileAddWindow->isListEmpty())
+    {
+        QMessageBox infoMsg;
+        infoMsg.setWindowTitle(QString("Map Preview"));
+        infoMsg.setText(QString("All of files are already on list"));
+        infoMsg.setIcon(QMessageBox::Information);
+        infoMsg.exec();
+        return;
+    }
+
     if (fileAddWindow->exec() == QDialog::Accepted)
     {
         fileTreeview.lock()->addFileItems(fileAddWindow->getSelectedFiles());

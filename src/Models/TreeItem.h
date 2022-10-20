@@ -26,6 +26,7 @@ public:
     bool removeChildren(int position, int count);
     bool moveChildren(TreeItem* child, int position);
     void clearChildren();
+    QString getFilePath();
 
 private:
     QList<TreeItem*> childItems;

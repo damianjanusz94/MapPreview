@@ -56,15 +56,20 @@ void MpFileAddWindow::setupListView()
 	mainLayout->addWidget(listWidget);
 }
 
-void MpFileAddWindow::fillListView()
+void MpFileAddWindow::fillListView(QStringList currentFiles)
 {
 	listWidget->clear();
 
 	auto nppFiles = nppFileList->readNppFiles();
 	for (const auto& file : nppFiles)
 	{
+		QString fileName = file.currentPath.isEmpty() ? file.fileName : file.currentPath;
+
+		if (currentFiles.contains(fileName))
+			continue;
+
 		auto item = new QListWidgetItem(file.fileName);
-		QVariant dataItem(file.currentPath.isEmpty() ? file.fileName : file.currentPath);
+		QVariant dataItem(fileName);
 		item->setData(Qt::UserRole, dataItem);
 		listWidget->addItem(item);
 	}

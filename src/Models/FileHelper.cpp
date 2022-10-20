@@ -27,3 +27,8 @@ QString FileHelper::getFileExtension(QString filePath)
 	QStringList parts = filePath.split(".");
 	return parts.at(parts.size() - 1);
 }
+
+bool FileHelper::isFilePath(QString filePath)
+{
+	return filePath.contains("\\");
+}

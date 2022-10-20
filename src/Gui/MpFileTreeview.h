@@ -56,6 +56,5 @@ public:
 	explicit MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, QWidget* parent = nullptr);
 	void addFileItems(const QStringList& filePaths);
 	void addFileItem(const QString& filePath);
-
 };
 

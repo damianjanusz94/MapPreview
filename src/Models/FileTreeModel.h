@@ -31,6 +31,7 @@ public:
     void clearAll();
     int deltaIndexToLast(QModelIndex itemIndex);
     bool insertMainRow(int position, const QString& filePath, const QModelIndex& parent = QModelIndex());
+    QStringList getAllFilePaths();
 
 
 private:

@@ -266,3 +266,15 @@ int FileTreeModel::deltaIndexToLast(QModelIndex itemIndex)
 }
 
 
+QStringList FileTreeModel::getAllFilePaths()
+{
+    QStringList filePaths;
+
+    auto mainItems = rootItem->getChildren();
+    for (const auto& item : mainItems)
+    {
+        filePaths.append(item->getFilePath());
+    }
+
+    return filePaths;
+}
