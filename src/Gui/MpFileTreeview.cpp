@@ -37,29 +37,31 @@ void MpFileTreeview::addButton(const QModelIndex& index, QString tooltip, QIcon 
 
 void MpFileTreeview::addButtonExtension(const QModelIndex& index, const QString& fileExtension)
 {
-    auto button = new QPushButton(GeoExtType::getGeoExtStringOrUnknown(fileExtension));
+    const QString& extType = GeoExtType::getGeoExtStringOrUnknown(fileExtension);
+    auto button = new QPushButton(extType);
     button->setFlat(true);
     button->setToolTip("File type");
-    setupMenuExtension(button);
+    button->setEnabled(false);
+    if (extType == "unknown")
+    {
+        button->setEnabled(true);
+        setupMenuExtension(button);
+    }
     setIndexWidget(index, button);
 }
 
-void MpFileTreeview::addColorPickers()
+void MpFileTreeview::addColorPickers(const QModelIndex& index)
 {
-    auto mainChildIndexes = fileTreeModel->getMainChildren(1);
-    for (const auto& child : mainChildIndexes)
+    auto geoChildren = fileTreeModel->getItemChildren(index, 1);
+    for (const auto& child : geoChildren)
     {
-        auto subChildren = fileTreeModel->getItemChildren(child, 1);
-        for (const auto& subChild : subChildren)
-        {
-            auto button = new QPushButton();
-            QColor color(QRandomGenerator::global()->bounded(0, 255),
-                         QRandomGenerator::global()->bounded(0, 255), 
-                         QRandomGenerator::global()->bounded(0, 255));
-            button->setStyleSheet("background-color : " + color.name());
-            setIndexWidget(subChild, button);
-            connect(button, &QPushButton::released, this, [this, button] { changeColor(button); });
-        }
+        auto button = new QPushButton();
+        QColor color(QRandomGenerator::global()->bounded(0, 255),
+                     QRandomGenerator::global()->bounded(0, 255), 
+                     QRandomGenerator::global()->bounded(0, 255));
+        button->setStyleSheet("background-color : " + color.name());
+        setIndexWidget(child, button);
+        connect(button, &QPushButton::released, this, [this, button] { changeColor(button); });
     }
 }
 
@@ -201,13 +203,13 @@ void MpFileTreeview::addFileItems(const QStringList& filePaths)
 
 void MpFileTreeview::addFileItem(const QString& filePath)
 {
-    const QModelIndex& lastIndex = fileTreeModel->getLastMainChildren(0);
+    const QModelIndex& lastIndex = fileTreeModel->getLastRootChildren(TEXT_COLUMN);
 
     if (!fileTreeModel->insertMainRow(lastIndex.row() + 1, filePath, lastIndex.parent()))
         return;
 
-    addButtonExtension(fileTreeModel->getLastMainChildren(EXTENSION_COLUMN), FileHelper::getFileExtension(filePath));
-    addButton(fileTreeModel->getLastMainChildren(REFRESH_COLUMN), "Refresh", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\refresh-24.png"), &MpFileTreeview::refreshRow);
-    addButton(fileTreeModel->getLastMainChildren(REMOVE_COLUMN), "Remove", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\remove-24.png"), &MpFileTreeview::removeRow);
-    //addColorPickers();
+    addButtonExtension(fileTreeModel->getLastRootChildren(EXTENSION_COLUMN), FileHelper::getFileExtension(filePath));
+    addButton(fileTreeModel->getLastRootChildren(REFRESH_COLUMN), "Refresh", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\refresh-24.png"), &MpFileTreeview::refreshRow);
+    addButton(fileTreeModel->getLastRootChildren(REMOVE_COLUMN), "Remove", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\remove-24.png"), &MpFileTreeview::removeRow);
+    addColorPickers(fileTreeModel->getLastRootChildren(TEXT_COLUMN));
 }

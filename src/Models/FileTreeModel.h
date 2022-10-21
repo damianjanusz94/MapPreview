@@ -26,7 +26,7 @@ public:
     bool removeRows(int position, int rows, const QModelIndex& parent = QModelIndex()) override;
     bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild) override;
     std::vector<QModelIndex> getMainChildren(int column);
-    QModelIndex getLastMainChildren(int column);
+    QModelIndex getLastRootChildren(int column);
     std::vector<QModelIndex> getItemChildren(const QModelIndex& parent, int column);
     void clearAll();
     int deltaIndexToLast(QModelIndex itemIndex);

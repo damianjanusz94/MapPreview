@@ -35,7 +35,7 @@ std::vector<QModelIndex> FileTreeModel::getMainChildren(int column)
     return childrenIndexes;
 }
 
-QModelIndex FileTreeModel::getLastMainChildren(int column)
+QModelIndex FileTreeModel::getLastRootChildren(int column)
 {
     auto childrenList = rootItem->getChildren();
     if (childrenList.size() > 0)

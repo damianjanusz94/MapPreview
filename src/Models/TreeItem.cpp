@@ -81,7 +81,7 @@ bool TreeItem::insertChildren(int position, int columns, const QString& filePath
 
     QList<QVariant> data;
     data.reserve(columns);
-    data << geoLayerPtr->getFileName();
+    data << geoLayerPtr->getFileNameWoExt();
     TreeItem* item = new TreeItem(data, geoLayerPtr, this);
     childItems.insert(position, item);
     item->insertGeoChild(columns, QString("Point"));

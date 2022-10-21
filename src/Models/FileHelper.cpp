@@ -19,6 +19,17 @@ QString FileHelper::getFileName(QString filePath)
 	return parts.at(parts.size() - 1);
 }
 
+QString FileHelper::getFileNameWoExt(QString filePath)
+{
+	auto fileName = getFileName(filePath);
+
+	if (!fileName.contains("."))
+		return fileName;
+
+	QStringList parts = fileName.split(".");
+	return parts.at(0);
+}
+
 QString FileHelper::getFileExtension(QString filePath)
 {
 	if (!filePath.contains("."))

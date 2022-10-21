@@ -28,6 +28,7 @@ class MpFileTreeview : public QTreeView
 										 static_cast<std::underlying_type<MoveTreeItem>::type>(rhs));
 	};
 
+	static const int TEXT_COLUMN = 0;
 	static const int EXTENSION_COLUMN = 1;
 	static const int REFRESH_COLUMN = 2;
 	static const int REMOVE_COLUMN = 3;
@@ -36,7 +37,7 @@ class MpFileTreeview : public QTreeView
 
 	void addButton(const QModelIndex& index, QString tooltip, QIcon icon, void(MpFileTreeview::* slotName)());
 	void addButtonExtension(const QModelIndex& index, const QString& fileExtension);
-	void addColorPickers();
+	void addColorPickers(const QModelIndex& index);
 	void setupMenuExtension(QPushButton* button);
 	void moveItem(MoveTreeItem moveFlags);
 
