@@ -19,6 +19,7 @@ MpFileTvToolbar::MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_
     setupDownBtn();
     setupUpMaxBtn();
     setupDownMaxBtn();
+    setupColorBtn();
 }
 
 void MpFileTvToolbar::setupRefreshAllBtn()
@@ -90,6 +91,16 @@ void MpFileTvToolbar::setupDownMaxBtn()
     downMaxBtn->setToolTip("Move to last");
     addWidget(downMaxBtn);
     connect(downMaxBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::moveToLast);
+}
+
+void MpFileTvToolbar::setupColorBtn()
+{
+    colorBtn = new QPushButton();
+    colorBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\color-48.png"));
+    colorBtn->setFlat(true);
+    colorBtn->setToolTip("Set one color for file");
+    addWidget(colorBtn);
+    connect(colorBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::setColorForItems);
 }
 
 void MpFileTvToolbar::showFileDialog()

@@ -193,6 +193,33 @@ void MpFileTreeview::changeColor(QPushButton* button)
     }
 }
 
+void MpFileTreeview::setColorForItems()
+{
+    if (!this->selectionModel()->hasSelection())
+    {
+        return;
+    }
+
+    const QModelIndex index = this->selectionModel()->currentIndex();
+    if (!fileTreeModel->isMainItem(index))
+    {
+        return;
+    }
+
+    QColor newColor = QColorDialog::getColor(Qt::white, nullptr, "Pick a color");
+    if (!newColor.isValid())
+    {
+        return;
+    }
+
+    auto childItems = fileTreeModel->getItemChildren(index, 1);
+    for (const auto& child : childItems)
+    {
+        QPushButton* button = static_cast<QPushButton*>(indexWidget(child));
+        button->setStyleSheet("background-color : " + newColor.name());
+    }
+}
+
 void MpFileTreeview::addFileItems(const QStringList& filePaths)
 {
     for (const auto& file : filePaths)

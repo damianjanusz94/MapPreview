@@ -34,6 +34,7 @@ public:
     QStringList getAllFilePaths();
     QString titleGeoTypeChild(const QModelIndex& index) const;
     QIcon iconGeoTypeChild(const QString& type) const;
+    bool isMainItem(const QModelIndex& index);
     
 private:
     void setChecked(const QModelIndex& index, bool status);

@@ -318,3 +318,16 @@ QIcon FileTreeModel::iconGeoTypeChild(const QString& type) const
 
     return QIcon();
 }
+
+bool FileTreeModel::isMainItem(const QModelIndex& index)
+{
+    auto searchedItem = static_cast<TreeItem*>(index.internalPointer());
+    auto mainItems = rootItem->getChildren();
+    for (const auto item : mainItems)
+    {
+        if (item == searchedItem)
+            return true;
+    }
+
+    return false;
+}

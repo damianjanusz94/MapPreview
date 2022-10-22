@@ -24,6 +24,7 @@ class MpFileTvToolbar : public QToolBar
 	QPushButton* downBtn;
 	QPushButton* upMaxBtn;
 	QPushButton* downMaxBtn;
+	QPushButton* colorBtn;
 
 	void setupRefreshAllBtn();
 	void setupRemoveAllBtn();
@@ -32,6 +33,7 @@ class MpFileTvToolbar : public QToolBar
 	void setupDownBtn();
 	void setupUpMaxBtn();
 	void setupDownMaxBtn();
+	void setupColorBtn();
 
 private slots:
 	void showFileDialog();

@@ -52,6 +52,7 @@ public slots:
 	void moveToLast();
 	void changeExtension(QAction* action, QPushButton* button);
 	void changeColor(QPushButton* button);
+	void setColorForItems();
 
 public:
 	explicit MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, QWidget* parent = nullptr);
