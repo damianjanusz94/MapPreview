@@ -6,9 +6,11 @@
 
 class MpObjectTreeview : public QTreeView
 {
-	std::unique_ptr<ObjectTreeModel> objectTreeModel;
+	std::shared_ptr<ObjectTreeModel> objectTreeModel;
 
 public:
-	explicit MpObjectTreeview(QWidget* parent = nullptr);
+	explicit MpObjectTreeview(std::shared_ptr<ObjectTreeModel> object_model, QWidget* parent = nullptr);
+	void addFileItems(const QStringList& filePaths);
+	void addFileItem(const QString& filePath);
 };
 

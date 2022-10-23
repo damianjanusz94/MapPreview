@@ -4,8 +4,8 @@
 #include<QtWidgets\QMessageBox>
 
 MpFileTvToolbar::MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv,
-                                 std::shared_ptr<FileTreeModel> fileModel, QWidget* parent)
-                                 : fileTreeview(fileTv), QToolBar(parent), fileTreeModel(fileModel), nppProxy(pNppProxy)
+                                 std::shared_ptr<FileTreeModel> fileModel, std::weak_ptr<MpObjectTreeview> objectTv, QWidget* parent)
+                                 : fileTreeview(fileTv), QToolBar(parent), fileTreeModel(fileModel), objectTreeview(objectTv), nppProxy(pNppProxy)
 {
     fileAddWindow = std::make_unique<MpFileAddWindow>(nppProxy);
     setWindowTitle("FileTvToolbar");
@@ -119,6 +119,8 @@ void MpFileTvToolbar::showFileDialog()
 
     if (fileAddWindow->exec() == QDialog::Accepted)
     {
-        fileTreeview.lock()->addFileItems(fileAddWindow->getSelectedFiles());
+        const QStringList& selectedFiles = fileAddWindow->getSelectedFiles();
+        fileTreeview.lock()->addFileItems(selectedFiles);
+        objectTreeview.lock()->addFileItems(selectedFiles);
     }
 }

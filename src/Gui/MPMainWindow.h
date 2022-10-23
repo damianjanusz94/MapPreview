@@ -11,6 +11,7 @@
 #include "MpInfoToolbar.h"
 #include "MpFileTvToolbar.h"
 #include "../NppPlugin/NppProxy.h"
+#include "../Models/ObjectTreeModel.h"
 
 
 class MpMainWindow : public QMainWindow
@@ -21,12 +22,13 @@ class MpMainWindow : public QMainWindow
 	QGraphicsView* graphicsView;
 	std::shared_ptr<MpFileTreeview> fileTreeview;
 	std::unique_ptr<MpFileTvToolbar> fileTvToolbar;
-	std::unique_ptr<MpObjectTreeview> objectTreeview;
+	std::shared_ptr<MpObjectTreeview> objectTreeview;
 	std::unique_ptr<MpMainToolbar> mainToolbar;
 	std::unique_ptr<MpInfoToolbar> infoToolbar;
 
 	std::shared_ptr<NppProxy> nppProxy;
 	std::shared_ptr<FileTreeModel> fileTreeModel;
+	std::shared_ptr<ObjectTreeModel> objectTreemodel;
 	
 public:
 	explicit MpMainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent = nullptr, Qt::WindowFlags flags = { });
@@ -35,6 +37,7 @@ private:
 	void setupToolbars();
 	void setupTreeDockWidgets();
 	void setupFileDockWidget(Qt::DockWidgetArea area);
+	void setupObjectDockWidget(Qt::DockWidgetArea area);
 	void readSettings();
 
 protected:

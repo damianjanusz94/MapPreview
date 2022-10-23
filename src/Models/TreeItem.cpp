@@ -91,6 +91,20 @@ bool TreeItem::insertChildren(int position, int columns, const QString& filePath
     return true;
 }
 
+bool TreeItem::insertChildrenObject(int position, int columns, const QString& filePath)
+{
+    if (position < 0 || position > childItems.size())
+        return false;
+
+    QList<QVariant> data;
+    data.reserve(columns);
+    data << FileHelper::getFileName(filePath);
+    TreeItem* item = new TreeItem(data, nullptr, this);
+    childItems.insert(position, item);
+
+    return true;
+}
+
 void TreeItem::insertGeoChild(int columns, const QString& title)
 {
     QList<QVariant> data;

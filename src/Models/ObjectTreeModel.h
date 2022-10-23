@@ -10,7 +10,7 @@ class ObjectTreeModel : public QAbstractItemModel
 {
 
 public:
-    explicit ObjectTreeModel(const QString& data, QObject* parent = nullptr);
+    explicit ObjectTreeModel(QObject* parent = nullptr);
     ~ObjectTreeModel();
 
     QVariant data(const QModelIndex& index, int role) const override;
@@ -25,10 +25,13 @@ public:
     bool setData(const QModelIndex& index, const QVariant& value, int role) override;
     std::vector<QModelIndex> getMainChildren(int column);
     std::vector<QModelIndex> getItemChildren(const QModelIndex& parent, int column);
+    bool insertFileChild(const QString& filePath);
 
 private:
-    void setupModelData(const QStringList& lines, TreeItem* parent);
+    QModelIndex getLastItemChildren(TreeItem* item, int column);
     void setChecked(const QModelIndex& index, bool status);
+    bool isMainItem(const QModelIndex& index) const;
+    QIcon iconGeoType(const QModelIndex& index) const;
     TreeItem* getItem(const QModelIndex& index) const;
     TreeItem* rootItem;
 };

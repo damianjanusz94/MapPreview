@@ -23,6 +23,7 @@ public:
     void setChecked(bool set);
     bool isChecked();
     bool insertChildren(int position, int columns, const QString& filePath);
+    bool insertChildrenObject(int position, int columns, const QString& filePath);
     bool removeChildren(int position, int count);
     bool moveChildren(TreeItem* child, int position);
     void clearChildren();

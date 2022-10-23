@@ -1,10 +1,21 @@
 #include "ObjectTreeModel.h"
 
-ObjectTreeModel::ObjectTreeModel(const QString& data, QObject* parent)
+#include<QtCore\QDir>
+#include<QtGui\QIcon>
+
+ObjectTreeModel::ObjectTreeModel(QObject* parent)
     : QAbstractItemModel(parent)
 {
     rootItem = new TreeItem({ tr("1"), tr("2") }, nullptr);
-    setupModelData(data.split('\n'), rootItem);
+    
+    QStringList objNames{ "Point", "Line", "Polygon" };
+    for (const auto& name : objNames)
+    {
+        QList<QVariant> data;
+        data.reserve(2);
+        data << name;
+        rootItem->appendChild(new TreeItem(data, nullptr, rootItem));
+    }
 }
 
 ObjectTreeModel::~ObjectTreeModel()
@@ -46,6 +57,25 @@ std::vector<QModelIndex> ObjectTreeModel::getItemChildren(const QModelIndex& par
     return childrenIndexes;
 }
 
+bool ObjectTreeModel::insertFileChild(const QString& filePath)
+{
+    auto mainItemList = rootItem->getChildren();
+    for (auto item : mainItemList)
+    {
+        auto lastchildIndex = getLastItemChildren(item, 0);
+        int position = lastchildIndex.row() + 1;
+        auto parentIndex = createIndex(item->row(), 0, item);
+        
+        beginInsertRows(parentIndex, position, position);
+        const bool success = item->insertChildrenObject(position, rootItem->columnCount(), filePath);
+        if (!success)
+            return false;
+        endInsertRows();
+    }
+    
+    return true;
+}
+
 QVariant ObjectTreeModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid())
@@ -57,6 +87,15 @@ QVariant ObjectTreeModel::data(const QModelIndex& index, int role) const
     {
         return static_cast<int>(item1->isChecked() ? Qt::Checked : Qt::Unchecked);
     }
+
+    if (role == Qt::DecorationRole && index.column() == 0)
+    {
+        if (isMainItem(index))
+        {
+            return iconGeoType(index);
+        }
+    }
+
     if (role != Qt::DisplayRole && role != Qt::EditRole)
         return QVariant();
 
@@ -128,57 +167,6 @@ int ObjectTreeModel::rowCount(const QModelIndex& parent) const
     return parentItem->childCount();
 }
 
-void ObjectTreeModel::setupModelData(const QStringList& lines, TreeItem* parent)
-{
-    QList<TreeItem*> parents;
-    QList<int> indentations;
-    parents << parent;
-    indentations << 0;
-
-    int number = 0;
-
-    while (number < lines.count()) {
-        int position = 0;
-        while (position < lines[number].length()) {
-            if (lines[number].at(position) != ' ')
-                break;
-            position++;
-        }
-
-        const QString lineData = lines[number].mid(position).trimmed();
-
-        if (!lineData.isEmpty()) {
-            // Read the column data from the rest of the line.
-            const QStringList columnStrings =
-                lineData.split(QLatin1Char('\t'), Qt::SkipEmptyParts);
-            QList<QVariant> columnData;
-            columnData.reserve(columnStrings.count());
-            for (const QString& columnString : columnStrings)
-                columnData << columnString;
-
-            if (position > indentations.last()) {
-                // The last child of the current parent is now the new parent
-                // unless the current parent has no children.
-
-                if (parents.last()->childCount() > 0) {
-                    parents << parents.last()->child(parents.last()->childCount() - 1);
-                    indentations << position;
-                }
-            }
-            else {
-                while (position < indentations.last() && parents.count() > 0) {
-                    parents.pop_back();
-                    indentations.pop_back();
-                }
-            }
-
-            // Append a new item to the current parent's list of children.
-            parents.last()->appendChild(new TreeItem(columnData, nullptr, parents.last()));
-        }
-        ++number;
-    }
-}
-
 TreeItem* ObjectTreeModel::getItem(const QModelIndex& index) const
 {
     if (index.isValid())
@@ -222,4 +210,47 @@ void ObjectTreeModel::setChecked(const QModelIndex& index, bool status)
     int rows = this->rowCount(index);
     for (int i = 0; i < rows; ++i)
         setChecked(this->index(i, 0, index), status);
+}
+
+bool ObjectTreeModel::isMainItem(const QModelIndex& index) const
+{
+    auto searchedItem = static_cast<TreeItem*>(index.internalPointer());
+    auto mainItems = rootItem->getChildren();
+    for (const auto item : mainItems)
+    {
+        if (item == searchedItem)
+            return true;
+    }
+
+    return false;
+}
+
+QIcon ObjectTreeModel::iconGeoType(const QModelIndex& index) const
+{
+    auto item = getItem(index);
+    QString type(item->data(0).toString());
+
+    if (type == "Point")
+    {
+        return QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\point-48.png");
+    }
+    else if (type == "Line")
+    {
+        return QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\line-48.png");
+    }
+    else if (type == "Polygon")
+    {
+        return QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\polygon-48.png");
+    }
+
+    return QIcon();
+}
+
+QModelIndex ObjectTreeModel::getLastItemChildren(TreeItem* item, int column)
+{
+    auto childrenList = item->getChildren();
+    if (childrenList.size() > 0)
+        return createIndex(childrenList.last()->row(), column, childrenList.last());
+    else
+        return QModelIndex();
 }
