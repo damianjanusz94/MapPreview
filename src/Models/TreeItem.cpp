@@ -32,6 +32,18 @@ QList<TreeItem*> TreeItem::getChildren()
     return childItems;
 }
 
+QList<TreeItem*> TreeItem::getChildren(int row, int count)
+{
+    QList<TreeItem*> children;
+
+    for (int i = 0; i < count; i++)
+    {
+        children.append(child(row + i));
+    }
+
+    return children;
+}
+
 int TreeItem::childCount() const
 {
     return childItems.count();
@@ -96,10 +108,12 @@ bool TreeItem::insertChildrenObject(int position, int columns, const QString& fi
     if (position < 0 || position > childItems.size())
         return false;
 
+    auto geoLayerPtr = std::make_shared<GeoLayer>(filePath);
+
     QList<QVariant> data;
     data.reserve(columns);
     data << FileHelper::getFileName(filePath);
-    TreeItem* item = new TreeItem(data, nullptr, this);
+    TreeItem* item = new TreeItem(data, geoLayerPtr, this);
     childItems.insert(position, item);
 
     return true;

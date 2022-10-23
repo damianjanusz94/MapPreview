@@ -15,6 +15,7 @@ public:
 
     TreeItem* child(int row);
     QList<TreeItem*> getChildren();
+    QList<TreeItem*> getChildren(int row, int count);
     int childCount() const;
     int columnCount() const;
     QVariant data(int column) const;
@@ -30,10 +31,10 @@ public:
     QString getFilePath();
     void insertGeoChild(int columns, const QString& title);
 
+    std::shared_ptr<GeoLayer> geoLayer;
 private:
     QList<TreeItem*> childItems;
     QList<QVariant> itemData;
     TreeItem* parentItem;
-    std::shared_ptr<GeoLayer> geoLayer;
     bool checked = true;
 };

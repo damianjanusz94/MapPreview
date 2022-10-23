@@ -40,7 +40,7 @@ void MpMainWindow::setupFileDockWidget(Qt::DockWidgetArea area)
 {
     objectTreemodel = std::make_shared<ObjectTreeModel>(this);
     objectTreeview = std::make_shared<MpObjectTreeview>(objectTreemodel, this);
-    fileTreeModel = std::make_shared<FileTreeModel>(this);
+    fileTreeModel = std::make_shared<FileTreeModel>(objectTreemodel, this);
     fileTreeview = std::make_shared<MpFileTreeview>(fileTreeModel);
     fileTvToolbar = std::make_unique<MpFileTvToolbar>(nppProxy, fileTreeview, fileTreeModel, objectTreeview);
 

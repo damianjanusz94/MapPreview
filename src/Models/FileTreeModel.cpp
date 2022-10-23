@@ -4,8 +4,8 @@
 #include<QtCore\QDir>
 #include<QtGui\QIcon>
 
-FileTreeModel::FileTreeModel(QObject* parent)
-    : QAbstractItemModel(parent)
+FileTreeModel::FileTreeModel(std::shared_ptr<ObjectTreeModel> object_model, QObject* parent)
+    : objectTreeModel(object_model), QAbstractItemModel(parent)
 {
     rootItem = new TreeItem({ tr("1"), tr("2"), tr("3"), tr("4")}, nullptr);
 }
@@ -77,8 +77,18 @@ bool FileTreeModel::removeRows(int position, int rows, const QModelIndex& parent
     if (!parentItem)
         return false;
 
+    QStringList filePaths;
+    for (auto item : parentItem->getChildren(position, rows))
+    {
+        filePaths.append(item->getFilePath());
+    }
+
     beginRemoveRows(parent, position, position + rows - 1);
-    const bool success = parentItem->removeChildren(position, rows);
+    bool success = parentItem->removeChildren(position, rows);
+    if (success)
+    {
+        success = objectTreeModel->removeFiles(filePaths);
+    }
     endRemoveRows();
 
     return success;
@@ -120,6 +130,8 @@ void FileTreeModel::clearAll()
     beginResetModel();
     rootItem->clearChildren();
     endResetModel();
+
+    objectTreeModel->clearAll();
 }
 
 QVariant FileTreeModel::data(const QModelIndex& index, int role) const

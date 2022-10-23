@@ -254,3 +254,88 @@ QModelIndex ObjectTreeModel::getLastItemChildren(TreeItem* item, int column)
     else
         return QModelIndex();
 }
+
+bool ObjectTreeModel::removeRows(int position, int rows, const QModelIndex& parent)
+{
+    TreeItem* parentItem = getItem(parent);
+    if (!parentItem)
+        return false;
+
+    beginRemoveRows(parent, position, position + rows - 1);
+    const bool success = parentItem->removeChildren(position, rows);
+    endRemoveRows();
+
+    return success;
+}
+
+
+bool ObjectTreeModel::removeFiles(const QStringList& filePaths)
+{
+    for (const auto& file : filePaths)
+    {
+        if (!removeFile(file))
+            return false;
+    }
+    return true;
+}
+
+bool ObjectTreeModel::removeFile(const QString& filePath)
+{
+    auto mainItems = rootItem->getChildren();
+    for (auto item : mainItems)
+    {
+        auto subItems = item->getChildren();
+        for (auto subItem : subItems)
+        {
+            if (filePath == subItem->getFilePath())
+            {
+                QModelIndex parentIndex = createIndex(item->row(), 0, item);
+                if (!removeRow(subItem->row(), parentIndex))
+                    return false;
+            }
+        }
+    }
+    return true;
+}
+
+void ObjectTreeModel::clearAll()
+{
+    auto mainItems = rootItem->getChildren();
+    for (auto item : mainItems)
+    {
+        beginResetModel();
+        item->clearChildren();
+        endResetModel();
+    }
+}
+
+bool ObjectTreeModel::moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild)
+{
+    if (destinationChild < 0 || destinationChild > this->rowCount())
+    {
+        return false;
+    }
+
+    if (!beginMoveRows(QModelIndex(), sourceRow, sourceRow + count - 1, QModelIndex(), destinationChild))
+    {
+        return false;
+    }
+
+    bool result = false;
+    TreeItem* destinationItem = getItem(destinationParent);
+    if (destinationItem == nullptr)
+        return result;
+
+    int position = destinationChild;
+    for (int row = sourceRow; row < sourceRow + count; ++row)
+    {
+        QModelIndex index = this->index(row, 0, sourceParent);
+        TreeItem* item = getItem(index);
+        if (item == nullptr)
+            continue;
+        result |= destinationItem->moveChildren(item, position);
+        ++position;
+    }
+    endMoveRows();
+    return result;
+}

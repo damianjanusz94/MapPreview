@@ -26,6 +26,11 @@ public:
     std::vector<QModelIndex> getMainChildren(int column);
     std::vector<QModelIndex> getItemChildren(const QModelIndex& parent, int column);
     bool insertFileChild(const QString& filePath);
+    bool removeRows(int position, int rows, const QModelIndex& parent = QModelIndex()) override;
+    bool removeFiles(const QStringList& filePaths);
+    bool removeFile(const QString& filePath);
+    void clearAll();
+    bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild) override;
 
 private:
     QModelIndex getLastItemChildren(TreeItem* item, int column);
