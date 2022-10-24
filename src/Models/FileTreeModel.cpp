@@ -4,6 +4,8 @@
 #include<QtCore\QDir>
 #include<QtGui\QIcon>
 
+#include "../Models/GeoLayer.h"
+
 FileTreeModel::FileTreeModel(std::shared_ptr<ObjectTreeModel> object_model, QObject* parent)
     : objectTreeModel(object_model), QAbstractItemModel(parent)
 {
@@ -22,9 +24,9 @@ int FileTreeModel::columnCount(const QModelIndex& parent) const
     return rootItem->columnCount();
 }
 
-std::vector<QModelIndex> FileTreeModel::getMainChildren(int column)
+QList<QModelIndex> FileTreeModel::getMainChildren(int column)
 {
-    std::vector<QModelIndex> childrenIndexes;
+    QList<QModelIndex> childrenIndexes;
 
     auto childrenList = rootItem->getChildren();
     for (auto child : childrenList)
@@ -44,9 +46,9 @@ QModelIndex FileTreeModel::getLastRootChildren(int column)
         return QModelIndex();
 }
 
-std::vector<QModelIndex> FileTreeModel::getItemChildren(const QModelIndex& parent, int column)
+QList<QModelIndex> FileTreeModel::getItemChildren(const QModelIndex& parent, int column)
 {
-    std::vector<QModelIndex> childrenIndexes;
+    QList<QModelIndex> childrenIndexes;
 
     auto item = getItem(parent);
     auto childrenList = item->getChildren();
@@ -56,6 +58,12 @@ std::vector<QModelIndex> FileTreeModel::getItemChildren(const QModelIndex& paren
     }
 
     return childrenIndexes;
+}
+
+std::shared_ptr<GeoLayer> FileTreeModel::getIndexGeoLayer(const QModelIndex& index)
+{
+    auto item = getItem(index);
+    return item->geoLayer;
 }
 
 bool FileTreeModel::insertMainRow(int position, std::shared_ptr<GeoLayer> geoLayer, const QModelIndex& parent)
@@ -342,4 +350,12 @@ bool FileTreeModel::isMainItem(const QModelIndex& index)
     }
 
     return false;
+}
+
+void FileTreeModel::setColorsGeoLayer(const QModelIndex& index, QColor color)
+{
+    auto geoLayer = getIndexGeoLayer(index);
+    geoLayer->setColor(color, GeoType::POINT);
+    geoLayer->setColor(color, GeoType::LINE);
+    geoLayer->setColor(color, GeoType::POLYGON);
 }

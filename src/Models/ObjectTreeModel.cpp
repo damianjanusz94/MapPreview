@@ -30,9 +30,9 @@ int ObjectTreeModel::columnCount(const QModelIndex& parent) const
     return rootItem->columnCount();
 }
 
-std::vector<QModelIndex> ObjectTreeModel::getMainChildren(int column)
+QList<QModelIndex> ObjectTreeModel::getMainChildren(int column)
 {
-    std::vector<QModelIndex> childrenIndexes;
+    QList<QModelIndex> childrenIndexes;
 
     auto childrenList = rootItem->getChildren();
     for (auto child : childrenList)
@@ -43,9 +43,9 @@ std::vector<QModelIndex> ObjectTreeModel::getMainChildren(int column)
     return childrenIndexes;
 }
 
-std::vector<QModelIndex> ObjectTreeModel::getItemChildren(const QModelIndex& parent, int column)
+QList<QModelIndex> ObjectTreeModel::getItemChildren(const QModelIndex& parent, int column)
 {
-    std::vector<QModelIndex> childrenIndexes;
+    QList<QModelIndex> childrenIndexes;
 
     auto item = getItem(parent);
     auto childrenList = item->getChildren();
@@ -352,4 +352,31 @@ QList<QModelIndex> ObjectTreeModel::getLastGeoFiles(int column)
     }
 
    return indexList;
+}
+
+void ObjectTreeModel::setColorsGeoLayer(const QModelIndex& index, QColor color)
+{
+    auto mainItem = getItem(index);
+    QString type = mainItem->data(0).toString();
+    auto geoType = GeoType::UNDEFINED;
+    if (type == "Point")
+    {
+        geoType = GeoType::POINT;
+    }
+    else if (type == "Line")
+    {
+        geoType = GeoType::LINE;
+    }
+    else if (type == "Polygon")
+    {
+        geoType = GeoType::POLYGON;
+    }
+
+    auto childrenList = getItemChildren(index, 0);
+    for (const auto& child : childrenList)
+    {
+        auto item = getItem(child);
+        auto geoLayer = item->geoLayer;
+        geoLayer->setColor(color, geoType);
+    }
 }

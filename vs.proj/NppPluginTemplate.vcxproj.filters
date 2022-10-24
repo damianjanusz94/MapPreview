@@ -111,9 +111,6 @@
     <ClInclude Include="..\src\Models\ObjectTreeModel.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Models\GeoLayer.h">
-      <Filter>Models</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Enums\GeoExtType.h">
       <Filter>Enums</Filter>
     </ClInclude>
@@ -121,6 +118,9 @@
       <Filter>Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Models\GeoHelper.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Models\TreeModel.h">
       <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
@@ -226,6 +226,12 @@
     <ClCompile Include="..\src\Models\GeoHelper.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Models\moc_GeoLayer.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Models\TreeModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc">
@@ -254,6 +260,9 @@
     </CustomBuild>
     <CustomBuild Include="..\src\Gui\MpFileAddWindow.h">
       <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Models\GeoLayer.h">
+      <Filter>Models</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include <QtWidgets\QPushButton>
 
 #include "../Models/FileTreeModel.h"
+#include "../Models/GeoLayer.h"
 
 class MpFileTreeview : public QTreeView
 {
@@ -51,7 +52,7 @@ public slots:
 	void moveToFirst();
 	void moveToLast();
 	void changeExtension(QAction* action, QPushButton* button);
-	void changeColor(QPushButton* button);
+	void changeColor(QPushButton* button, std::shared_ptr<GeoLayer> geo_layer, GeoType geo_type);
 	void setColorForItems();
 
 public:

@@ -8,7 +8,6 @@
 
 #include "../Enums/GeoExtType.h"
 #include "../Models/FileHelper.h"
-#include "../Models/GeoLayer.h"
 
 using namespace Enums;
 
@@ -54,14 +53,30 @@ void MpFileTreeview::addButtonExtension(const QModelIndex& index, const QString&
 void MpFileTreeview::addColorPickers(const QModelIndex& index, std::shared_ptr<GeoLayer> geoLayer)
 {
     auto geoChildren = fileTreeModel->getItemChildren(index, EXTENSION_COLUMN);
-    for (const auto& child : geoChildren)
-    {
-        auto button = new QPushButton();
-        QColor color = geoLayer->getColor(static_cast<GeoType>(child.row()));
-        button->setStyleSheet("background-color : " + color.name());
-        setIndexWidget(child, button);
-        connect(button, &QPushButton::released, this, [this, button] { changeColor(button); });
-    }
+    if (geoChildren.count() != 3)
+        return;
+
+    QColor colorPoint = geoLayer->getColor(GeoType::POINT);
+    QColor colorLine = geoLayer->getColor(GeoType::LINE);
+    QColor colorPolygon = geoLayer->getColor(GeoType::POLYGON);
+
+    auto buttonPoint = new QPushButton();
+    auto buttonLine = new QPushButton();
+    auto buttonPolygon = new QPushButton();
+
+    buttonPoint->setStyleSheet("background-color : " + colorPoint.name());
+    buttonLine->setStyleSheet("background-color : " + colorLine.name());
+    buttonPolygon->setStyleSheet("background-color : " + colorPolygon.name());
+
+    setIndexWidget(geoChildren[0], buttonPoint);
+    setIndexWidget(geoChildren[1], buttonLine);
+    setIndexWidget(geoChildren[2], buttonPolygon);
+
+    connect(buttonPoint, &QPushButton::released, this, [this, buttonPoint, geoLayer] { changeColor(buttonPoint, geoLayer, GeoType::POINT); });
+    connect(buttonLine, &QPushButton::released, this, [this, buttonLine, geoLayer] { changeColor(buttonLine, geoLayer, GeoType::LINE); });
+    connect(buttonPolygon, &QPushButton::released, this, [this, buttonPolygon, geoLayer] { changeColor(buttonPolygon, geoLayer, GeoType::POLYGON); });
+
+    geoLayer->setColorButtonConnection(buttonPoint, buttonLine, buttonPolygon);
 }
 
 void MpFileTreeview::setupMenuExtension(QPushButton* button)
@@ -177,7 +192,7 @@ void MpFileTreeview::changeExtension(QAction* action, QPushButton* button)
     button->setText(action->text());
 }
 
-void MpFileTreeview::changeColor(QPushButton* button)
+void MpFileTreeview::changeColor(QPushButton* button, std::shared_ptr<GeoLayer> geo_layer, GeoType geo_type)
 {
     QColor oldColor = button->palette().window().color();
     QColor newColor = QColorDialog::getColor(oldColor, nullptr, "Pick a color");
@@ -188,7 +203,7 @@ void MpFileTreeview::changeColor(QPushButton* button)
 
     if (newColor != oldColor)
     {
-        button->setStyleSheet("background-color : " + newColor.name());
+        geo_layer->setColor(newColor, geo_type);
     }
 }
 
@@ -211,12 +226,7 @@ void MpFileTreeview::setColorForItems()
         return;
     }
 
-    auto childItems = fileTreeModel->getItemChildren(index, EXTENSION_COLUMN);
-    for (const auto& child : childItems)
-    {
-        QPushButton* button = static_cast<QPushButton*>(indexWidget(child));
-        button->setStyleSheet("background-color : " + newColor.name());
-    }
+    fileTreeModel->setColorsGeoLayer(index, newColor);
 }
 
 void MpFileTreeview::addFileItem(const QString& filePath, std::shared_ptr<GeoLayer> geoLayer)

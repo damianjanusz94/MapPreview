@@ -5,6 +5,7 @@
 #include <QtCore\QVariant>
 
 #include "TreeItem.h"
+#include "../Models/GeoLayer.h"
 
 class ObjectTreeModel : public QAbstractItemModel
 {
@@ -23,8 +24,8 @@ public:
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     int columnCount(const QModelIndex& parent = QModelIndex()) const override;
     bool setData(const QModelIndex& index, const QVariant& value, int role) override;
-    std::vector<QModelIndex> getMainChildren(int column);
-    std::vector<QModelIndex> getItemChildren(const QModelIndex& parent, int column);
+    QList<QModelIndex> getMainChildren(int column);
+    QList<QModelIndex> getItemChildren(const QModelIndex& parent, int column);
     bool insertFileChild(const QString& filePath, std::shared_ptr<GeoLayer> geoLayer);
     bool removeRows(int position, int rows, const QModelIndex& parent = QModelIndex()) override;
     bool removeFiles(const QStringList& filePaths);
@@ -33,6 +34,7 @@ public:
     bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild) override;
     QList<QModelIndex> getLastGeoFiles(int column);
     bool isMainItem(const QModelIndex& index) const;
+    void setColorsGeoLayer(const QModelIndex& index, QColor color);
 
 private:
     QModelIndex getLastItemChildren(TreeItem* item, int column);

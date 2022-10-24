@@ -62,11 +62,16 @@
     <ClInclude Include="..\src\MapPreviewWindow.h" />
     <ClInclude Include="..\src\Models\FileHelper.h" />
     <ClInclude Include="..\src\Models\GeoHelper.h" />
-    <ClInclude Include="..\src\Models\GeoLayer.h" />
+    <CustomBuild Include="..\src\Models\GeoLayer.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
+    </CustomBuild>
     <ClInclude Include="..\src\Models\TreeItem.h" />
     <ClInclude Include="..\src\Models\FileTreeModel.h" />
     <ClInclude Include="..\src\Models\NppFilesList.h" />
     <ClInclude Include="..\src\Models\ObjectTreeModel.h" />
+    <ClInclude Include="..\src\Models\TreeModel.h" />
     <ClInclude Include="..\src\NppPlugin\DockingFeature\Docking.h" />
     <ClInclude Include="..\src\NppPlugin\DockingFeature\DockingDlgInterface.h" />
     <ClInclude Include="..\src\NppPlugin\DockingFeature\dockingResource.h" />
@@ -164,10 +169,12 @@
     <ClCompile Include="..\src\Models\FileHelper.cpp" />
     <ClCompile Include="..\src\Models\GeoHelper.cpp" />
     <ClCompile Include="..\src\Models\GeoLayer.cpp" />
+    <ClCompile Include="..\src\Models\moc_GeoLayer.cpp" />
     <ClCompile Include="..\src\Models\TreeItem.cpp" />
     <ClCompile Include="..\src\Models\FileTreeModel.cpp" />
     <ClCompile Include="..\src\Models\NppFilesList.cpp" />
     <ClCompile Include="..\src\Models\ObjectTreeModel.cpp" />
+    <ClCompile Include="..\src\Models\TreeModel.cpp" />
     <ClCompile Include="..\src\NppPlugin\DockingFeature\StaticDialog.cpp" />
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp" />
     <ClCompile Include="..\src\NppPlugin\NppProxy.cpp" />

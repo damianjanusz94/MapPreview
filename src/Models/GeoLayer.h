@@ -1,17 +1,22 @@
 #pragma once
 
+#include <QtCore\QObject>
 #include <QtCore\QString>
 #include <QtGui\QColor>
+#include <QtWidgets\QPushButton>
 
 enum class GeoType
 {
+	UNDEFINED = -1,
 	POINT,
 	LINE,
 	POLYGON
 };
 
-class GeoLayer
+class GeoLayer : public QObject
 {
+	Q_OBJECT
+
 	QString fileName;
 	QString filePath;
 	QString fileNameWoExt;
@@ -19,6 +24,12 @@ class GeoLayer
 	QColor lineColor;
 	QColor polygonColor;
 	bool isNewFile = false;
+
+signals:
+	void pointColorChanged(QColor color);
+	void lineColorChanged(QColor color);
+	void polygonColorChanged(QColor color);
+	
 
 public:
 	GeoLayer(QString file_path);
@@ -28,5 +39,6 @@ public:
 	QString getFilePath() { return filePath; }
 	void setColor(QColor color, GeoType geo_type);
 	QColor getColor(GeoType geo_type);
+	void setColorButtonConnection(QPushButton* btn_point, QPushButton* btn_line, QPushButton* btn_polygon);
 };
 
