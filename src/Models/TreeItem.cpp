@@ -27,6 +27,11 @@ TreeItem* TreeItem::child(int row)
     return childItems.at(row);
 }
 
+TreeItem* TreeItem::getLastChild()
+{
+    return childItems.last();
+}
+
 QList<TreeItem*> TreeItem::getChildren()
 {
     return childItems;
@@ -84,17 +89,15 @@ int TreeItem::row() const
     return 0;
 }
 
-bool TreeItem::insertChildren(int position, int columns, const QString& filePath)
+bool TreeItem::insertChildren(int position, int columns, std::shared_ptr<GeoLayer> geo_layer)
 {
     if (position < 0 || position > childItems.size())
         return false;
 
-    auto geoLayerPtr = std::make_shared<GeoLayer>(filePath);
-
     QList<QVariant> data;
     data.reserve(columns);
-    data << geoLayerPtr->getFileNameWoExt();
-    TreeItem* item = new TreeItem(data, geoLayerPtr, this);
+    data << geo_layer->getFileNameWoExt();
+    TreeItem* item = new TreeItem(data, geo_layer, this);
     childItems.insert(position, item);
     item->insertGeoChild(columns, QString("Point"));
     item->insertGeoChild(columns, QString("Line"));
@@ -103,17 +106,15 @@ bool TreeItem::insertChildren(int position, int columns, const QString& filePath
     return true;
 }
 
-bool TreeItem::insertChildrenObject(int position, int columns, const QString& filePath)
+bool TreeItem::insertChildrenObject(int position, int columns, const QString& filePath, std::shared_ptr<GeoLayer> geo_layer)
 {
     if (position < 0 || position > childItems.size())
         return false;
 
-    auto geoLayerPtr = std::make_shared<GeoLayer>(filePath);
-
     QList<QVariant> data;
     data.reserve(columns);
     data << FileHelper::getFileName(filePath);
-    TreeItem* item = new TreeItem(data, geoLayerPtr, this);
+    TreeItem* item = new TreeItem(data, geo_layer, this);
     childItems.insert(position, item);
 
     return true;

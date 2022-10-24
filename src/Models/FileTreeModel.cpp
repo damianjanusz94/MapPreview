@@ -58,14 +58,14 @@ std::vector<QModelIndex> FileTreeModel::getItemChildren(const QModelIndex& paren
     return childrenIndexes;
 }
 
-bool FileTreeModel::insertMainRow(int position, const QString& filePath, const QModelIndex& parent)
+bool FileTreeModel::insertMainRow(int position, std::shared_ptr<GeoLayer> geoLayer, const QModelIndex& parent)
 {
     TreeItem* parentItem = getItem(parent);
     if (!parentItem)
         return false;
 
     beginInsertRows(parent, position, position);
-    const bool success = parentItem->insertChildren(position, rootItem->columnCount(), filePath);
+    const bool success = parentItem->insertChildren(position, rootItem->columnCount(), geoLayer);
     endInsertRows();
 
     return success;

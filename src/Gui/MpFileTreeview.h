@@ -37,7 +37,7 @@ class MpFileTreeview : public QTreeView
 
 	void addButton(const QModelIndex& index, QString tooltip, QIcon icon, void(MpFileTreeview::* slotName)());
 	void addButtonExtension(const QModelIndex& index, const QString& fileExtension);
-	void addColorPickers(const QModelIndex& index);
+	void addColorPickers(const QModelIndex& index, std::shared_ptr<GeoLayer> geoLayer);
 	void setupMenuExtension(QPushButton* button);
 	void moveItem(MoveTreeItem moveFlags);
 
@@ -56,7 +56,6 @@ public slots:
 
 public:
 	explicit MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, QWidget* parent = nullptr);
-	void addFileItems(const QStringList& filePaths);
-	void addFileItem(const QString& filePath);
+	void addFileItem(const QString& filePath, std::shared_ptr<GeoLayer> geoLayer);
 };
 

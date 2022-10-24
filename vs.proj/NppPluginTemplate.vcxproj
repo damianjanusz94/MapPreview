@@ -52,6 +52,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
     </CustomBuild>
     <ClInclude Include="..\src\Gui\MpObjectTreeview.h" />
+    <ClInclude Include="..\src\Gui\ObjectTvToolbar.h" />
     <ClInclude Include="..\src\Gui\Settings\MpGeneralTab.h" />
     <ClInclude Include="..\src\Gui\Settings\MpSettingsDialog.h" />
     <ClInclude Include="..\src\Gui\Settings\MpTabStyle.h" />
@@ -60,6 +61,7 @@
     <ClInclude Include="..\src\MapPreviewResources.h" />
     <ClInclude Include="..\src\MapPreviewWindow.h" />
     <ClInclude Include="..\src\Models\FileHelper.h" />
+    <ClInclude Include="..\src\Models\GeoHelper.h" />
     <ClInclude Include="..\src\Models\GeoLayer.h" />
     <ClInclude Include="..\src\Models\TreeItem.h" />
     <ClInclude Include="..\src\Models\FileTreeModel.h" />
@@ -153,12 +155,14 @@
     <ClCompile Include="..\src\Gui\MpMainToolbar.cpp" />
     <ClCompile Include="..\src\Gui\MpMainWindow.cpp" />
     <ClCompile Include="..\src\Gui\MpObjectTreeview.cpp" />
+    <ClCompile Include="..\src\Gui\ObjectTvToolbar.cpp" />
     <ClCompile Include="..\src\Gui\Settings\MpGeneralTab.cpp" />
     <ClCompile Include="..\src\Gui\Settings\MpSettingsDialog.cpp" />
     <ClCompile Include="..\src\Gui\Settings\MpViewTab.cpp" />
     <ClCompile Include="..\src\MapPreviewPlugin.cpp" />
     <ClCompile Include="..\src\MapPreviewWindow.cpp" />
     <ClCompile Include="..\src\Models\FileHelper.cpp" />
+    <ClCompile Include="..\src\Models\GeoHelper.cpp" />
     <ClCompile Include="..\src\Models\GeoLayer.cpp" />
     <ClCompile Include="..\src\Models\TreeItem.cpp" />
     <ClCompile Include="..\src\Models\FileTreeModel.cpp" />

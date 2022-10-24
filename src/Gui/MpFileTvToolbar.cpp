@@ -3,6 +3,8 @@
 #include<QtWidgets\QLayout>
 #include<QtWidgets\QMessageBox>
 
+#include "../Models/GeoLayer.h"
+
 MpFileTvToolbar::MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv,
                                  std::shared_ptr<FileTreeModel> fileModel, std::weak_ptr<MpObjectTreeview> objectTv, QWidget* parent)
                                  : fileTreeview(fileTv), QToolBar(parent), fileTreeModel(fileModel), objectTreeview(objectTv), nppProxy(pNppProxy)
@@ -120,7 +122,13 @@ void MpFileTvToolbar::showFileDialog()
     if (fileAddWindow->exec() == QDialog::Accepted)
     {
         const QStringList& selectedFiles = fileAddWindow->getSelectedFiles();
-        fileTreeview.lock()->addFileItems(selectedFiles);
-        objectTreeview.lock()->addFileItems(selectedFiles);
+
+        for (const auto& file : selectedFiles)
+        {
+            auto geoLayerPtr = std::make_shared<GeoLayer>(file);
+
+            fileTreeview.lock()->addFileItem(file, geoLayerPtr);
+            objectTreeview.lock()->addFileItem(file, geoLayerPtr);
+        }
     }
 }

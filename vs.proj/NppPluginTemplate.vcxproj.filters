@@ -117,6 +117,12 @@
     <ClInclude Include="..\src\Enums\GeoExtType.h">
       <Filter>Enums</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Gui\ObjectTvToolbar.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Models\GeoHelper.h">
+      <Filter>Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp">
@@ -212,6 +218,12 @@
       <Filter>Models</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Models\GeoLayer.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Gui\ObjectTvToolbar.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Models\GeoHelper.cpp">
       <Filter>Models</Filter>
     </ClCompile>
   </ItemGroup>

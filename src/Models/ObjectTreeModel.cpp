@@ -57,7 +57,7 @@ std::vector<QModelIndex> ObjectTreeModel::getItemChildren(const QModelIndex& par
     return childrenIndexes;
 }
 
-bool ObjectTreeModel::insertFileChild(const QString& filePath)
+bool ObjectTreeModel::insertFileChild(const QString& filePath, std::shared_ptr<GeoLayer> geoLayer)
 {
     auto mainItemList = rootItem->getChildren();
     for (auto item : mainItemList)
@@ -67,7 +67,7 @@ bool ObjectTreeModel::insertFileChild(const QString& filePath)
         auto parentIndex = createIndex(item->row(), 0, item);
         
         beginInsertRows(parentIndex, position, position);
-        const bool success = item->insertChildrenObject(position, rootItem->columnCount(), filePath);
+        const bool success = item->insertChildrenObject(position, rootItem->columnCount(), filePath, geoLayer);
         if (!success)
             return false;
         endInsertRows();
@@ -338,4 +338,18 @@ bool ObjectTreeModel::moveRows(const QModelIndex& sourceParent, int sourceRow, i
     }
     endMoveRows();
     return result;
+}
+
+QList<QModelIndex> ObjectTreeModel::getLastGeoFiles(int column)
+{
+    QList<QModelIndex> indexList;
+
+    auto childrenList = rootItem->getChildren();
+    for (auto child : childrenList)
+    {
+        auto fileItem = child->getLastChild();
+        indexList.append(createIndex(fileItem->row(), column, fileItem));
+    }
+
+   return indexList;
 }

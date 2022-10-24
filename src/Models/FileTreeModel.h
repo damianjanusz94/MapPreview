@@ -31,7 +31,7 @@ public:
     std::vector<QModelIndex> getItemChildren(const QModelIndex& parent, int column);
     void clearAll();
     int deltaIndexToLast(QModelIndex itemIndex);
-    bool insertMainRow(int position, const QString& filePath, const QModelIndex& parent = QModelIndex());
+    bool insertMainRow(int position, std::shared_ptr<GeoLayer> geoLayer, const QModelIndex& parent = QModelIndex());
     QStringList getAllFilePaths();
     QString titleGeoTypeChild(const QModelIndex& index) const;
     QIcon iconGeoTypeChild(const QString& type) const;

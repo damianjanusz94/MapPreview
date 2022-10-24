@@ -43,6 +43,7 @@ void MpMainWindow::setupFileDockWidget(Qt::DockWidgetArea area)
     fileTreeModel = std::make_shared<FileTreeModel>(objectTreemodel, this);
     fileTreeview = std::make_shared<MpFileTreeview>(fileTreeModel);
     fileTvToolbar = std::make_unique<MpFileTvToolbar>(nppProxy, fileTreeview, fileTreeModel, objectTreeview);
+    objectTvToolbar = std::make_unique<ObjectTvToolbar>(objectTreeview);
 
     QWidget* widget = new QWidget(this);
     QVBoxLayout* vLayout = new QVBoxLayout(widget);
@@ -62,11 +63,17 @@ void MpMainWindow::setupFileDockWidget(Qt::DockWidgetArea area)
 
 void MpMainWindow::setupObjectDockWidget(Qt::DockWidgetArea area)
 {
+    QWidget* widget = new QWidget(this);
+    QVBoxLayout* vLayout = new QVBoxLayout(widget);
+    vLayout->addWidget(objectTvToolbar.get());
+    vLayout->addWidget(objectTreeview.get());
+    vLayout->setContentsMargins(0, 0, 0, 0);
+
     QDockWidget* dwObj = new QDockWidget(this);
     const QString nameObj = "Objects";
     dwObj->setObjectName(nameObj);
     dwObj->setWindowTitle(nameObj);
-    dwObj->setWidget(objectTreeview.get());
+    dwObj->setWidget(widget);
     dwObj->setMaximumHeight(400);
     addDockWidget(area, dwObj);
     dockWidgets.append(dwObj);

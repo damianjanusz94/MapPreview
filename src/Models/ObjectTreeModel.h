@@ -25,17 +25,18 @@ public:
     bool setData(const QModelIndex& index, const QVariant& value, int role) override;
     std::vector<QModelIndex> getMainChildren(int column);
     std::vector<QModelIndex> getItemChildren(const QModelIndex& parent, int column);
-    bool insertFileChild(const QString& filePath);
+    bool insertFileChild(const QString& filePath, std::shared_ptr<GeoLayer> geoLayer);
     bool removeRows(int position, int rows, const QModelIndex& parent = QModelIndex()) override;
     bool removeFiles(const QStringList& filePaths);
     bool removeFile(const QString& filePath);
     void clearAll();
     bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild) override;
+    QList<QModelIndex> getLastGeoFiles(int column);
+    bool isMainItem(const QModelIndex& index) const;
 
 private:
     QModelIndex getLastItemChildren(TreeItem* item, int column);
     void setChecked(const QModelIndex& index, bool status);
-    bool isMainItem(const QModelIndex& index) const;
     QIcon iconGeoType(const QModelIndex& index) const;
     TreeItem* getItem(const QModelIndex& index) const;
     TreeItem* rootItem;

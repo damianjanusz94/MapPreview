@@ -10,6 +10,7 @@
 #include "MpMainToolbar.h"
 #include "MpInfoToolbar.h"
 #include "MpFileTvToolbar.h"
+#include "ObjectTvToolbar.h"
 #include "../NppPlugin/NppProxy.h"
 #include "../Models/ObjectTreeModel.h"
 
@@ -22,6 +23,7 @@ class MpMainWindow : public QMainWindow
 	QGraphicsView* graphicsView;
 	std::shared_ptr<MpFileTreeview> fileTreeview;
 	std::unique_ptr<MpFileTvToolbar> fileTvToolbar;
+	std::unique_ptr<ObjectTvToolbar> objectTvToolbar;
 	std::shared_ptr<MpObjectTreeview> objectTreeview;
 	std::unique_ptr<MpMainToolbar> mainToolbar;
 	std::unique_ptr<MpInfoToolbar> infoToolbar;

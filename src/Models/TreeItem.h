@@ -14,6 +14,7 @@ public:
     void appendChild(TreeItem* child);
 
     TreeItem* child(int row);
+    TreeItem* getLastChild();
     QList<TreeItem*> getChildren();
     QList<TreeItem*> getChildren(int row, int count);
     int childCount() const;
@@ -23,8 +24,8 @@ public:
     TreeItem* getParentItem();
     void setChecked(bool set);
     bool isChecked();
-    bool insertChildren(int position, int columns, const QString& filePath);
-    bool insertChildrenObject(int position, int columns, const QString& filePath);
+    bool insertChildren(int position, int columns, std::shared_ptr<GeoLayer> geo_layer);
+    bool insertChildrenObject(int position, int columns, const QString& filePath, std::shared_ptr<GeoLayer> geo_layer);
     bool removeChildren(int position, int count);
     bool moveChildren(TreeItem* child, int position);
     void clearChildren();

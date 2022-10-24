@@ -43,3 +43,4 @@ bool FileHelper::isFilePath(QString filePath)
 {
 	return filePath.contains("\\");
 }
+

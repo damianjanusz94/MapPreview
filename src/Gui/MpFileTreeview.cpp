@@ -2,12 +2,13 @@
 
 #include <QtCore\QFile>
 #include <QtCore\QDir>
-#include <QtCore\QRandomGenerator>
+
 #include <QtWidgets\QColorDialog>
 #include <QtWidgets\QHeaderView>
 
 #include "../Enums/GeoExtType.h"
 #include "../Models/FileHelper.h"
+#include "../Models/GeoLayer.h"
 
 using namespace Enums;
 
@@ -50,15 +51,13 @@ void MpFileTreeview::addButtonExtension(const QModelIndex& index, const QString&
     setIndexWidget(index, button);
 }
 
-void MpFileTreeview::addColorPickers(const QModelIndex& index)
+void MpFileTreeview::addColorPickers(const QModelIndex& index, std::shared_ptr<GeoLayer> geoLayer)
 {
-    auto geoChildren = fileTreeModel->getItemChildren(index, 1);
+    auto geoChildren = fileTreeModel->getItemChildren(index, EXTENSION_COLUMN);
     for (const auto& child : geoChildren)
     {
         auto button = new QPushButton();
-        QColor color(QRandomGenerator::global()->bounded(0, 255),
-                     QRandomGenerator::global()->bounded(0, 255), 
-                     QRandomGenerator::global()->bounded(0, 255));
+        QColor color = geoLayer->getColor(static_cast<GeoType>(child.row()));
         button->setStyleSheet("background-color : " + color.name());
         setIndexWidget(child, button);
         connect(button, &QPushButton::released, this, [this, button] { changeColor(button); });
@@ -212,7 +211,7 @@ void MpFileTreeview::setColorForItems()
         return;
     }
 
-    auto childItems = fileTreeModel->getItemChildren(index, 1);
+    auto childItems = fileTreeModel->getItemChildren(index, EXTENSION_COLUMN);
     for (const auto& child : childItems)
     {
         QPushButton* button = static_cast<QPushButton*>(indexWidget(child));
@@ -220,23 +219,15 @@ void MpFileTreeview::setColorForItems()
     }
 }
 
-void MpFileTreeview::addFileItems(const QStringList& filePaths)
-{
-    for (const auto& file : filePaths)
-    {
-        addFileItem(file);
-    }
-}
-
-void MpFileTreeview::addFileItem(const QString& filePath)
+void MpFileTreeview::addFileItem(const QString& filePath, std::shared_ptr<GeoLayer> geoLayer)
 {
     const QModelIndex& lastIndex = fileTreeModel->getLastRootChildren(TEXT_COLUMN);
 
-    if (!fileTreeModel->insertMainRow(lastIndex.row() + 1, filePath, lastIndex.parent()))
+    if (!fileTreeModel->insertMainRow(lastIndex.row() + 1, geoLayer, lastIndex.parent()))
         return;
 
     addButtonExtension(fileTreeModel->getLastRootChildren(EXTENSION_COLUMN), FileHelper::getFileExtension(filePath));
     addButton(fileTreeModel->getLastRootChildren(REFRESH_COLUMN), "Refresh", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\refresh-24.png"), &MpFileTreeview::refreshRow);
     addButton(fileTreeModel->getLastRootChildren(REMOVE_COLUMN), "Remove", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\remove-24.png"), &MpFileTreeview::removeRow);
-    addColorPickers(fileTreeModel->getLastRootChildren(TEXT_COLUMN));
+    addColorPickers(fileTreeModel->getLastRootChildren(TEXT_COLUMN), geoLayer);
 }
