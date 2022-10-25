@@ -54,9 +54,11 @@ public slots:
 	void changeExtension(QAction* action, QPushButton* button);
 	void changeColor(QPushButton* button, std::shared_ptr<GeoLayer> geo_layer, GeoType geo_type);
 	void setColorForItems();
+	void onSelectionChanged(QPushButton* button);
 
 public:
 	explicit MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, QWidget* parent = nullptr);
 	void addFileItem(const QString& filePath, std::shared_ptr<GeoLayer> geoLayer);
+	void connectButtonWithSelection(QPushButton* button);
 };
 

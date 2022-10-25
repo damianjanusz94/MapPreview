@@ -88,3 +88,35 @@ void MpObjectTreeview::setColorForItems()
 
     objectTreeModel->setColorsGeoLayer(index, newColor);
 }
+
+void MpObjectTreeview::connectButtonWithSelection(QPushButton* button)
+{
+    if (button == nullptr)
+        return;
+
+    connect(this->selectionModel(), &QItemSelectionModel::selectionChanged, this, [this, button] { onSelectionChanged(button); });
+}
+
+void MpObjectTreeview::onSelectionChanged(QPushButton* button)
+{
+    if (button == nullptr)
+        return;
+
+
+    if (!this->selectionModel()->hasSelection())
+    {
+        button->setEnabled(false);
+        return;
+    }
+
+    const QModelIndex index = this->selectionModel()->currentIndex();
+    if (objectTreeModel->isMainItem(index))
+    {
+        button->setEnabled(true);
+    }
+    else
+    {
+        button->setEnabled(false);
+    }
+
+}

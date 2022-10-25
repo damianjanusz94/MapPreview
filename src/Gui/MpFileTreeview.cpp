@@ -241,3 +241,35 @@ void MpFileTreeview::addFileItem(const QString& filePath, std::shared_ptr<GeoLay
     addButton(fileTreeModel->getLastRootChildren(REMOVE_COLUMN), "Remove", QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\remove-24.png"), &MpFileTreeview::removeRow);
     addColorPickers(fileTreeModel->getLastRootChildren(TEXT_COLUMN), geoLayer);
 }
+
+void MpFileTreeview::connectButtonWithSelection(QPushButton* button)
+{
+    if (button == nullptr)
+        return;
+
+    connect(this->selectionModel(), &QItemSelectionModel::selectionChanged, this, [this, button] { onSelectionChanged(button); });
+}
+
+void MpFileTreeview::onSelectionChanged(QPushButton* button)
+{
+    if (button == nullptr)
+        return;
+
+
+    if (!this->selectionModel()->hasSelection())
+    {
+        button->setEnabled(false);
+        return;
+    }
+
+    const QModelIndex index = this->selectionModel()->currentIndex();
+    if (fileTreeModel->isMainItem(index))
+    {
+        button->setEnabled(true);
+    }
+    else
+    {
+        button->setEnabled(false);
+    }
+
+}

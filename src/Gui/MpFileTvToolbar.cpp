@@ -60,9 +60,11 @@ void MpFileTvToolbar::setupUpBtn()
     upBtn = new QPushButton();
     upBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\up-24.png"));
     upBtn->setFlat(true);
+    upBtn->setEnabled(false);
     upBtn->setToolTip("Move up");
     addWidget(upBtn);
     connect(upBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::moveUp);
+    fileTreeview.lock()->connectButtonWithSelection(upBtn);
 }
 
 void MpFileTvToolbar::setupDownBtn()
@@ -70,9 +72,11 @@ void MpFileTvToolbar::setupDownBtn()
     downBtn = new QPushButton();
     downBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\down-24.png"));
     downBtn->setFlat(true);
+    downBtn->setEnabled(false);
     downBtn->setToolTip("Move down");
     addWidget(downBtn);
     connect(downBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::moveDown);
+    fileTreeview.lock()->connectButtonWithSelection(downBtn);
 }
 
 void MpFileTvToolbar::setupUpMaxBtn()
@@ -80,9 +84,11 @@ void MpFileTvToolbar::setupUpMaxBtn()
     upMaxBtn = new QPushButton();
     upMaxBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\updouble-48.png"));
     upMaxBtn->setFlat(true);
+    upMaxBtn->setEnabled(false);
     upMaxBtn->setToolTip("Move to first");
     addWidget(upMaxBtn);
     connect(upMaxBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::moveToFirst);
+    fileTreeview.lock()->connectButtonWithSelection(upMaxBtn);
 }
 
 void MpFileTvToolbar::setupDownMaxBtn()
@@ -90,9 +96,11 @@ void MpFileTvToolbar::setupDownMaxBtn()
     downMaxBtn = new QPushButton();
     downMaxBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\downdouble-48.png"));
     downMaxBtn->setFlat(true);
+    downMaxBtn->setEnabled(false);
     downMaxBtn->setToolTip("Move to last");
     addWidget(downMaxBtn);
     connect(downMaxBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::moveToLast);
+    fileTreeview.lock()->connectButtonWithSelection(downMaxBtn);
 }
 
 void MpFileTvToolbar::setupColorBtn()
@@ -100,9 +108,11 @@ void MpFileTvToolbar::setupColorBtn()
     colorBtn = new QPushButton();
     colorBtn->setIcon(QIcon(QDir::currentPath() + "\\plugins\\MapPreview\\icons\\color-48.png"));
     colorBtn->setFlat(true);
+    colorBtn->setEnabled(false);
     colorBtn->setToolTip("Set one color for file");
     addWidget(colorBtn);
     connect(colorBtn, &QPushButton::released, fileTreeview.lock().get(), &MpFileTreeview::setColorForItems);
+    fileTreeview.lock()->connectButtonWithSelection(colorBtn);
 }
 
 void MpFileTvToolbar::showFileDialog()

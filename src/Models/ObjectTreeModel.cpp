@@ -289,7 +289,7 @@ bool ObjectTreeModel::removeFile(const QString& filePath)
         {
             if (filePath == subItem->getFilePath())
             {
-                QModelIndex parentIndex = createIndex(item->row(), 0, item);
+                QModelIndex parentIndex = createIndex(subItem->row(), 0, subItem);
                 if (!removeRow(subItem->row(), parentIndex))
                     return false;
             }

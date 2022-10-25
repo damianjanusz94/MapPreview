@@ -2,8 +2,6 @@
 #include "FileHelper.h"
 #include "GeoHelper.h"
 
-
-
 GeoLayer::GeoLayer(QString file_path) : filePath(file_path)
 {
 	fileName = FileHelper::getFileName(file_path);
