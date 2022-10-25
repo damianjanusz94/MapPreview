@@ -255,20 +255,6 @@ QModelIndex ObjectTreeModel::getLastItemChildren(TreeItem* item, int column)
         return QModelIndex();
 }
 
-bool ObjectTreeModel::removeRows(int position, int rows, const QModelIndex& parent)
-{
-    TreeItem* parentItem = getItem(parent);
-    if (!parentItem)
-        return false;
-
-    beginRemoveRows(parent, position, position + rows - 1);
-    const bool success = parentItem->removeChildren(position, rows);
-    endRemoveRows();
-
-    return success;
-}
-
-
 bool ObjectTreeModel::removeFiles(const QStringList& filePaths)
 {
     for (const auto& file : filePaths)
@@ -290,12 +276,25 @@ bool ObjectTreeModel::removeFile(const QString& filePath)
             if (filePath == subItem->getFilePath())
             {
                 QModelIndex parentIndex = createIndex(subItem->row(), 0, subItem);
-                if (!removeRow(subItem->row(), parentIndex))
+                if (!removeRow(parentIndex.row(), parentIndex.parent()))
                     return false;
             }
         }
     }
     return true;
+}
+
+bool ObjectTreeModel::removeRows(int position, int rows, const QModelIndex& parent)
+{
+    TreeItem* parentItem = getItem(parent);
+    if (!parentItem)
+        return false;
+
+    beginRemoveRows(parent, position, position + rows - 1);
+    const bool success = parentItem->removeChildren(position, rows);
+    endRemoveRows();
+
+    return success;
 }
 
 void ObjectTreeModel::clearAll()
