@@ -114,6 +114,7 @@ bool TreeItem::insertChildrenObject(int position, int columns, const QString& fi
     QList<QVariant> data;
     data.reserve(columns);
     data << FileHelper::getFileName(filePath);
+    data << QColor(Qt::red);
     TreeItem* item = new TreeItem(data, geo_layer, this);
     childItems.insert(position, item);
 

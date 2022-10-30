@@ -9,7 +9,7 @@
 class MpObjectTreeview : public QTreeView
 {
 	static const int TEXT_COLUMN = 0;
-	static const int EXTENSION_COLUMN = 1;
+	static const int COLOR_COLUMN = 1;
 
 	std::shared_ptr<ObjectTreeModel> objectTreeModel;
 	void changeColor(QPushButton* button, std::shared_ptr<GeoLayer> geo_layer, GeoType geo_type);

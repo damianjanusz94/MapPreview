@@ -14,6 +14,7 @@ ObjectTreeModel::ObjectTreeModel(QObject* parent)
         QList<QVariant> data;
         data.reserve(2);
         data << name;
+        data << QString("");
         rootItem->appendChild(new TreeItem(data, nullptr, rootItem));
     }
 }
@@ -108,6 +109,12 @@ Qt::ItemFlags ObjectTreeModel::flags(const QModelIndex& index) const
 {
     if (!index.isValid())
         return Qt::NoItemFlags;
+
+    auto item = getItem(index);
+    if (index.column() == 1 && item->childCount() == 0)
+    {
+        Qt::ItemIsEditable;
+    }
 
     return QAbstractItemModel::flags(index) | Qt::ItemIsUserCheckable;
 }

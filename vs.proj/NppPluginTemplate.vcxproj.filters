@@ -232,6 +232,18 @@
     <ClCompile Include="..\src\Models\TreeModel.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Gui\ColorEditor.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Models\ColorDelegate.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Models\moc_ColorDelegate.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Gui\moc_ColorEditor.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc">
@@ -263,6 +275,12 @@
     </CustomBuild>
     <CustomBuild Include="..\src\Models\GeoLayer.h">
       <Filter>Models</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Models\ColorDelegate.h">
+      <Filter>Models</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Gui\ColorEditor.h">
+      <Filter>Gui</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

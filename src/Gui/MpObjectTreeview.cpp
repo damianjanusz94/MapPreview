@@ -4,14 +4,19 @@
 #include <QtWidgets\QHeaderView>
 #include <QtWidgets\QColorDialog>
 
+#include "../Models/ColorDelegate.h"
+
 MpObjectTreeview::MpObjectTreeview(std::shared_ptr<ObjectTreeModel> object_model, QWidget* parent) : QTreeView(parent), objectTreeModel(object_model)
 {
+    setItemDelegate(new ColorDelegate());
     setModel(objectTreeModel.get());
     setHeaderHidden(true);
+    setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
     header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     header()->setStretchLastSection(false);
     setFocusPolicy(Qt::FocusPolicy::NoFocus);
+    //setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::SingleSelection);
     setStyleSheet("selection-background-color: rgb(240, 240, 240);selection-color: black");
 }
@@ -21,7 +26,7 @@ void MpObjectTreeview::addFileItem(const QString& filePath, std::shared_ptr<GeoL
     if (!objectTreeModel->insertFileChild(filePath, geoLayer))
         return;
 
-    addColorPickers(objectTreeModel->getLastGeoFiles(EXTENSION_COLUMN), geoLayer);
+   // addColorPickers(objectTreeModel->getLastGeoFiles(EXTENSION_COLUMN), geoLayer);
 }
 
 void MpObjectTreeview::addColorPickers(const QList<QModelIndex> indexList, std::shared_ptr<GeoLayer> geoLayer)

@@ -39,6 +39,11 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
     </CustomBuild>
     <ClInclude Include="..\src\Enums\GeoExtType.h" />
+    <CustomBuild Include="..\src\Gui\ColorEditor.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
+    </CustomBuild>
     <ClInclude Include="..\src\Gui\MpInfoToolbar.h" />
     <ClInclude Include="..\src\Gui\MpFileTreeview.h" />
     <CustomBuild Include="..\src\Gui\MpMainToolbar.h">
@@ -60,6 +65,11 @@
     <ClInclude Include="..\src\MapPreviewPlugin.h" />
     <ClInclude Include="..\src\MapPreviewResources.h" />
     <ClInclude Include="..\src\MapPreviewWindow.h" />
+    <CustomBuild Include="..\src\Models\ColorDelegate.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">Compiling %(Filename).%(Extension) using MOC</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
+    </CustomBuild>
     <ClInclude Include="..\src\Models\FileHelper.h" />
     <ClInclude Include="..\src\Models\GeoHelper.h" />
     <CustomBuild Include="..\src\Models\GeoLayer.h">
@@ -149,6 +159,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Commands\CommandShowHide.cpp" />
+    <ClCompile Include="..\src\Gui\ColorEditor.cpp" />
+    <ClCompile Include="..\src\Gui\moc_ColorEditor.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpFileAddWindow.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpFileTvToolbar.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpMainToolbar.cpp" />
@@ -166,9 +178,11 @@
     <ClCompile Include="..\src\Gui\Settings\MpViewTab.cpp" />
     <ClCompile Include="..\src\MapPreviewPlugin.cpp" />
     <ClCompile Include="..\src\MapPreviewWindow.cpp" />
+    <ClCompile Include="..\src\Models\ColorDelegate.cpp" />
     <ClCompile Include="..\src\Models\FileHelper.cpp" />
     <ClCompile Include="..\src\Models\GeoHelper.cpp" />
     <ClCompile Include="..\src\Models\GeoLayer.cpp" />
+    <ClCompile Include="..\src\Models\moc_ColorDelegate.cpp" />
     <ClCompile Include="..\src\Models\moc_GeoLayer.cpp" />
     <ClCompile Include="..\src\Models\TreeItem.cpp" />
     <ClCompile Include="..\src\Models\FileTreeModel.cpp" />
