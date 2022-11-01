@@ -2,6 +2,8 @@
 #include "FileHelper.h"
 #include "GeoHelper.h"
 
+using namespace Enums;
+
 GeoLayer::GeoLayer(QString file_path) : filePath(file_path)
 {
 	fileName = FileHelper::getFileName(file_path);

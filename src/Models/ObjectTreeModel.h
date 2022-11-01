@@ -35,6 +35,10 @@ public:
     QList<QModelIndex> getLastGeoFiles(int column);
     bool isMainItem(const QModelIndex& index) const;
     void setColorsGeoLayer(const QModelIndex& index, QColor color);
+    void setColorFile(const QModelIndex& index, QColor color, int column);
+
+private slots:
+    void onDataChanged(TreeItem* item);
 
 private:
     QModelIndex getLastItemChildren(TreeItem* item, int column);

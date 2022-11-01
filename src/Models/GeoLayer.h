@@ -5,13 +5,7 @@
 #include <QtGui\QColor>
 #include <QtWidgets\QPushButton>
 
-enum class GeoType
-{
-	UNDEFINED = -1,
-	POINT,
-	LINE,
-	POLYGON
-};
+#include "../Enums/GeoType.h"
 
 class GeoLayer : public QObject
 {
@@ -37,8 +31,8 @@ public:
 	QString getFileName() { return fileName; }
 	QString getFileNameWoExt() { return fileNameWoExt; }
 	QString getFilePath() { return filePath; }
-	void setColor(QColor color, GeoType geo_type);
-	QColor getColor(GeoType geo_type);
+	void setColor(QColor color, Enums::GeoType geo_type);
+	QColor getColor(Enums::GeoType geo_type);
 	void setColorButtonConnection(QPushButton* btn_point, QPushButton* btn_line, QPushButton* btn_polygon);
 };
 

@@ -96,9 +96,6 @@
     <ClInclude Include="..\src\Models\FileTreeModel.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Models\TreeItem.h">
-      <Filter>Models</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Models\NppFilesList.h">
       <Filter>Models</Filter>
     </ClInclude>
@@ -122,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Models\TreeModel.h">
       <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Enums\GeoType.h">
+      <Filter>Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +244,9 @@
     <ClCompile Include="..\src\Gui\moc_ColorEditor.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Models\moc_TreeItem.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc">
@@ -281,6 +284,9 @@
     </CustomBuild>
     <CustomBuild Include="..\src\Gui\ColorEditor.h">
       <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Models\TreeItem.h">
+      <Filter>Models</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

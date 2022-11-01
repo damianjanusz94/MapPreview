@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QtWidgets\QPushButton>
+#include <QtWidgets\QWidget>
 
-class ColorEditor : public QPushButton
+class ColorEditor : public QWidget
 {
     Q_OBJECT
 public:

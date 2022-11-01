@@ -71,7 +71,7 @@ void ColorDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
     if (index.data().canConvert<QColor>()) 
     {
         ColorEditor* colorEditor = qobject_cast<ColorEditor*>(editor);
-        model->setData(index, QVariant::fromValue(colorEditor->getColor()));
+        model->setData(index, QVariant::fromValue(colorEditor->getColor()), -10);
     }
     else 
     {
@@ -82,6 +82,7 @@ void ColorDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
 void ColorDelegate::commitAndCloseEditor()
 {
     ColorEditor* editor = qobject_cast<ColorEditor*>(sender());
+
     emit commitData(qobject_cast<QWidget*>(editor));
     emit closeEditor(qobject_cast<QWidget*>(editor));
 }

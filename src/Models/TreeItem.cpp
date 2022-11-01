@@ -5,6 +5,8 @@
 #include<QtCore\QDir>
 #include<QtGui\QIcon>
 
+using namespace Enums;
+
 TreeItem::TreeItem(const QList<QVariant>& data, std::shared_ptr<GeoLayer> geolayer, TreeItem* parent) 
                   : itemData(data), parentItem(parent), geoLayer(geolayer)
 {
@@ -63,7 +65,16 @@ QVariant TreeItem::data(int column) const
 {
     if (column < 0 || column >= itemData.size())
         return QVariant();
+    
     return itemData.at(column);
+}
+
+void TreeItem::setData(int column, QVariant value)
+{
+    if (column < 0 || column >= itemData.size())
+        return;
+
+    itemData[column] = value;
 }
 
 TreeItem* TreeItem::getParentItem()
@@ -106,7 +117,7 @@ bool TreeItem::insertChildren(int position, int columns, std::shared_ptr<GeoLaye
     return true;
 }
 
-bool TreeItem::insertChildrenObject(int position, int columns, const QString& filePath, std::shared_ptr<GeoLayer> geo_layer)
+bool TreeItem::insertChildrenObject(int position, int columns, const QString& filePath, std::shared_ptr<GeoLayer> geo_layer, GeoType geoType)
 {
     if (position < 0 || position > childItems.size())
         return false;
@@ -114,9 +125,22 @@ bool TreeItem::insertChildrenObject(int position, int columns, const QString& fi
     QList<QVariant> data;
     data.reserve(columns);
     data << FileHelper::getFileName(filePath);
-    data << QColor(Qt::red);
+    data << geo_layer->getColor(geoType);
     TreeItem* item = new TreeItem(data, geo_layer, this);
     childItems.insert(position, item);
+
+    switch (geoType)
+    {
+        case GeoType::POINT:
+            connect(geo_layer.get(), &GeoLayer::pointColorChanged, item, &TreeItem::onColorChanged);
+            break;
+        case GeoType::LINE:
+            connect(geo_layer.get(), &GeoLayer::lineColorChanged, item, &TreeItem::onColorChanged);
+            break;
+        case GeoType::POLYGON:
+            connect(geo_layer.get(), &GeoLayer::polygonColorChanged, item, &TreeItem::onColorChanged);
+            break;
+    };
 
     return true;
 }
@@ -128,6 +152,26 @@ void TreeItem::insertGeoChild(int columns, const QString& title)
     data << title;
     TreeItem* item = new TreeItem(data, geoLayer, this);
     appendChild(item);
+}
+
+GeoType TreeItem::getGeoType()
+{
+    QString type = this->data(0).toString();
+    auto geoType = GeoType::UNDEFINED;
+    if (type == "Point")
+    {
+        geoType = GeoType::POINT;
+    }
+    else if (type == "Line")
+    {
+        geoType = GeoType::LINE;
+    }
+    else if (type == "Polygon")
+    {
+        geoType = GeoType::POLYGON;
+    }
+
+    return geoType;
 }
 
 bool TreeItem::removeChildren(int position, int count)
@@ -180,3 +224,8 @@ QString TreeItem::getFilePath()
     return QString("");
 }
 
+void TreeItem::onColorChanged(const QColor& color)
+{
+    setData(1, QVariant(color));
+    emit dataChanged();
+}

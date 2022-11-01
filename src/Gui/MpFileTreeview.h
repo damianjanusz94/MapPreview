@@ -52,7 +52,7 @@ public slots:
 	void moveToFirst();
 	void moveToLast();
 	void changeExtension(QAction* action, QPushButton* button);
-	void changeColor(QPushButton* button, std::shared_ptr<GeoLayer> geo_layer, GeoType geo_type);
+	void changeColor(QPushButton* button, std::shared_ptr<GeoLayer> geo_layer, Enums::GeoType geo_type);
 	void setColorForItems();
 	void onSelectionChanged(QPushButton* button);
 

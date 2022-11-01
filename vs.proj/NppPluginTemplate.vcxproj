@@ -44,6 +44,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
     </CustomBuild>
+    <ClInclude Include="..\src\Enums\GeoType.h" />
     <ClInclude Include="..\src\Gui\MpInfoToolbar.h" />
     <ClInclude Include="..\src\Gui\MpFileTreeview.h" />
     <CustomBuild Include="..\src\Gui\MpMainToolbar.h">
@@ -77,7 +78,11 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
     </CustomBuild>
-    <ClInclude Include="..\src\Models\TreeItem.h" />
+    <CustomBuild Include="..\src\Models\TreeItem.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
+    </CustomBuild>
     <ClInclude Include="..\src\Models\FileTreeModel.h" />
     <ClInclude Include="..\src\Models\NppFilesList.h" />
     <ClInclude Include="..\src\Models\ObjectTreeModel.h" />
@@ -184,6 +189,7 @@
     <ClCompile Include="..\src\Models\GeoLayer.cpp" />
     <ClCompile Include="..\src\Models\moc_ColorDelegate.cpp" />
     <ClCompile Include="..\src\Models\moc_GeoLayer.cpp" />
+    <ClCompile Include="..\src\Models\moc_TreeItem.cpp" />
     <ClCompile Include="..\src\Models\TreeItem.cpp" />
     <ClCompile Include="..\src\Models\FileTreeModel.cpp" />
     <ClCompile Include="..\src\Models\NppFilesList.cpp" />

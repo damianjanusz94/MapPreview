@@ -12,7 +12,6 @@ class MpObjectTreeview : public QTreeView
 	static const int COLOR_COLUMN = 1;
 
 	std::shared_ptr<ObjectTreeModel> objectTreeModel;
-	void changeColor(QPushButton* button, std::shared_ptr<GeoLayer> geo_layer, GeoType geo_type);
 
 public slots:
 	void onSelectionChanged(QPushButton* button);
@@ -20,7 +19,6 @@ public slots:
 public:
 	explicit MpObjectTreeview(std::shared_ptr<ObjectTreeModel> object_model, QWidget* parent = nullptr);
 	void addFileItem(const QString& filePath, std::shared_ptr<GeoLayer> geoLayer);
-	void addColorPickers(const QList<QModelIndex> indexList, std::shared_ptr<GeoLayer> geoLayer);
 	void connectButtonWithSelection(QPushButton* button);
 	void setColorForItems();
 };

@@ -6,6 +6,8 @@
 
 #include "../Models/GeoLayer.h"
 
+using namespace Enums;
+
 FileTreeModel::FileTreeModel(std::shared_ptr<ObjectTreeModel> object_model, QObject* parent)
     : objectTreeModel(object_model), QAbstractItemModel(parent)
 {

@@ -68,10 +68,13 @@ bool ObjectTreeModel::insertFileChild(const QString& filePath, std::shared_ptr<G
         auto parentIndex = createIndex(item->row(), 0, item);
         
         beginInsertRows(parentIndex, position, position);
-        const bool success = item->insertChildrenObject(position, rootItem->columnCount(), filePath, geoLayer);
+        const bool success = item->insertChildrenObject(position, rootItem->columnCount(), filePath, geoLayer, item->getGeoType());
         if (!success)
             return false;
         endInsertRows();
+
+        auto newItem = item->getLastChild();
+        connect(newItem, &TreeItem::dataChanged, this, [this, newItem] { onDataChanged(newItem); });
     }
     
     return true;
@@ -111,9 +114,9 @@ Qt::ItemFlags ObjectTreeModel::flags(const QModelIndex& index) const
         return Qt::NoItemFlags;
 
     auto item = getItem(index);
-    if (index.column() == 1 && item->childCount() == 0)
+    if (index.column() == 1 && item->childCount() == 0 && !isMainItem(index))
     {
-        Qt::ItemIsEditable;
+         return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
     }
 
     return QAbstractItemModel::flags(index) | Qt::ItemIsUserCheckable;
@@ -195,6 +198,11 @@ bool ObjectTreeModel::setData(const QModelIndex& index, const QVariant& value, i
         TreeItem* item = getItem(index);
         setChecked(index, !item->isChecked());
         return true;
+    }
+
+    if (value.canConvert<QColor>() && index.column() == 1 && role == -10)
+    {
+        setColorFile(index, qvariant_cast<QColor>(value), index.column());
     }
 
     return false;
@@ -362,27 +370,27 @@ QList<QModelIndex> ObjectTreeModel::getLastGeoFiles(int column)
 
 void ObjectTreeModel::setColorsGeoLayer(const QModelIndex& index, QColor color)
 {
-    auto mainItem = getItem(index);
-    QString type = mainItem->data(0).toString();
-    auto geoType = GeoType::UNDEFINED;
-    if (type == "Point")
-    {
-        geoType = GeoType::POINT;
-    }
-    else if (type == "Line")
-    {
-        geoType = GeoType::LINE;
-    }
-    else if (type == "Polygon")
-    {
-        geoType = GeoType::POLYGON;
-    }
-
-    auto childrenList = getItemChildren(index, 0);
+    auto childrenList = getItemChildren(index, 1);
     for (const auto& child : childrenList)
     {
-        auto item = getItem(child);
-        auto geoLayer = item->geoLayer;
-        geoLayer->setColor(color, geoType);
+        setColorFile(child, color, 1);
     }
+}
+
+void ObjectTreeModel::setColorFile(const QModelIndex& index, QColor color, int column)
+{
+    auto item = getItem(index);
+
+    item->setData(column, color);
+    item->geoLayer->setColor(color, item->getParentItem()->getGeoType());
+    emit dataChanged(index, index);
+}
+
+void ObjectTreeModel::onDataChanged(TreeItem* item)
+{
+    if (item == nullptr)
+        return;
+
+    auto index = createIndex(item->row(), 1, item);
+    emit dataChanged(index, index);
 }
