@@ -20,8 +20,7 @@ class MpFileAddWindow : public QDialog
 	QListWidget* listWidget;
 	QVBoxLayout* mainLayout;
 
-	std::shared_ptr<NppProxy> nppProxy;
-	std::unique_ptr<NppFilesList> nppFileList;
+	std::shared_ptr<NppFilesList> nppFileList;
 
 	void setupButtons();
 	void setupListView();
@@ -31,7 +30,7 @@ private slots:
 	void unselectAllFiles();
 
 public:
-	explicit MpFileAddWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent = nullptr);
+	explicit MpFileAddWindow(std::shared_ptr<NppFilesList> pNppFileList, QWidget* parent = nullptr);
 	void fillListView(QStringList currentFiles);
 	QStringList getSelectedFiles();
 	bool isListEmpty() { return listWidget->count() == 0; }

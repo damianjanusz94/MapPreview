@@ -26,7 +26,7 @@ public:
 	void countAllFiles(int& main_count, int& second_count);
 	bool isNextDoc(int* iter, int main_count, int second_count);
 
-	std::vector<NppFile> readNppFiles();
+	QString readDocText(const QString& file_path);
 
 };
 

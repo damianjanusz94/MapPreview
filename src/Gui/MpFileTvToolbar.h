@@ -18,6 +18,7 @@ class MpFileTvToolbar : public QToolBar
 	std::shared_ptr<FileTreeModel> fileTreeModel;
 	std::weak_ptr<MpObjectTreeview> objectTreeview;
 	std::shared_ptr<NppProxy> nppProxy;
+	std::shared_ptr<NppFilesList> nppFileList;
 
 	QPushButton* refreshAllBtn;
 	QPushButton* removeAllBtn;

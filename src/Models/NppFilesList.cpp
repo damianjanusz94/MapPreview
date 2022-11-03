@@ -67,19 +67,19 @@ bool NppFilesList::isNextDoc(int* iter, int main_count, int second_count)
 	return true;
 }
 
-std::vector<NppFile> NppFilesList::readNppFiles()
+QString NppFilesList::readDocText(const QString& file_path)
 {
 	int file_count_main, file_count_second, iterator = 0;
 	countAllFiles(file_count_main, file_count_second);
 
 	while (isNextDoc(&iterator, file_count_main, file_count_second))
 	{
-		NppDoc doc { nppProxy->getCurrentSciHandle() };
-
-		QString dd = doc.getWholeText();
-		dd;
+		if (nppProxy->getCurrentFilePath() == file_path)
+		{
+			NppDoc doc{ nppProxy->getCurrentSciHandle() };
+			return doc.getWholeText();
+		}
 	}
 
-    std::vector<NppFile> ddff;
-	return ddff;
+	return QString("");
 }

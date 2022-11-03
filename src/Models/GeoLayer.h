@@ -19,6 +19,8 @@ class GeoLayer : public QObject
 	QColor polygonColor;
 	bool isNewFile = false;
 
+	void readGeoText(const QString& geo_text);
+
 signals:
 	void pointColorChanged(QColor color);
 	void lineColorChanged(QColor color);
@@ -26,7 +28,7 @@ signals:
 	
 
 public:
-	GeoLayer(QString file_path);
+	GeoLayer(QString file_path, const QString& text);
 	
 	QString getFileName() { return fileName; }
 	QString getFileNameWoExt() { return fileNameWoExt; }

@@ -9,7 +9,8 @@ MpFileTvToolbar::MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_
                                  std::shared_ptr<FileTreeModel> fileModel, std::weak_ptr<MpObjectTreeview> objectTv, QWidget* parent)
                                  : fileTreeview(fileTv), QToolBar(parent), fileTreeModel(fileModel), objectTreeview(objectTv), nppProxy(pNppProxy)
 {
-    fileAddWindow = std::make_unique<MpFileAddWindow>(nppProxy);
+    nppFileList = std::make_unique<NppFilesList>(nppProxy);
+    fileAddWindow = std::make_unique<MpFileAddWindow>(nppFileList);
     setWindowTitle("FileTvToolbar");
     setObjectName("File toolbar");
     this->layout()->setContentsMargins(0, 0, 0, 0);
@@ -135,7 +136,8 @@ void MpFileTvToolbar::showFileDialog()
 
         for (const auto& file : selectedFiles)
         {
-            auto geoLayerPtr = std::make_shared<GeoLayer>(file);
+            const QString text = nppFileList->readDocText(file);
+            auto geoLayerPtr = std::make_shared<GeoLayer>(file, text);
 
             fileTreeview.lock()->addFileItem(file, geoLayerPtr);
             objectTreeview.lock()->addFileItem(file, geoLayerPtr);

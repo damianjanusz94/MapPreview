@@ -5,9 +5,8 @@
 
 using namespace Enums;
 
-MpFileAddWindow::MpFileAddWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent) : QDialog(parent), nppProxy(pNppProxy)
+MpFileAddWindow::MpFileAddWindow(std::shared_ptr<NppFilesList> pNppFileList, QWidget* parent) : QDialog(parent), nppFileList(pNppFileList)
 {
-	nppFileList = std::make_unique<NppFilesList>(nppProxy);
 	setObjectName("AddFileWindow");
 	setWindowTitle("Add files");
 	setModal(true);
@@ -101,7 +100,5 @@ QStringList MpFileAddWindow::getSelectedFiles()
 		selectedNppFiles.append(item->data(Qt::UserRole).toString());
 	}
 
-	nppFileList->readNppFiles();
-	
 	return selectedNppFiles;
 }

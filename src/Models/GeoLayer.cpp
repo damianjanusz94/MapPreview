@@ -1,10 +1,11 @@
 #include "GeoLayer.h"
 #include "FileHelper.h"
 #include "GeoHelper.h"
+#include "NppFilesList.h"
 
 using namespace Enums;
 
-GeoLayer::GeoLayer(QString file_path) : filePath(file_path)
+GeoLayer::GeoLayer(QString file_path, const QString& text) : filePath(file_path)
 {
 	fileName = FileHelper::getFileName(file_path);
 	fileNameWoExt = FileHelper::getFileNameWoExt(file_path);
@@ -12,6 +13,13 @@ GeoLayer::GeoLayer(QString file_path) : filePath(file_path)
 	pointColor = GeoHelper::getRandomColor();
 	lineColor = GeoHelper::getRandomColor();
 	polygonColor = GeoHelper::getRandomColor();
+
+	readGeoText(text);
+}
+
+void readGeoText(const QString& geo_text)
+{
+
 }
 
 void GeoLayer::setColor(QColor color, GeoType geo_type)

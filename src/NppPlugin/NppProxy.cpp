@@ -40,6 +40,14 @@ QStringList NppProxy::getStringArrayInfo(int size, int infoType)
 	return valueList;
 }
 
+QString NppProxy::getCurrentFilePath()
+{
+	wchar_t filename[MAX_PATH]{ 0 };
+	SendMessage(nppData._nppHandle, NPPM_GETFULLCURRENTPATH, MAX_PATH, (LPARAM)filename);
+
+	return QString::fromWCharArray(filename);
+}
+
 int NppProxy::getNumberInfo(int infoType, int subType)
 {
 	return SendMessage(nppData._nppHandle, infoType, 0, subType);
