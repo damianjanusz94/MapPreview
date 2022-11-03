@@ -123,6 +123,9 @@
     <ClInclude Include="..\src\Enums\GeoType.h">
       <Filter>Enums</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\NppPlugin\NppDoc.h">
+      <Filter>NppPlugin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp">
@@ -246,6 +249,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Models\moc_TreeItem.cpp">
       <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NppPlugin\NppDoc.cpp">
+      <Filter>NppPlugin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

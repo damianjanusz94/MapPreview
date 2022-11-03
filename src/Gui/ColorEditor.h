@@ -10,14 +10,12 @@ public:
 
     void setButtonColor(const QColor& color);
     QColor getColor() { return buttonColor; }
-    void mouseReleaseEvent(QMouseEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
 
 signals:
     void editingFinished();
 
 private:
-    int starAtPosition(int x) const;
-
     QColor buttonColor;
 };
 

@@ -12,6 +12,8 @@ public:
 	QString getCurrentDocPathInfo(int infoType);
 	QStringList getStringArrayInfo(int size, int infoType);
 	int getNumberInfo(int infoType, int subType);
+	void sendMessage(int messageType, int wParam, int lParam);
+	HWND getCurrentSciHandle();
 
 };
 

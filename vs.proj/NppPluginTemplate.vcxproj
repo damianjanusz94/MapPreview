@@ -95,6 +95,7 @@
     <ClInclude Include="..\src\NppPlugin\DockingFeature\Window.h" />
     <ClInclude Include="..\src\NppPlugin\menuCmdID.h" />
     <ClInclude Include="..\src\NppPlugin\Notepad_plus_msgs.h" />
+    <ClInclude Include="..\src\NppPlugin\NppDoc.h" />
     <ClInclude Include="..\src\NppPlugin\NppPlugin.h" />
     <ClInclude Include="..\src\NppPlugin\NppProxy.h" />
     <ClInclude Include="..\src\NppPlugin\PluginDefinition.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="..\src\Models\ObjectTreeModel.cpp" />
     <ClCompile Include="..\src\Models\TreeModel.cpp" />
     <ClCompile Include="..\src\NppPlugin\DockingFeature\StaticDialog.cpp" />
+    <ClCompile Include="..\src\NppPlugin\NppDoc.cpp" />
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp" />
     <ClCompile Include="..\src\NppPlugin\NppProxy.cpp" />
     <ClCompile Include="..\src\NppPlugin\PluginDefinition.cpp" />

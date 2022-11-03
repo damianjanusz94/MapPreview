@@ -17,8 +17,7 @@ MpObjectTreeview::MpObjectTreeview(std::shared_ptr<ObjectTreeModel> object_model
     header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     header()->setStretchLastSection(false);
     setFocusPolicy(Qt::FocusPolicy::NoFocus);
-    setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
-    setSelectionBehavior(QAbstractItemView::SelectRows);
+    setEditTriggers(QAbstractItemView::CurrentChanged);
     setSelectionMode(QAbstractItemView::SingleSelection);
     setStyleSheet("selection-background-color: rgb(240, 240, 240);selection-color: black");
 }

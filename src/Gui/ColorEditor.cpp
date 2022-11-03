@@ -4,8 +4,7 @@
 
 ColorEditor::ColorEditor(QWidget* parent) : QWidget(parent)
 {
-    setMouseTracking(true);
-    setAutoFillBackground(true);
+    setFocusPolicy(Qt::StrongFocus);
 }
 
 void ColorEditor::setButtonColor(const QColor& color)
@@ -13,19 +12,14 @@ void ColorEditor::setButtonColor(const QColor& color)
     buttonColor = color;
 }
 
-void ColorEditor::mouseReleaseEvent(QMouseEvent* event)
+void ColorEditor::mousePressEvent(QMouseEvent* event)
 {
     QColor newColor = QColorDialog::getColor(buttonColor, this, "Pick a color");
-    if (!newColor.isValid())
+    if (newColor.isValid())
     {
-        return;
+        setButtonColor(newColor);
     }
-
-    setButtonColor(newColor);
-
     emit editingFinished();
-    QWidget::mouseReleaseEvent(event);
+    QWidget::mousePressEvent(event);
 }
-
-
 

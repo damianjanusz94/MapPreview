@@ -45,3 +45,15 @@ int NppProxy::getNumberInfo(int infoType, int subType)
 	return SendMessage(nppData._nppHandle, infoType, 0, subType);
 }
 
+void NppProxy::sendMessage(int messageType, int wParam, int lParam)
+{
+	SendMessage(nppData._nppHandle, messageType, wParam, lParam);
+}
+
+HWND NppProxy::getCurrentSciHandle()
+{
+	int currentSci = 0;
+	SendMessage(nppData._nppHandle, NPPM_GETCURRENTSCINTILLA, 0, (LPARAM)&currentSci);
+
+	return (currentSci == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
+}

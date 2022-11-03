@@ -5,7 +5,7 @@
 
 #include "../Gui/ColorEditor.h"
 
-constexpr int PaintingScaleFactor = 20;
+constexpr int PaintingScaleFactor = 15;
 
 void ColorDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
@@ -28,7 +28,7 @@ void ColorDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,
         const int yOffset = (option.rect.height() - PaintingScaleFactor) / 2;
         painter->translate(option.rect.x(), option.rect.y() + yOffset);
         painter->scale(PaintingScaleFactor, PaintingScaleFactor);
-        painter->drawRect(colorRect);
+        painter->drawRoundedRect(colorRect, 0.2, 0.2);
         painter->translate(1.0, 0.0);
         painter->restore();
         return;

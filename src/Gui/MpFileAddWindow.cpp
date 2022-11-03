@@ -63,7 +63,7 @@ void MpFileAddWindow::fillListView(QStringList currentFiles)
 {
 	listWidget->clear();
 
-	auto nppFiles = nppFileList->readNppFiles();
+	auto nppFiles = nppFileList->readNppFilesInfo();
 	for (const auto& file : nppFiles)
 	{
 		if (!file.extension.isEmpty() && !GeoExtType::isGeoExtType(file.extension))
@@ -100,6 +100,8 @@ QStringList MpFileAddWindow::getSelectedFiles()
 	{
 		selectedNppFiles.append(item->data(Qt::UserRole).toString());
 	}
+
+	nppFileList->readNppFiles();
 	
 	return selectedNppFiles;
 }
