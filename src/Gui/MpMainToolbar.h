@@ -5,6 +5,7 @@
 #include <QtCore\QDir>
 
 #include "Settings\MpSettingsDialog.h"
+#include "MessageWindow.h"
 
 class MpMainToolbar : public QToolBar
 {
@@ -13,9 +14,10 @@ class MpMainToolbar : public QToolBar
 	QPushButton* settingsBtn;
 	QPushButton* refreshBtn;
 	std::unique_ptr<MpSettingsDialog> settingsDialog;
+	std::shared_ptr<MessageWindow> msgWindow;
 
 public:
-	explicit MpMainToolbar(QWidget* parent);
+	explicit MpMainToolbar(QWidget* parent, std::shared_ptr<MessageWindow> messageWindow);
 
 private slots:
 	void settingsDialogOpen();

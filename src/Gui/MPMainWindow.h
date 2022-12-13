@@ -13,6 +13,7 @@
 #include "ObjectTvToolbar.h"
 #include "../NppPlugin/NppProxy.h"
 #include "../Models/ObjectTreeModel.h"
+#include "MessageWindow.h"
 
 
 class MpMainWindow : public QMainWindow
@@ -31,6 +32,7 @@ class MpMainWindow : public QMainWindow
 	std::shared_ptr<NppProxy> nppProxy;
 	std::shared_ptr<FileTreeModel> fileTreeModel;
 	std::shared_ptr<ObjectTreeModel> objectTreemodel;
+	std::shared_ptr<MessageWindow> messageWindow;
 	
 public:
 	explicit MpMainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent = nullptr, Qt::WindowFlags flags = { });
@@ -40,10 +42,10 @@ private:
 	void setupTreeDockWidgets();
 	void setupFileDockWidget(Qt::DockWidgetArea area);
 	void setupObjectDockWidget(Qt::DockWidgetArea area);
+	void setupMessageDockWidget(Qt::DockWidgetArea area);
 	void readSettings();
 
 protected:
 	void closeEvent(QCloseEvent* event) override;
-
 };
 

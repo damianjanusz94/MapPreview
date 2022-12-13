@@ -13,6 +13,7 @@ MpMainWindow::MpMainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent,
     //graphicsView->setBackgroundBrush(QBrush(QColor(0, 100, 100),Qt::SolidPattern));
     graphicsView->setScene(new QGraphicsScene());
 
+    setupMessageDockWidget(Qt::BottomDockWidgetArea);
     setupToolbars();
     setupTreeDockWidgets();
 
@@ -21,29 +22,29 @@ MpMainWindow::MpMainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent,
 
 void MpMainWindow::setupToolbars()
 {
-    mainToolbar = std::make_unique<MpMainToolbar>(this);
+    mainToolbar = std::make_unique<MpMainToolbar>(this, messageWindow);
     addToolBar(Qt::ToolBarArea::TopToolBarArea, mainToolbar.get());
 
-    infoToolbar = std::make_unique<MpInfoToolbar>(this);
+    infoToolbar = std::make_unique<MpInfoToolbar>(this, messageWindow);
     addToolBar(Qt::ToolBarArea::BottomToolBarArea,infoToolbar.get());
 }
 
 void MpMainWindow::setupTreeDockWidgets()
 {
     Qt::DockWidgetArea area = Qt::RightDockWidgetArea;
-
+    
     setupFileDockWidget(area);
     setupObjectDockWidget(area);
 }
 
 void MpMainWindow::setupFileDockWidget(Qt::DockWidgetArea area)
 {
-    objectTreemodel = std::make_shared<ObjectTreeModel>(this);
-    objectTreeview = std::make_shared<MpObjectTreeview>(objectTreemodel, this);
-    fileTreeModel = std::make_shared<FileTreeModel>(objectTreemodel, this);
-    fileTreeview = std::make_shared<MpFileTreeview>(fileTreeModel);
-    fileTvToolbar = std::make_unique<MpFileTvToolbar>(nppProxy, fileTreeview, fileTreeModel, objectTreeview);
-    objectTvToolbar = std::make_unique<ObjectTvToolbar>(objectTreeview);
+    objectTreemodel = std::make_shared<ObjectTreeModel>(messageWindow);
+    objectTreeview = std::make_shared<MpObjectTreeview>(objectTreemodel, messageWindow);
+    fileTreeModel = std::make_shared<FileTreeModel>(objectTreemodel, messageWindow);
+    fileTreeview = std::make_shared<MpFileTreeview>(fileTreeModel, messageWindow);
+    fileTvToolbar = std::make_unique<MpFileTvToolbar>(nppProxy, fileTreeview, fileTreeModel, objectTreeview, messageWindow);
+    objectTvToolbar = std::make_unique<ObjectTvToolbar>(objectTreeview, messageWindow);
 
     QWidget* widget = new QWidget(this);
     QVBoxLayout* vLayout = new QVBoxLayout(widget);
@@ -78,6 +79,25 @@ void MpMainWindow::setupObjectDockWidget(Qt::DockWidgetArea area)
     addDockWidget(area, dwObj);
     dockWidgets.append(dwObj);
 }
+
+void MpMainWindow::setupMessageDockWidget(Qt::DockWidgetArea area)
+{
+    messageWindow = std::make_shared<MessageWindow>();
+    QWidget* widget = new QWidget(this);
+    QVBoxLayout* vLayout = new QVBoxLayout(widget);
+    vLayout->addWidget(messageWindow.get());
+    vLayout->setContentsMargins(0, 0, 0, 0);
+
+    QDockWidget* dwObj = new QDockWidget(this);
+    const QString nameObj = "Messages";
+    dwObj->setObjectName(nameObj);
+    dwObj->setWindowTitle(nameObj);
+    dwObj->setWidget(widget);
+    dwObj->setMaximumHeight(150);
+    addDockWidget(area, dwObj);
+    dockWidgets.append(dwObj);
+}
+
 
 void MpMainWindow::closeEvent(QCloseEvent* event)
 {

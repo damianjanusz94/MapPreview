@@ -2,7 +2,7 @@
 
 #include<QtWidgets\QLayout>
 
-ObjectTvToolbar::ObjectTvToolbar(std::weak_ptr<MpObjectTreeview> objectTv, QWidget* parent) : QToolBar(parent), objectTreeview(objectTv)
+ObjectTvToolbar::ObjectTvToolbar(std::weak_ptr<MpObjectTreeview> objectTv, std::shared_ptr<MessageWindow> messageWindow, QWidget* parent) : QToolBar(parent), objectTreeview(objectTv), msgWindow(messageWindow)
 {
     setWindowTitle("ObjectTvToolbar");
     setObjectName("Object toolbar");

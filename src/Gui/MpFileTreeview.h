@@ -4,6 +4,7 @@
 #include <QtWidgets\QMenu>
 #include <QtWidgets\QPushButton>
 
+#include "MessageWindow.h"
 #include "../Models/FileTreeModel.h"
 #include "../Models/GeoLayer.h"
 
@@ -35,6 +36,7 @@ class MpFileTreeview : public QTreeView
 	static const int REMOVE_COLUMN = 3;
 
 	std::shared_ptr<FileTreeModel> fileTreeModel;
+	std::shared_ptr<MessageWindow> msgWindow;
 
 	void addButton(const QModelIndex& index, QString tooltip, QIcon icon, void(MpFileTreeview::* slotName)());
 	void addButtonExtension(const QModelIndex& index, const QString& fileExtension);
@@ -57,7 +59,7 @@ public slots:
 	void onSelectionChanged(QPushButton* button);
 
 public:
-	explicit MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, QWidget* parent = nullptr);
+	explicit MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, std::shared_ptr<MessageWindow> messageWindow, QWidget* parent = nullptr);
 	void addFileItem(const QString& filePath, std::shared_ptr<GeoLayer> geoLayer);
 	void connectButtonWithSelection(QPushButton* button);
 };

@@ -2,6 +2,7 @@
 #include "FileHelper.h"
 #include "GeoHelper.h"
 #include "NppFilesList.h"
+#include <gdal/ogrsf_frmts.h>
 
 using namespace Enums;
 
@@ -17,9 +18,66 @@ GeoLayer::GeoLayer(QString file_path, const QString& text) : filePath(file_path)
 	readGeoText(text);
 }
 
-void readGeoText(const QString& geo_text)
+void GeoLayer::readGeoText(const QString& geo_text)
 {
+	try
+	{
+		GDALDataset* poDS = static_cast<GDALDataset*>(GDALOpenEx(geo_text.toUtf8(), GDAL_OF_VECTOR, nullptr, nullptr, nullptr));
+		if (poDS == nullptr)
+		{
+			return;
+		}
+		auto poLayer = poDS->GetLayer(0);
 
+		OGRFeatureDefn* poFDefn = poLayer->GetLayerDefn();
+
+		poLayer->ResetReading();
+		OGRFeature* poFeature;
+		while ((poFeature = poLayer->GetNextFeature()) != nullptr)
+		{
+			for (int iField = 0; iField < poFDefn->GetFieldCount(); iField++)
+			{
+				OGRFieldDefn* poFieldDefn = poFDefn->GetFieldDefn(iField);
+
+				switch (poFieldDefn->GetType())
+				{
+				case OFTInteger:
+					printf("%d,", poFeature->GetFieldAsInteger(iField));
+					break;
+				case OFTInteger64:
+					printf(CPL_FRMT_GIB ",", poFeature->GetFieldAsInteger64(iField));
+					break;
+				case OFTReal:
+					printf("%.3f,", poFeature->GetFieldAsDouble(iField));
+					break;
+				case OFTString:
+					printf("%s,", poFeature->GetFieldAsString(iField));
+					break;
+				default:
+					printf("%s,", poFeature->GetFieldAsString(iField));
+					break;
+				}
+			}
+
+			OGRGeometry* poGeometry = poFeature->GetGeometryRef();
+			if (poGeometry != nullptr)
+			{
+				if (wkbFlatten(poGeometry->getGeometryType()) == wkbPoint)
+				{
+					OGRPoint* poPoint = (OGRPoint*)poGeometry;
+					poPoint;
+
+				}
+			}
+			OGRFeature::DestroyFeature(poFeature);
+		}
+
+		GDALClose(poDS);
+	}
+	catch (...)
+	{
+		
+	}
 }
 
 void GeoLayer::setColor(QColor color, GeoType geo_type)

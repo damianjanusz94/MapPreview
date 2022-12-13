@@ -4,8 +4,9 @@
 #include <QtWidgets/QBoxLayout>
 #include <QtWidgets/QTabBar>
 
-MpSettingsDialog::MpSettingsDialog(QWidget* parent) : QDialog(parent)
+MpSettingsDialog::MpSettingsDialog(std::shared_ptr<MessageWindow> messageWindow, QWidget* parent) : QDialog(parent)
 {
+	msgWindow = messageWindow;
 	generalTab = std::make_unique<MpGeneralTab>();
 	viewTab = std::make_unique<MpViewTab>();
 

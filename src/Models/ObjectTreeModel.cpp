@@ -3,9 +3,10 @@
 #include<QtCore\QDir>
 #include<QtGui\QIcon>
 
-ObjectTreeModel::ObjectTreeModel(QObject* parent)
+ObjectTreeModel::ObjectTreeModel(std::shared_ptr<MessageWindow> messageWindow, QObject* parent)
     : QAbstractItemModel(parent)
 {
+    msgWindow = messageWindow;
     rootItem = new TreeItem({ tr("1"), tr("2") }, nullptr);
     
     QStringList objNames{ "Point", "Line", "Polygon" };

@@ -11,8 +11,9 @@
 
 using namespace Enums;
 
-MpFileTreeview::MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, QWidget* parent) : QTreeView(parent), fileTreeModel(fileModel)
+MpFileTreeview::MpFileTreeview(std::shared_ptr<FileTreeModel> fileModel, std::shared_ptr<MessageWindow> messageWindow, QWidget* parent) : QTreeView(parent), fileTreeModel(fileModel)
 {
+    msgWindow = messageWindow;
     setModel(fileTreeModel.get());
     setHeaderHidden(true);
     header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);

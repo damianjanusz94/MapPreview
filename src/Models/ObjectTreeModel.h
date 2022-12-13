@@ -4,6 +4,7 @@
 #include <QtCore\QModelIndex>
 #include <QtCore\QVariant>
 
+#include "../Gui/MessageWindow.h"
 #include "TreeItem.h"
 #include "../Models/GeoLayer.h"
 
@@ -11,7 +12,7 @@ class ObjectTreeModel : public QAbstractItemModel
 {
 
 public:
-    explicit ObjectTreeModel(QObject* parent = nullptr);
+    explicit ObjectTreeModel(std::shared_ptr<MessageWindow> messageWindow, QObject* parent = nullptr);
     ~ObjectTreeModel();
 
     QVariant data(const QModelIndex& index, int role) const override;
@@ -46,4 +47,5 @@ private:
     QIcon iconGeoType(const QModelIndex& index) const;
     TreeItem* getItem(const QModelIndex& index) const;
     TreeItem* rootItem;
+    std::shared_ptr<MessageWindow> msgWindow;
 };

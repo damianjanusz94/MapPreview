@@ -8,9 +8,10 @@
 
 using namespace Enums;
 
-FileTreeModel::FileTreeModel(std::shared_ptr<ObjectTreeModel> object_model, QObject* parent)
+FileTreeModel::FileTreeModel(std::shared_ptr<ObjectTreeModel> object_model, std::shared_ptr<MessageWindow> messageWindow, QObject* parent)
     : objectTreeModel(object_model), QAbstractItemModel(parent)
 {
+    msgWindow = messageWindow;
     rootItem = new TreeItem({ tr("1"), tr("2"), tr("3"), tr("4")}, nullptr);
 }
 
@@ -91,6 +92,7 @@ bool FileTreeModel::removeRows(int position, int rows, const QModelIndex& parent
     for (auto item : parentItem->getChildren(position, rows))
     {
         filePaths.append(item->getFilePath());
+        msgWindow->AddInfo("File removed: " + filePaths.last());
     }
 
     beginRemoveRows(parent, position, position + rows - 1);
@@ -142,6 +144,8 @@ void FileTreeModel::clearAll()
     endResetModel();
 
     objectTreeModel->clearAll();
+
+    msgWindow->AddInfo("All files removed from view");
 }
 
 QVariant FileTreeModel::data(const QModelIndex& index, int role) const

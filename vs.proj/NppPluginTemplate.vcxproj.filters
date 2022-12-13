@@ -78,9 +78,6 @@
     <ClInclude Include="..\src\Gui\MpInfoToolbar.h">
       <Filter>Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Gui\MpObjectTreeview.h">
-      <Filter>Gui</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Gui\Settings\MpSettingsDialog.h">
       <Filter>Gui\Settings</Filter>
     </ClInclude>
@@ -125,6 +122,12 @@
     </ClInclude>
     <ClInclude Include="..\src\NppPlugin\NppDoc.h">
       <Filter>NppPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Gui\MpObjectTreeview.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Gui\MessageWindow.h">
+      <Filter>Gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +255,9 @@
     </ClCompile>
     <ClCompile Include="..\src\NppPlugin\NppDoc.cpp">
       <Filter>NppPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Gui\MessageWindow.cpp">
+      <Filter>Gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

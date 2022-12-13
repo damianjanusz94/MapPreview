@@ -7,6 +7,8 @@
 
 #include "MpGeneralTab.h"
 #include "MpViewTab.h"
+#include "../MessageWindow.h"
+
 
 class MpSettingsDialog : public QDialog
 {
@@ -15,7 +17,8 @@ class MpSettingsDialog : public QDialog
 
 	std::unique_ptr<MpGeneralTab> generalTab;
 	std::unique_ptr<MpViewTab> viewTab;
+	std::shared_ptr<MessageWindow> msgWindow;;
 
 public:
-	explicit MpSettingsDialog(QWidget* parent = nullptr);
+	explicit MpSettingsDialog(std::shared_ptr<MessageWindow> messageWindow, QWidget* parent = nullptr);
 };

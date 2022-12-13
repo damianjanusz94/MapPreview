@@ -5,7 +5,7 @@
 
 using namespace Enums;
 
-MpFileAddWindow::MpFileAddWindow(std::shared_ptr<NppFilesList> pNppFileList, QWidget* parent) : QDialog(parent), nppFileList(pNppFileList)
+MpFileAddWindow::MpFileAddWindow(std::shared_ptr<NppFilesList> pNppFileList, std::shared_ptr<MessageWindow> messageWindow, QWidget* parent) : QDialog(parent), nppFileList(pNppFileList), msgWindow(messageWindow)
 {
 	setObjectName("AddFileWindow");
 	setWindowTitle("Add files");

@@ -6,11 +6,12 @@
 #include "../Models/GeoLayer.h"
 
 MpFileTvToolbar::MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv,
-                                 std::shared_ptr<FileTreeModel> fileModel, std::weak_ptr<MpObjectTreeview> objectTv, QWidget* parent)
-                                 : fileTreeview(fileTv), QToolBar(parent), fileTreeModel(fileModel), objectTreeview(objectTv), nppProxy(pNppProxy)
+                                 std::shared_ptr<FileTreeModel> fileModel, std::weak_ptr<MpObjectTreeview> objectTv,
+                                 std::shared_ptr<MessageWindow> messageWindow, QWidget* parent)
+                                 : fileTreeview(fileTv), QToolBar(parent), fileTreeModel(fileModel), objectTreeview(objectTv), nppProxy(pNppProxy), msgWindow(messageWindow)
 {
-    nppFileList = std::make_unique<NppFilesList>(nppProxy);
-    fileAddWindow = std::make_unique<MpFileAddWindow>(nppFileList);
+    nppFileList = std::make_unique<NppFilesList>(nppProxy, msgWindow);
+    fileAddWindow = std::make_unique<MpFileAddWindow>(nppFileList, msgWindow);
     setWindowTitle("FileTvToolbar");
     setObjectName("File toolbar");
     this->layout()->setContentsMargins(0, 0, 0, 0);
@@ -141,6 +142,7 @@ void MpFileTvToolbar::showFileDialog()
 
             fileTreeview.lock()->addFileItem(file, geoLayerPtr);
             objectTreeview.lock()->addFileItem(file, geoLayerPtr);
+            msgWindow->AddInfo("File added: " + file);
         }
     }
 }

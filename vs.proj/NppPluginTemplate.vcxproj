@@ -45,6 +45,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
     </CustomBuild>
     <ClInclude Include="..\src\Enums\GeoType.h" />
+    <ClInclude Include="..\src\Gui\MessageWindow.h" />
     <ClInclude Include="..\src\Gui\MpInfoToolbar.h" />
     <ClInclude Include="..\src\Gui\MpFileTreeview.h" />
     <CustomBuild Include="..\src\Gui\MpMainToolbar.h">
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\Commands\CommandShowHide.cpp" />
     <ClCompile Include="..\src\Gui\ColorEditor.cpp" />
+    <ClCompile Include="..\src\Gui\MessageWindow.cpp" />
     <ClCompile Include="..\src\Gui\moc_ColorEditor.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpFileAddWindow.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpFileTvToolbar.cpp" />
@@ -329,15 +331,15 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Qt\6.3.2\msvc2019_64\include;C:\Qt\6.3.2\msvc2019_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\d.janusz\Documents\GitDJ\MapPreview\include;C:\Qt\6.3.2\msvc2019_64\include;C:\Qt\6.3.2\msvc2019_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>shlwapi.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Qt6Core.lib;Qt6Gui.lib;Qt6OpenGLWidgets.lib;Qt6Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Qt\6.3.2\msvc2019_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>shlwapi.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Qt6Core.lib;Qt6Gui.lib;Qt6OpenGLWidgets.lib;Qt6Widgets.lib;gdal.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\d.janusz\Documents\GitDJ\MapPreview\lib;C:\Qt\6.3.2\msvc2019_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
@@ -395,7 +397,7 @@ copy ..\readme.FIRST ..\bin\readme.FIRST</Command>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;NPPPLUGINTEMPLATE_EXPORTS;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Qt\6.3.2\msvc2019_64\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\d.janusz\Documents\GitDJ\MapPreview\include;C:\Qt\6.3.2\msvc2019_64\include;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458</AdditionalOptions>
     </ClCompile>
@@ -404,9 +406,9 @@ copy ..\readme.FIRST ..\bin\readme.FIRST</Command>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>shlwapi.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Qt6Core.lib;Qt6Gui.lib;Qt6OpenGLWidgets.lib;Qt6Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shlwapi.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Qt6Core.lib;Qt6Gui.lib;Qt6OpenGLWidgets.lib;Qt6Widgets.lib;gdal.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>C:\Qt\6.3.2\msvc2019_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\d.janusz\Documents\GitDJ\MapPreview\lib;C:\Qt\6.3.2\msvc2019_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy ..\license.txt ..\bin64\license.txt

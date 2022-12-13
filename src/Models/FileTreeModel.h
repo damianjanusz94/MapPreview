@@ -4,6 +4,7 @@
 #include <QtCore\QModelIndex>
 #include <QtCore\QVariant>
 
+#include "../Gui/MessageWindow.h"
 #include "TreeItem.h"
 #include "ObjectTreeModel.h"
 
@@ -11,7 +12,7 @@ class FileTreeModel : public QAbstractItemModel
 {
 
 public:
-    explicit FileTreeModel(std::shared_ptr<ObjectTreeModel> object_model, QObject* parent = nullptr);
+    explicit FileTreeModel(std::shared_ptr<ObjectTreeModel> object_model, std::shared_ptr<MessageWindow> messageWindow, QObject* parent = nullptr);
     ~FileTreeModel();
 
     QVariant data(const QModelIndex& index, int role) const override;
@@ -44,4 +45,5 @@ private:
     TreeItem* getItem(const QModelIndex& index) const;
     TreeItem* rootItem;
     std::shared_ptr<ObjectTreeModel> objectTreeModel;
+    std::shared_ptr<MessageWindow> msgWindow;
 };

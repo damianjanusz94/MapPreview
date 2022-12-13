@@ -7,12 +7,14 @@
 #include "MpFileTreeview.h"
 #include "MpFileAddWindow.h"
 #include "MpObjectTreeview.h"
+#include "MessageWindow.h"
 #include "../NppPlugin/NppProxy.h"
 
 class MpFileTvToolbar : public QToolBar
 {
 	Q_OBJECT
 
+	std::shared_ptr<MessageWindow> msgWindow;
 	std::weak_ptr<MpFileTreeview> fileTreeview;
 	std::unique_ptr<MpFileAddWindow> fileAddWindow;
 	std::shared_ptr<FileTreeModel> fileTreeModel;
@@ -43,6 +45,7 @@ private slots:
 
 public:
 	explicit MpFileTvToolbar(std::shared_ptr<NppProxy> pNppProxy, std::weak_ptr<MpFileTreeview> fileTv, 
-							 std::shared_ptr<FileTreeModel> fileModel, std::weak_ptr<MpObjectTreeview> objectTv, QWidget* parent = nullptr);
+							 std::shared_ptr<FileTreeModel> fileModel, std::weak_ptr<MpObjectTreeview> objectTv, 
+							 std::shared_ptr<MessageWindow> messageWindow, QWidget* parent = nullptr);
 };
 

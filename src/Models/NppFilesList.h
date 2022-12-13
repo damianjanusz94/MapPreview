@@ -4,6 +4,7 @@
 #include <QtCore\QString>
 #include <QtCore\QMetaType>
 
+#include "../Gui/MessageWindow.h"
 #include "../NppPlugin/NppProxy.h"
 
 struct NppFile 
@@ -16,10 +17,11 @@ struct NppFile
 
 class NppFilesList
 {
+	std::shared_ptr<MessageWindow> msgWindow;
 	std::shared_ptr<NppProxy> nppProxy;
 
 public:
-	NppFilesList(std::shared_ptr<NppProxy> pNppProxy);
+	NppFilesList(std::shared_ptr<NppProxy> pNppProxy, std::shared_ptr<MessageWindow> messageWindow);
 
 	std::vector<NppFile> readNppFilesInfo();
 

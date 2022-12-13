@@ -5,7 +5,7 @@
 #include "FileHelper.h"
 #include "../NppPlugin/NppDoc.h"
 
-NppFilesList::NppFilesList(std::shared_ptr<NppProxy> pNppProxy) : nppProxy(pNppProxy)
+NppFilesList::NppFilesList(std::shared_ptr<NppProxy> pNppProxy, std::shared_ptr<MessageWindow> messageWindow) : nppProxy(pNppProxy), msgWindow(messageWindow)
 {
 }
 

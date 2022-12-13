@@ -8,8 +8,9 @@
 
 using namespace Enums;
 
-MpObjectTreeview::MpObjectTreeview(std::shared_ptr<ObjectTreeModel> object_model, QWidget* parent) : QTreeView(parent), objectTreeModel(object_model)
+MpObjectTreeview::MpObjectTreeview(std::shared_ptr<ObjectTreeModel> object_model, std::shared_ptr<MessageWindow> messageWindow, QWidget* parent) : QTreeView(parent), objectTreeModel(object_model)
 {
+    msgWindow = messageWindow;
     setItemDelegate(new ColorDelegate());
     setModel(objectTreeModel.get());
     setHeaderHidden(true);
