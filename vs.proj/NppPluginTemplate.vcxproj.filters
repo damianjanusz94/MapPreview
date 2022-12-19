@@ -25,6 +25,9 @@
     <Filter Include="Enums">
       <UniqueIdentifier>{3617dac6-5b5d-4400-8b13-01e6c9a443a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{306bde8b-46d6-43a4-8905-1ed4c686c10a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\NppPlugin\menuCmdID.h">
@@ -129,6 +132,12 @@
     <ClInclude Include="..\src\Gui\MessageWindow.h">
       <Filter>Gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Graphics\GraphicsItem.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Graphics\GeometryItem.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp">
@@ -163,7 +172,7 @@
     <ClCompile Include="..\src\QtMfc\moc_qwinwidget.cpp">
       <Filter>QtMfc</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Gui\MpMainWindow.cpp">
+    <ClCompile Include="..\src\Gui\MainWindow.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Gui\MpFileTreeview.cpp">
@@ -189,9 +198,6 @@
     </ClCompile>
     <ClCompile Include="..\src\Gui\Settings\MpViewTab.cpp">
       <Filter>Gui\Settings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Gui\moc_MpMainWindow.cpp">
-      <Filter>Gui</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Models\FileTreeModel.cpp">
       <Filter>Models</Filter>
@@ -259,6 +265,15 @@
     <ClCompile Include="..\src\Gui\MessageWindow.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Gui\moc_MainWindow.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Graphics\GraphicsItem.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Graphics\GeometryItem.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc">
@@ -279,7 +294,7 @@
     <CustomBuild Include="..\src\Gui\MpMainToolbar.h">
       <Filter>Gui</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\src\Gui\MpMainWindow.h">
+    <CustomBuild Include="..\src\Gui\MainWindow.h">
       <Filter>Gui</Filter>
     </CustomBuild>
     <CustomBuild Include="..\src\Gui\MpFileTvToolbar.h">

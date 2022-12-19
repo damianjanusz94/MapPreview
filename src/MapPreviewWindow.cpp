@@ -49,7 +49,7 @@ void MapPreviewWindow::InitializeDialog(NppData nppData)
 	qtMainWidget = std::make_unique<QWinWidget>(_hSelf);
 	winId = (HWND)qtMainWidget->winId();
 
-	mpMainWindow = std::make_shared<MpMainWindow>(nppProxy);
+	mpMainWindow = std::make_shared<MainWindow>(nppProxy);
 	mpMainWindow->setWindowFlag(Qt::Widget);
 
 	QVBoxLayout hbox;

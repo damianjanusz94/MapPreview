@@ -1,5 +1,7 @@
 #include "MessageWindow.h"
 
+#include <QtWidgets/QScrollBar>
+
 MessageWindow::MessageWindow()
 {
 	this->setReadOnly(true);
@@ -17,4 +19,5 @@ void MessageWindow::AddText(const QColor& color, const QString& text)
     tf.setTextOutline(QPen(color));
     this->setCurrentCharFormat(tf);
     this->appendPlainText(text);
+    this->verticalScrollBar()->setValue(this->verticalScrollBar()->maximum());
 }

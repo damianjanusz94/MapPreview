@@ -15,13 +15,32 @@
 #include "../Models/ObjectTreeModel.h"
 #include "MessageWindow.h"
 
+class MainWindow;
 
-class MpMainWindow : public QMainWindow
+class GraphicsView : public QGraphicsView
+{
+	Q_OBJECT
+public:
+	GraphicsView(MainWindow* v) : QGraphicsView(), view_(v) { }
+
+protected:
+#if QT_CONFIG(wheelevent)
+	void wheelEvent(QWheelEvent*) override;
+	void zoomAt(QPointF centerPos, double factor);
+#endif
+
+private:
+	MainWindow* view_;
+};
+
+
+class MainWindow : public QMainWindow
 {
 	Q_OBJECT;
 
 	QList<QDockWidget*> dockWidgets;
-	QGraphicsView* graphicsView;
+	std::shared_ptr<GraphicsView> graphicsView;
+	std::shared_ptr<QGraphicsScene> scene;
 	std::shared_ptr<MpFileTreeview> fileTreeview;
 	std::unique_ptr<MpFileTvToolbar> fileTvToolbar;
 	std::unique_ptr<ObjectTvToolbar> objectTvToolbar;
@@ -33,9 +52,11 @@ class MpMainWindow : public QMainWindow
 	std::shared_ptr<FileTreeModel> fileTreeModel;
 	std::shared_ptr<ObjectTreeModel> objectTreemodel;
 	std::shared_ptr<MessageWindow> messageWindow;
+
+	int currentZoom = 250;
 	
 public:
-	explicit MpMainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent = nullptr, Qt::WindowFlags flags = { });
+	explicit MainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent = nullptr, Qt::WindowFlags flags = { });
 
 private:
 	void setupToolbars();
@@ -44,8 +65,17 @@ private:
 	void setupObjectDockWidget(Qt::DockWidgetArea area);
 	void setupMessageDockWidget(Qt::DockWidgetArea area);
 	void readSettings();
+	void populateScene();
 
 protected:
 	void closeEvent(QCloseEvent* event) override;
+
+public slots:
+	void zoomInBy(int level);
+	void zoomOutBy(int level);
+
+private slots:
+	void setupMatrix();
+
 };
 

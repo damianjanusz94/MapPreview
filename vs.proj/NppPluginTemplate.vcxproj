@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Graphics\GraphicsItem.h" />
     <ClInclude Include="..\src\Commands\CommandShowHide.h" />
     <CustomBuild Include="..\src\Gui\MpFileAddWindow.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
@@ -45,6 +46,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
     </CustomBuild>
     <ClInclude Include="..\src\Enums\GeoType.h" />
+    <ClInclude Include="..\src\Graphics\GeometryItem.h" />
     <ClInclude Include="..\src\Gui\MessageWindow.h" />
     <ClInclude Include="..\src\Gui\MpInfoToolbar.h" />
     <ClInclude Include="..\src\Gui\MpFileTreeview.h" />
@@ -53,7 +55,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
     </CustomBuild>
-    <CustomBuild Include="..\src\Gui\MpMainWindow.h">
+    <CustomBuild Include="..\src\Gui\MainWindow.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
@@ -165,20 +167,22 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Graphics\GraphicsItem.cpp" />
     <ClCompile Include="..\src\Commands\CommandShowHide.cpp" />
+    <ClCompile Include="..\src\Graphics\GeometryItem.cpp" />
     <ClCompile Include="..\src\Gui\ColorEditor.cpp" />
     <ClCompile Include="..\src\Gui\MessageWindow.cpp" />
     <ClCompile Include="..\src\Gui\moc_ColorEditor.cpp" />
+    <ClCompile Include="..\src\Gui\moc_MainWindow.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpFileAddWindow.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpFileTvToolbar.cpp" />
     <ClCompile Include="..\src\Gui\moc_MpMainToolbar.cpp" />
-    <ClCompile Include="..\src\Gui\moc_MpMainWindow.cpp" />
     <ClCompile Include="..\src\Gui\MpFileAddWindow.cpp" />
     <ClCompile Include="..\src\Gui\MpFileTvToolbar.cpp" />
     <ClCompile Include="..\src\Gui\MpInfoToolbar.cpp" />
     <ClCompile Include="..\src\Gui\MpFileTreeview.cpp" />
     <ClCompile Include="..\src\Gui\MpMainToolbar.cpp" />
-    <ClCompile Include="..\src\Gui\MpMainWindow.cpp" />
+    <ClCompile Include="..\src\Gui\MainWindow.cpp" />
     <ClCompile Include="..\src\Gui\MpObjectTreeview.cpp" />
     <ClCompile Include="..\src\Gui\ObjectTvToolbar.cpp" />
     <ClCompile Include="..\src\Gui\Settings\MpGeneralTab.cpp" />
