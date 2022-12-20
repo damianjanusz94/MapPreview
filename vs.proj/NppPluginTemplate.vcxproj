@@ -47,6 +47,12 @@
     </CustomBuild>
     <ClInclude Include="..\src\Enums\GeoType.h" />
     <ClInclude Include="..\src\Graphics\GeometryItem.h" />
+    <ClInclude Include="..\src\Graphics\GraphicsScene.h" />
+    <CustomBuild Include="..\src\Graphics\GraphicsView.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.3.2\msvc2019_64\bin\moc.exe "%(FullPath)" -o "%(RootDir)%(Directory)moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling %(Filename).%(Extension) using MOC</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RootDir)%(Directory)moc_%(Filename).cpp</Outputs>
+    </CustomBuild>
     <ClInclude Include="..\src\Gui\MessageWindow.h" />
     <ClInclude Include="..\src\Gui\MpInfoToolbar.h" />
     <ClInclude Include="..\src\Gui\MpFileTreeview.h" />
@@ -170,6 +176,9 @@
     <ClCompile Include="..\src\Graphics\GraphicsItem.cpp" />
     <ClCompile Include="..\src\Commands\CommandShowHide.cpp" />
     <ClCompile Include="..\src\Graphics\GeometryItem.cpp" />
+    <ClCompile Include="..\src\Graphics\GraphicsScene.cpp" />
+    <ClCompile Include="..\src\Graphics\GraphicsView.cpp" />
+    <ClCompile Include="..\src\Graphics\moc_GraphicsView.cpp" />
     <ClCompile Include="..\src\Gui\ColorEditor.cpp" />
     <ClCompile Include="..\src\Gui\MessageWindow.cpp" />
     <ClCompile Include="..\src\Gui\moc_ColorEditor.cpp" />

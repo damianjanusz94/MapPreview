@@ -138,6 +138,9 @@
     <ClInclude Include="..\src\Graphics\GeometryItem.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Graphics\GraphicsScene.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\NppPlugin\NppPluginMain.cpp">
@@ -274,6 +277,15 @@
     <ClCompile Include="..\src\Graphics\GeometryItem.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Graphics\GraphicsScene.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Graphics\GraphicsView.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Graphics\moc_GraphicsView.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\NppPlugin\NppPluginMain.rc">
@@ -314,6 +326,9 @@
     </CustomBuild>
     <CustomBuild Include="..\src\Models\TreeItem.h">
       <Filter>Models</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\Graphics\GraphicsView.h">
+      <Filter>Graphics</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

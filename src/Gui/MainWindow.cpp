@@ -3,13 +3,16 @@
 #include <QtCore\QSettings>
 #include <QtWidgets\QBoxLayout>
 #include "../Graphics/GraphicsItem.h"
+#include "..\Graphics\GraphicsView.h"
 
 MainWindow::MainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent, Qt::WindowFlags flags) : QMainWindow(parent, flags), nppProxy(pNppProxy)
 {
     setObjectName("MainWindow");
     setWindowTitle("MapPreview MainWindow");
 
-    scene = std::make_shared<QGraphicsScene>();
+    setupToolbars();
+
+    scene = std::make_shared<GraphicsScene>(infoToolbar);
     graphicsView = std::make_shared<GraphicsView>(this);
     graphicsView->setRenderHint(QPainter::Antialiasing, false);
     graphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
@@ -27,7 +30,6 @@ MainWindow::MainWindow(std::shared_ptr<NppProxy> pNppProxy, QWidget* parent, Qt:
     //graphicsView->setBackgroundBrush(QBrush(QColor(0, 100, 100),Qt::SolidPattern));
 
     setupMessageDockWidget(Qt::BottomDockWidgetArea);
-    setupToolbars();
     setupTreeDockWidgets();
 
     readSettings();
@@ -39,7 +41,7 @@ void MainWindow::setupToolbars()
     mainToolbar = std::make_unique<MpMainToolbar>(this, messageWindow);
     addToolBar(Qt::ToolBarArea::TopToolBarArea, mainToolbar.get());
 
-    infoToolbar = std::make_unique<MpInfoToolbar>(this, messageWindow);
+    infoToolbar = std::make_shared<MpInfoToolbar>(this, messageWindow);
     addToolBar(Qt::ToolBarArea::BottomToolBarArea,infoToolbar.get());
 }
 
@@ -168,30 +170,3 @@ void MainWindow::populateScene()
         }
     }
 }
-
-#if QT_CONFIG(wheelevent)
-void GraphicsView::wheelEvent(QWheelEvent* e)
-{
-    double angle = e->angleDelta().y();
-
-    double factor = qPow(1.0015, angle);
-    zoomAt(e->position(), factor);
-
-}
-
-void GraphicsView::zoomAt(QPointF centerPos, double factor)
-{
-    QPointF targetScenePos = mapToScene(centerPos.toPoint());
-    ViewportAnchor oldAnchor = this->transformationAnchor();
-    setTransformationAnchor(QGraphicsView::NoAnchor);
-
-    QTransform matrix = transform();
-    matrix.translate(targetScenePos.x(), targetScenePos.y())
-        .scale(factor, factor)
-        .translate(-targetScenePos.x(), -targetScenePos.y());
-    setTransform(matrix);
-
-    setTransformationAnchor(oldAnchor);
-}
-
-#endif

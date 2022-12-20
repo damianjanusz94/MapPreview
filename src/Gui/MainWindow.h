@@ -2,8 +2,6 @@
 
 #include <QtWidgets\QMainWindow>
 #include <QtWidgets\QDockWidget>
-#include <QtWidgets\QGraphicsView>
-#include <QtWidgets\QDockWidget>
 
 #include "MpFileTreeview.h"
 #include "MpObjectTreeview.h"
@@ -14,25 +12,8 @@
 #include "../NppPlugin/NppProxy.h"
 #include "../Models/ObjectTreeModel.h"
 #include "MessageWindow.h"
-
-class MainWindow;
-
-class GraphicsView : public QGraphicsView
-{
-	Q_OBJECT
-public:
-	GraphicsView(MainWindow* v) : QGraphicsView(), view_(v) { }
-
-protected:
-#if QT_CONFIG(wheelevent)
-	void wheelEvent(QWheelEvent*) override;
-	void zoomAt(QPointF centerPos, double factor);
-#endif
-
-private:
-	MainWindow* view_;
-};
-
+#include "../Graphics/GraphicsScene.h"
+#include "../Graphics/GraphicsView.h"
 
 class MainWindow : public QMainWindow
 {
@@ -40,13 +21,13 @@ class MainWindow : public QMainWindow
 
 	QList<QDockWidget*> dockWidgets;
 	std::shared_ptr<GraphicsView> graphicsView;
-	std::shared_ptr<QGraphicsScene> scene;
+	std::shared_ptr<GraphicsScene> scene;
 	std::shared_ptr<MpFileTreeview> fileTreeview;
 	std::unique_ptr<MpFileTvToolbar> fileTvToolbar;
 	std::unique_ptr<ObjectTvToolbar> objectTvToolbar;
 	std::shared_ptr<MpObjectTreeview> objectTreeview;
 	std::unique_ptr<MpMainToolbar> mainToolbar;
-	std::unique_ptr<MpInfoToolbar> infoToolbar;
+	std::shared_ptr<MpInfoToolbar> infoToolbar;
 
 	std::shared_ptr<NppProxy> nppProxy;
 	std::shared_ptr<FileTreeModel> fileTreeModel;

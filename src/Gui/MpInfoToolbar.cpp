@@ -6,6 +6,11 @@ MpInfoToolbar::MpInfoToolbar(QWidget* parent, std::shared_ptr<MessageWindow> mes
     setWindowTitle("InfoToolbar");
     setObjectName("Info toolbar");
 
-    QLabel* coordinatesLabel = new QLabel("Coordinates");
+    coordinatesLabel = new QLabel("Coordinates: ");
     addWidget(coordinatesLabel);
+}
+
+void MpInfoToolbar::setCoordinatesLabel(const QString& text)
+{
+    coordinatesLabel->setText(text);
 }
