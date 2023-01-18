@@ -21,6 +21,9 @@
 /* The size of `void*', as computed by sizeof. */
 #define SIZEOF_VOIDP 8
 
+/* The size of `size_t', as computed by sizeof. */
+#define SIZEOF_SIZE_T 8
+
 /* Define to 1, if you have LARGEFILE64_SOURCE */
 /* #undef VSI_NEED_LARGEFILE64_SOURCE */
 
@@ -165,6 +168,9 @@
 
 /* Define to 1 if you have the _SC_PHYS_PAGES' constant. */
 /* #undef HAVE_SC_PHYS_PAGES */
+
+/* Define to 1 if you have the `sched_getaffinity' function. */
+/* #undef HAVE_SCHED_GETAFFINITY */
 
 /* Define to 1 if you have the `uselocale' function. */
 /* #undef HAVE_USELOCALE */

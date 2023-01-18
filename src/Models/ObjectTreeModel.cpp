@@ -120,6 +120,11 @@ Qt::ItemFlags ObjectTreeModel::flags(const QModelIndex& index) const
          return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
     }
 
+    if (isMainItem(index) && item->childCount() == 0)
+    {
+        return Qt::NoItemFlags;
+    }
+
     return QAbstractItemModel::flags(index) | Qt::ItemIsUserCheckable;
 }
 

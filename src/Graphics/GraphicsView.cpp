@@ -9,13 +9,14 @@ void GraphicsView::wheelEvent(QWheelEvent* e)
     double factor = qPow(1.0015, angle);
     zoomAt(e->position(), factor);
 
+
 }
 
 void GraphicsView::zoomAt(QPointF centerPos, double factor)
 {
     QPointF targetScenePos = mapToScene(centerPos.toPoint());
     ViewportAnchor oldAnchor = this->transformationAnchor();
-    setTransformationAnchor(QGraphicsView::NoAnchor);
+    setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 
     QTransform matrix = transform();
     matrix.translate(targetScenePos.x(), targetScenePos.y())

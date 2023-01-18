@@ -6,6 +6,7 @@
 #include <QtWidgets\QPushButton>
 
 #include "../Enums/GeoType.h"
+#include "../Geometry/MultiLine.h"
 
 class GeoLayer : public QObject
 {
@@ -17,6 +18,9 @@ class GeoLayer : public QObject
 	QColor pointColor;
 	QColor lineColor;
 	QColor polygonColor;
+	QVector<QPointF> points;
+	QVector<MultiLine> lines;
+	QVector<QPolygonF> polygons;
 	bool isNewFile = false;
 
 	void readGeoText(const QString& geo_text);

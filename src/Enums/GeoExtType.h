@@ -9,6 +9,7 @@ namespace Enums
 		{
 			unknown,
 			GEOJSON,
+			GML,
 			WKB,
 			WKT
 		};
@@ -18,6 +19,7 @@ namespace Enums
 		{
 			{ExtType::unknown, "unknown"},
 			{ExtType::GEOJSON, "GEOJSON"},
+			{ExtType::GML, "GML"},
 			{ExtType::WKB, "WKB"},
 			{ExtType::WKT, "WKT"}
 		};

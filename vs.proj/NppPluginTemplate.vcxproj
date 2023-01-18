@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Geometry\MultiLine.h" />
     <ClInclude Include="..\src\Graphics\GraphicsItem.h" />
     <ClInclude Include="..\src\Commands\CommandShowHide.h" />
     <CustomBuild Include="..\src\Gui\MpFileAddWindow.h">
@@ -173,6 +174,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Geometry\MultiLine.cpp" />
     <ClCompile Include="..\src\Graphics\GraphicsItem.cpp" />
     <ClCompile Include="..\src\Commands\CommandShowHide.cpp" />
     <ClCompile Include="..\src\Graphics\GeometryItem.cpp" />

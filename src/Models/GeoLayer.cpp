@@ -22,7 +22,7 @@ void GeoLayer::readGeoText(const QString& geo_text)
 {
 	try
 	{
-		GDALDataset* poDS = static_cast<GDALDataset*>(GDALOpenEx(geo_text.toUtf8(), GDAL_OF_VECTOR, nullptr, nullptr, nullptr));
+		GDALDataset* poDS = static_cast<GDALDataset*>(GDALOpenEx(geo_text.toUtf8(), GDAL_OF_READONLY | GDAL_OF_VECTOR, nullptr, nullptr, nullptr));
 		if (poDS == nullptr)
 		{
 			return;
@@ -62,12 +62,35 @@ void GeoLayer::readGeoText(const QString& geo_text)
 			OGRGeometry* poGeometry = poFeature->GetGeometryRef();
 			if (poGeometry != nullptr)
 			{
-				if (wkbFlatten(poGeometry->getGeometryType()) == wkbPoint)
+				switch (wkbFlatten(poGeometry->getGeometryType()))
 				{
-					OGRPoint* poPoint = (OGRPoint*)poGeometry;
-					poPoint;
+					case wkbPoint:
+						OGRPoint* ogrPoint = static_cast<OGRPoint*>(poGeometry);
+						points.push_back(QPointF(ogrPoint->getX(),ogrPoint->getY()));
+						break;
+					case wkbLineString:
+						OGRLineString* ogrLineString = static_cast<OGRLineString*>(poGeometry);
+						break;
 
-				}
+					case wkbPolygon:
+						break;
+
+					case wkbGeometryCollection:
+						break;
+
+					case wkbMultiPolygon:
+						break;
+
+					case wkbMultiPoint:
+						break;
+
+					case wkbMultiLineString:
+						break;
+
+					case wkbLinearRing:
+						break;
+
+				};
 			}
 			OGRFeature::DestroyFeature(poFeature);
 		}

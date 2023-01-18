@@ -28,6 +28,9 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{306bde8b-46d6-43a4-8905-1ed4c686c10a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{c9128909-8075-4ece-bc07-8e8e6f021345}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\NppPlugin\menuCmdID.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Graphics\GraphicsScene.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Geometry\MultiLine.h">
+      <Filter>Geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +291,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Graphics\moc_GraphicsView.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Geometry\MultiLine.cpp">
+      <Filter>Geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

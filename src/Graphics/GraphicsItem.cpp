@@ -31,22 +31,6 @@ void GraphicsItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opti
     if (option->state & QStyle::State_MouseOver)
         fillColor = fillColor.lighter(125);
 
-    const qreal lod = option->levelOfDetailFromTransform(painter->worldTransform());
-    if (lod < 0.2) 
-    {
-        if (lod < 0.125)
-        {
-            painter->fillRect(QRectF(0, 0, 110, 70), fillColor);
-            return;
-        }
-
-        QBrush b = painter->brush();
-        painter->setBrush(fillColor);
-        painter->drawRect(13, 13, 97, 57);
-        painter->setBrush(b);
-        return;
-    }
-
     QPen oldPen = painter->pen();
     QPen pen = oldPen;
 
