@@ -15,7 +15,7 @@ QPolygonF MultiLine::toQPolygonF() const
 {
 	QPolygonF points(vX.size());
 
-	for (unsigned int i = 0; i < vX.size(); i++)
+	for (int i = 0; i < vX.size(); i++)
 	{
 		points.push_back(QPointF(vX[i], vY[i]));
 	}

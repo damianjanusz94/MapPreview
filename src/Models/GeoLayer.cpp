@@ -2,7 +2,7 @@
 #include "FileHelper.h"
 #include "GeoHelper.h"
 #include "NppFilesList.h"
-#include <gdal/ogrsf_frmts.h>
+#include "../MapPreview/include/gdal/ogrsf_frmts.h"
 
 using namespace Enums;
 
@@ -68,27 +68,27 @@ void GeoLayer::readGeoText(const QString& geo_text)
 						OGRPoint* ogrPoint = static_cast<OGRPoint*>(poGeometry);
 						points.push_back(QPointF(ogrPoint->getX(),ogrPoint->getY()));
 						break;
-					case wkbLineString:
+		/*			case wkbLineString:
 						OGRLineString* ogrLineString = static_cast<OGRLineString*>(poGeometry);
-						break;
+						break;*/
 
-					case wkbPolygon:
-						break;
+					//case wkbPolygon:
+					//	break;
 
-					case wkbGeometryCollection:
-						break;
+					//case wkbGeometryCollection:
+					//	break;
 
-					case wkbMultiPolygon:
-						break;
+					//case wkbMultiPolygon:
+					//	break;
 
-					case wkbMultiPoint:
-						break;
+					//case wkbMultiPoint:
+					//	break;
 
-					case wkbMultiLineString:
-						break;
+					//case wkbMultiLineString:
+					//	break;
 
-					case wkbLinearRing:
-						break;
+					//case wkbLinearRing:
+					//	break;
 
 				};
 			}

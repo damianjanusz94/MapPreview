@@ -2,7 +2,7 @@
 #include "MapPreviewResources.h"
 #include <QtWidgets\QGridLayout>
 #include <QtWidgets/qpushbutton.h>
-#include <gdal/gdal.h>
+#include "../MapPreview/include/gdal/gdal.h"
 
 MapPreviewWindow::MapPreviewWindow(HANDLE hModule) : DockingDlgInterface(IDD_DIALOG_CONSOLE), hModule(hModule)
 {

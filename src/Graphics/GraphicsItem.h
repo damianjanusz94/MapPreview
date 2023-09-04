@@ -1,7 +1,7 @@
 #pragma once
 #include <QtGui/QColor>
 #include <QtWidgets/QGraphicsItem>
-#include "../src/Graphics/GeometryItem.h"
+#include "GeometryItem.h"
 
 class GraphicsItem : public QGraphicsItem
 {
